@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01A52EE82245057E002982CF /* MainScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A52EE72245057E002982CF /* MainScreenController.swift */; };
 		01A829DF22438F0B00D89105 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829DE22438F0B00D89105 /* AppDelegate.swift */; };
 		01A829E122438F0B00D89105 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829E022438F0B00D89105 /* ViewController.swift */; };
 		01A829E422438F0B00D89105 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01A829E222438F0B00D89105 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01A52EE72245057E002982CF /* MainScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenController.swift; sourceTree = "<group>"; };
 		01A829DB22438F0B00D89105 /* Elvis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elvis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A829DE22438F0B00D89105 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01A829E022438F0B00D89105 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				01A829E722438F0D00D89105 /* LaunchScreen.storyboard */,
 				01A829EA22438F0D00D89105 /* Info.plist */,
 				01A82A0C2243964300D89105 /* DesignableView.swift */,
+				01A52EE72245057E002982CF /* MainScreenController.swift */,
 			);
 			path = Elvis;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			files = (
 				01A829E122438F0B00D89105 /* ViewController.swift in Sources */,
 				01A829DF22438F0B00D89105 /* AppDelegate.swift in Sources */,
+				01A52EE82245057E002982CF /* MainScreenController.swift in Sources */,
 				01A82A0D2243964300D89105 /* DesignableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
