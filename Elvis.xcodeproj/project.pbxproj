@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0141B5CA22451D9400915C48 /* BookSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5C922451D9400915C48 /* BookSearchController.swift */; };
+		0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5CB22452F8F00915C48 /* AudioBook.swift */; };
+		0141B5CE2245322200915C48 /* AudioBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5CD2245322200915C48 /* AudioBookCell.swift */; };
+		0141B5D02245378400915C48 /* SearchedBooksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5CF2245378400915C48 /* SearchedBooksController.swift */; };
 		01A52EE82245057E002982CF /* MainScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A52EE72245057E002982CF /* MainScreenController.swift */; };
 		01A829DF22438F0B00D89105 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829DE22438F0B00D89105 /* AppDelegate.swift */; };
 		01A829E122438F0B00D89105 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829E022438F0B00D89105 /* ViewController.swift */; };
@@ -36,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0141B5C922451D9400915C48 /* BookSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchController.swift; sourceTree = "<group>"; };
+		0141B5CB22452F8F00915C48 /* AudioBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBook.swift; sourceTree = "<group>"; };
+		0141B5CD2245322200915C48 /* AudioBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBookCell.swift; sourceTree = "<group>"; };
+		0141B5CF2245378400915C48 /* SearchedBooksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedBooksController.swift; sourceTree = "<group>"; };
 		01A52EE72245057E002982CF /* MainScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenController.swift; sourceTree = "<group>"; };
 		01A829DB22438F0B00D89105 /* Elvis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elvis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A829DE22438F0B00D89105 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +86,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0141B5D12245379000915C48 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0141B5CF2245378400915C48 /* SearchedBooksController.swift */,
+				0141B5C922451D9400915C48 /* BookSearchController.swift */,
+				01A52EE72245057E002982CF /* MainScreenController.swift */,
+				01A829E022438F0B00D89105 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0141B5D2224537BA00915C48 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				0141B5CB22452F8F00915C48 /* AudioBook.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		0141B5D3224537D500915C48 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				01A82A0C2243964300D89105 /* DesignableView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0141B5D4224537E500915C48 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				0141B5CD2245322200915C48 /* AudioBookCell.swift */,
+			);
+			path = TableCells;
+			sourceTree = "<group>";
+		};
 		01A829D222438F0B00D89105 = {
 			isa = PBXGroup;
 			children = (
@@ -101,14 +144,15 @@
 		01A829DD22438F0B00D89105 /* Elvis */ = {
 			isa = PBXGroup;
 			children = (
+				0141B5D4224537E500915C48 /* TableCells */,
+				0141B5D3224537D500915C48 /* Extensions */,
+				0141B5D2224537BA00915C48 /* Objects */,
+				0141B5D12245379000915C48 /* ViewControllers */,
 				01A829DE22438F0B00D89105 /* AppDelegate.swift */,
-				01A829E022438F0B00D89105 /* ViewController.swift */,
 				01A829E222438F0B00D89105 /* Main.storyboard */,
 				01A829E522438F0D00D89105 /* Assets.xcassets */,
 				01A829E722438F0D00D89105 /* LaunchScreen.storyboard */,
 				01A829EA22438F0D00D89105 /* Info.plist */,
-				01A82A0C2243964300D89105 /* DesignableView.swift */,
-				01A52EE72245057E002982CF /* MainScreenController.swift */,
 			);
 			path = Elvis;
 			sourceTree = "<group>";
@@ -263,8 +307,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				01A829E122438F0B00D89105 /* ViewController.swift in Sources */,
+				0141B5D02245378400915C48 /* SearchedBooksController.swift in Sources */,
 				01A829DF22438F0B00D89105 /* AppDelegate.swift in Sources */,
+				0141B5CE2245322200915C48 /* AudioBookCell.swift in Sources */,
 				01A52EE82245057E002982CF /* MainScreenController.swift in Sources */,
+				0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */,
+				0141B5CA22451D9400915C48 /* BookSearchController.swift in Sources */,
 				01A82A0D2243964300D89105 /* DesignableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
