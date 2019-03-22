@@ -10,6 +10,10 @@ import UIKit
 
 class AudioBookCell: UITableViewCell {
 
+    @IBOutlet weak var bookTitle: UILabel!
+    @IBOutlet weak var bookAuthor: UILabel!
+    @IBOutlet weak var bookAnouncer: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,8 +24,11 @@ class AudioBookCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    @IBOutlet weak var bookTitle: UILabel!
-    @IBOutlet weak var bookAuthor: UILabel!
-    @IBOutlet weak var bookAnouncer: UILabel!
+    
+    func setUpBook(audioBook : AudioBook){
+        bookTitle.text = audioBook.bookTitle
+        bookAuthor.text = audioBook.bookAuthor
+        bookAnouncer.text = audioBook.bookAnouncer
+    }
     
 }
