@@ -20,6 +20,7 @@
 		01A829F422438F0D00D89105 /* ElvisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829F322438F0D00D89105 /* ElvisTests.swift */; };
 		01A829FF22438F0D00D89105 /* ElvisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829FE22438F0D00D89105 /* ElvisUITests.swift */; };
 		01A82A0D2243964300D89105 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A82A0C2243964300D89105 /* DesignableView.swift */; };
+		353FD1A3803F5F5EF7D4299D /* Pods_Elvis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,9 @@
 		01A829FE22438F0D00D89105 /* ElvisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElvisUITests.swift; sourceTree = "<group>"; };
 		01A82A0022438F0D00D89105 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01A82A0C2243964300D89105 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
+		D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Elvis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFD4F585C2A488F07335CF37 /* Pods-Elvis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.debug.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.debug.xcconfig"; sourceTree = "<group>"; };
+		E5338918A7A70243F52EB220 /* Pods-Elvis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.release.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				353FD1A3803F5F5EF7D4299D /* Pods_Elvis.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +133,8 @@
 				01A829F222438F0D00D89105 /* ElvisTests */,
 				01A829FD22438F0D00D89105 /* ElvisUITests */,
 				01A829DC22438F0B00D89105 /* Products */,
+				AF21FBCF73E2D0C2DB82797D /* Pods */,
+				1B9DA6FEBD3659695567F0AE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -175,6 +182,24 @@
 			path = ElvisUITests;
 			sourceTree = "<group>";
 		};
+		1B9DA6FEBD3659695567F0AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AF21FBCF73E2D0C2DB82797D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DFD4F585C2A488F07335CF37 /* Pods-Elvis.debug.xcconfig */,
+				E5338918A7A70243F52EB220 /* Pods-Elvis.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -182,9 +207,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 01A82A0322438F0D00D89105 /* Build configuration list for PBXNativeTarget "Elvis" */;
 			buildPhases = (
+				287B0508A8C5454C711E4E72 /* [CP] Check Pods Manifest.lock */,
 				01A829D722438F0B00D89105 /* Sources */,
 				01A829D822438F0B00D89105 /* Frameworks */,
 				01A829D922438F0B00D89105 /* Resources */,
+				659F9D2D50A1CA959265E7FB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -300,6 +327,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		287B0508A8C5454C711E4E72 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Elvis-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		659F9D2D50A1CA959265E7FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Elvis/Pods-Elvis-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Elvis/Pods-Elvis-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		01A829D722438F0B00D89105 /* Sources */ = {
@@ -486,6 +564,7 @@
 		};
 		01A82A0422438F0D00D89105 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFD4F585C2A488F07335CF37 /* Pods-Elvis.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -504,6 +583,7 @@
 		};
 		01A82A0522438F0D00D89105 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5338918A7A70243F52EB220 /* Pods-Elvis.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
