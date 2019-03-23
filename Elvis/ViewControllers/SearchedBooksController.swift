@@ -11,9 +11,7 @@ import UIKit
 
 class SearchedBooksController: UIViewController {
 
-    
     var books : [AudioBook] = []
-
     override func viewDidLoad() {
         super.viewDidLoad()
         books = createBooks()

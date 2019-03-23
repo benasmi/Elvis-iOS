@@ -20,6 +20,8 @@
 		01A829F422438F0D00D89105 /* ElvisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829F322438F0D00D89105 /* ElvisTests.swift */; };
 		01A829FF22438F0D00D89105 /* ElvisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829FE22438F0D00D89105 /* ElvisUITests.swift */; };
 		01A82A0D2243964300D89105 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A82A0C2243964300D89105 /* DesignableView.swift */; };
+		01AE1855224669A70009C89D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE1854224669A70009C89D /* Utils.swift */; };
+		01AE185822466B8E0009C89D /* DatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE185722466B8E0009C89D /* DatabaseUtils.swift */; };
 		353FD1A3803F5F5EF7D4299D /* Pods_Elvis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,8 @@
 		01A829FE22438F0D00D89105 /* ElvisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElvisUITests.swift; sourceTree = "<group>"; };
 		01A82A0022438F0D00D89105 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01A82A0C2243964300D89105 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
+		01AE1854224669A70009C89D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		01AE185722466B8E0009C89D /* DatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUtils.swift; sourceTree = "<group>"; };
 		D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Elvis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFD4F585C2A488F07335CF37 /* Pods-Elvis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.debug.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.debug.xcconfig"; sourceTree = "<group>"; };
 		E5338918A7A70243F52EB220 /* Pods-Elvis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.release.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.release.xcconfig"; sourceTree = "<group>"; };
@@ -151,6 +155,7 @@
 		01A829DD22438F0B00D89105 /* Elvis */ = {
 			isa = PBXGroup;
 			children = (
+				01AE185622466B700009C89D /* Database */,
 				0141B5D4224537E500915C48 /* TableCells */,
 				0141B5D3224537D500915C48 /* Extensions */,
 				0141B5D2224537BA00915C48 /* Objects */,
@@ -160,6 +165,7 @@
 				01A829E522438F0D00D89105 /* Assets.xcassets */,
 				01A829E722438F0D00D89105 /* LaunchScreen.storyboard */,
 				01A829EA22438F0D00D89105 /* Info.plist */,
+				01AE1854224669A70009C89D /* Utils.swift */,
 			);
 			path = Elvis;
 			sourceTree = "<group>";
@@ -182,6 +188,14 @@
 			path = ElvisUITests;
 			sourceTree = "<group>";
 		};
+		01AE185622466B700009C89D /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				01AE185722466B8E0009C89D /* DatabaseUtils.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		1B9DA6FEBD3659695567F0AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,7 +210,6 @@
 				DFD4F585C2A488F07335CF37 /* Pods-Elvis.debug.xcconfig */,
 				E5338918A7A70243F52EB220 /* Pods-Elvis.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -386,9 +399,11 @@
 			files = (
 				01A829E122438F0B00D89105 /* ViewController.swift in Sources */,
 				0141B5D02245378400915C48 /* SearchedBooksController.swift in Sources */,
+				01AE1855224669A70009C89D /* Utils.swift in Sources */,
 				01A829DF22438F0B00D89105 /* AppDelegate.swift in Sources */,
 				0141B5CE2245322200915C48 /* AudioBookCell.swift in Sources */,
 				01A52EE82245057E002982CF /* MainScreenController.swift in Sources */,
+				01AE185822466B8E0009C89D /* DatabaseUtils.swift in Sources */,
 				0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */,
 				0141B5CA22451D9400915C48 /* BookSearchController.swift in Sources */,
 				01A82A0D2243964300D89105 /* DesignableView.swift in Sources */,
