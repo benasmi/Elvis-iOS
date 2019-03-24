@@ -8,8 +8,13 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class Utils{
+    
+    static func connectedToNetwork() -> Bool{
+        return (NetworkReachabilityManager()?.isReachable)!
+    }
     
     static func alertMessage(message:String, viewController: UIViewController){
         let alert = UIAlertController(title: "Klaida!", message: message, preferredStyle: UIAlertController.Style.alert);
@@ -17,4 +22,20 @@ class Utils{
         alert.addAction(okButton);
         viewController.present(alert, animated: true, completion: nil);
     }
+    
+    static func writeToSharedPreferences(key: String, value: String){
+        let preferences = UserDefaults.standard
+        preferences.set(value, forKey: key);
+        preferences.synchronize()
+    }
+    
+    static func readFromSharedPreferences(key: String) -> String{
+        return UserDefaults.standard.object(forKey: key) as! String
+    }
+    
+    static func deleteFromSharedPreferences(key: String){
+        UserDefaults.standard.removeObject(forKey: key)
+        UserDefaults.standard.synchronize()
+    }
+    
 }

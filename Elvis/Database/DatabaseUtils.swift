@@ -12,16 +12,15 @@ import Alamofire
 //let url = "http://elvis.labiblioteka.lt/app/login.php"
 
 class DatabaseUtils{
-    
+
  
-    static func Login(username: String, password: String, onFinishLoginListener:@escaping (_ success: Bool) -> Void ) -> Bool{
+    static func Login(username: String, password: String, onFinishLoginListener:@escaping (_ success: Bool) -> Void ){
  
         let url = "http://elvis.labiblioteka.lt/app/login.php"
         let json : Parameters = [
             "UserName": username,
             "Password": password
         ]
-    
         AF.request(url, method: .post, parameters: json, encoding: URLEncoding.httpBody, headers:nil).responseJSON{
             response in
                 if let JSON = response.result.value as? NSDictionary{
@@ -31,7 +30,6 @@ class DatabaseUtils{
                     onFinishLoginListener(false)
             }
         }
-        return true
     }
     
     static func GetCookie(username: String, password: String, onFinishLoginListener:@escaping (_ success: Bool) -> Void){
@@ -45,11 +43,9 @@ class DatabaseUtils{
             for cookie in HTTPCookieStorage.shared.cookies! {
                 if(cookie.name=="PHPSESSID"){
                     print(cookie.name + " - " + cookie.value)
-                    let preferences = UserDefaults.standard
-                    preferences.set(username, forKey: "usernameLogin");
-                    preferences.set(password, forKey: "passwordLogin");
-                    preferences.set(cookie.value, forKey: "sessionID")
-                    preferences.synchronize();
+                    Utils.writeToSharedPreferences(key: "username", value: username)
+                    Utils.writeToSharedPreferences(key: "password", value: password)
+                    Utils.writeToSharedPreferences(key: "sessionID", value: cookie.value)
                     onFinishLoginListener(true)
                     return
                 }

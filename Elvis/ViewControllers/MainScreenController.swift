@@ -9,13 +9,41 @@ import UIKit
 
 class MainScreenController: UIViewController {
     
+    let preferences = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     @IBAction func back(_ sender: Any) {
-       self.dismiss(animated: true, completion: nil)
+       confirmationMessage(message: "Ar tikrai norite atsijungti?", viewController: self)
+    }
+    
+    
+    func confirmationMessage(message:String, viewController: UIViewController){
+        // Declare Alert message
+        let dialogMessage = UIAlertController(title: "Atsijungti!", message: message, preferredStyle: .alert)
+        
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "Gerai", style: .default, handler: { (action) -> Void in
+            viewController.dismiss(animated: true, completion: nil)
+            Utils.deleteFromSharedPreferences(key: "username")
+            Utils.deleteFromSharedPreferences(key: "password")
+            Utils.deleteFromSharedPreferences(key: "sessionID")
+        })
+        
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Atšaukti!", style: .cancel) { (action) -> Void in
+            
+        }
+        
+        //Add OK and Cancel button to dialog message
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        
+        // Present dialog message to user
+        viewController.present(dialogMessage, animated: true, completion: nil)
     }
     
 }

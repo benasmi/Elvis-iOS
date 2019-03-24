@@ -11,25 +11,33 @@ import Alamofire
 import SVProgressHUD
 
 class ViewController: UIViewController {
-
+    
+    let preferences = UserDefaults.standard
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    }
-
-    @IBAction func login(_ sender: Any) {
-
-    SVProgressHUD.show(withStatus: "Logging in...")
-    SVProgressHUD.setDefaultMaskType(.black)
-        var check: Bool = DatabaseUtils.Login(username: username.text as! String, password: password.text as! String, onFinishLoginListener: onFinishLoginListener)
-        
+      
     }
     
-/*
- 
-*/
+    override func viewDidAppear(_ animated: Bool) {
+        if (preferences.object(forKey: "username") != nil) {
+            moveToMainScreen()
+        }
+    }
+    
+    @IBAction func login(_ sender: Any) {
+        if(!Utils.connectedToNetwork()){
+            Utils.alertMessage(message: "Nėra interneto ryšio", viewController: self)
+            return
+        }
+
+        SVProgressHUD.show(withStatus: "Logging in...")
+        SVProgressHUD.setDefaultMaskType(.black)
+        DatabaseUtils.Login(username: username.text as! String, password: password.text as! String, onFinishLoginListener: onFinishLoginListener)
+        
+    }
     
     func onFinishLoginListener(_ success: Bool){
         SVProgressHUD.dismiss()
@@ -37,12 +45,14 @@ class ViewController: UIViewController {
             Utils.alertMessage(message: "Neteisingas slaptažodis arba vartotojo vardas!", viewController: self)
             return
         }
-        
+       moveToMainScreen()
+    }
+    
+    func moveToMainScreen(){
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "MainScreen") as! MainScreenController
         self.present(newViewController, animated: true, completion: nil)
     }
-    
     
     
 }
