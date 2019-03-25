@@ -11,18 +11,37 @@ import UIKit
 
 class AudioBook{
     
-    var bookTitle: String
-    var bookAuthor: String
-    var bookAnouncer: String
-    var bookYear: String
-    var bookURL: String
-
-    init(bookTitle: String, bookAuthor: String, bookAnouncer: String, bookYear: String, bookUrl: String){
-        self.bookTitle = bookTitle
-        self.bookAuthor = bookAuthor
-        self.bookAnouncer = bookAnouncer
-        self.bookYear = bookYear
-        self.bookURL = bookUrl
+    var ID : String
+    var Title: String
+    var ReleaseDate: String
+    var AuthorID: String
+    var AuthorFirstName: String
+    var AuthorLastName: String
+    var SpeakerID: String
+    var SpeakerFirstName: String
+    var SpeakerLastName: String
+    var PublicationNumber: Int
+    var FileCount: Int
+    var FileIDs: [String]
+    var FileIsFast: [String]
+    var FilePosition: [String]
     
+    init(id: String, title: String, realeaseDate: String, authorID: String, authorFirstName: String, authorLastName: String, speakerId: String, speakerFirstName: String, speakerLastName: String, publicationNumber: Int, fileCount: Int, fileIDs: [String], fileIsFast : [String], filePosition : [String]){
+        
+        ID = id
+        Title = title
+        ReleaseDate = realeaseDate
+        AuthorID = authorID
+        AuthorFirstName = authorFirstName
+        AuthorLastName = authorLastName
+        SpeakerID = speakerId
+        SpeakerFirstName = speakerFirstName
+        SpeakerLastName = speakerLastName
+        PublicationNumber = publicationNumber
+        FileCount = fileCount
+        FileIDs = fileIDs
+        FileIsFast = fileIsFast
+        FilePosition = filePosition
     }
+    
 }

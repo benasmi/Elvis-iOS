@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0123C5BA22484270006DEFF1 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123C5B922484270006DEFF1 /* RegistrationController.swift */; };
 		0141B5CA22451D9400915C48 /* BookSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5C922451D9400915C48 /* BookSearchController.swift */; };
 		0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5CB22452F8F00915C48 /* AudioBook.swift */; };
 		0141B5CE2245322200915C48 /* AudioBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5CD2245322200915C48 /* AudioBookCell.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0123C5B922484270006DEFF1 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		0141B5C922451D9400915C48 /* BookSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchController.swift; sourceTree = "<group>"; };
 		0141B5CB22452F8F00915C48 /* AudioBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBook.swift; sourceTree = "<group>"; };
 		0141B5CD2245322200915C48 /* AudioBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBookCell.swift; sourceTree = "<group>"; };
@@ -95,6 +97,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0123C5BB224843C2006DEFF1 /* PLists */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PLists;
+			sourceTree = "<group>";
+		};
 		0141B5D12245379000915C48 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +111,7 @@
 				0141B5C922451D9400915C48 /* BookSearchController.swift */,
 				01A52EE72245057E002982CF /* MainScreenController.swift */,
 				01A829E022438F0B00D89105 /* ViewController.swift */,
+				0123C5B922484270006DEFF1 /* RegistrationController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -155,6 +165,7 @@
 		01A829DD22438F0B00D89105 /* Elvis */ = {
 			isa = PBXGroup;
 			children = (
+				0123C5BB224843C2006DEFF1 /* PLists */,
 				01AE185622466B700009C89D /* Database */,
 				0141B5D4224537E500915C48 /* TableCells */,
 				0141B5D3224537D500915C48 /* Extensions */,
@@ -403,6 +414,7 @@
 				01A829DF22438F0B00D89105 /* AppDelegate.swift in Sources */,
 				0141B5CE2245322200915C48 /* AudioBookCell.swift in Sources */,
 				01A52EE82245057E002982CF /* MainScreenController.swift in Sources */,
+				0123C5BA22484270006DEFF1 /* RegistrationController.swift in Sources */,
 				01AE185822466B8E0009C89D /* DatabaseUtils.swift in Sources */,
 				0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */,
 				0141B5CA22451D9400915C48 /* BookSearchController.swift in Sources */,

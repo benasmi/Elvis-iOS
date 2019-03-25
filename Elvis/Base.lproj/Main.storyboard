@@ -112,6 +112,9 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="0xI-Yj-fUR" kind="show" id="N6F-wi-y2c"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -125,6 +128,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-713" y="28"/>
+        </scene>
+        <!--Registration Controller-->
+        <scene sceneID="YuI-3P-YhT">
+            <objects>
+                <viewController id="0xI-Yj-fUR" customClass="RegistrationController" customModule="Elvis" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZRJ-gl-Ii4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b5A-ER-xi3" userLabel="StatusBar">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="Toolbar"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3vo-Cf-G84" userLabel="Toolbar">
+                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29k-2w-7Y6" userLabel="ToolbarBack">
+                                        <rect key="frame" x="8" y="3" width="32" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" backgroundImage="ArrowBack"/>
+                                        <connections>
+                                            <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="B8e-A1-woK"/>
+                                            <action selector="back:" destination="0xI-Yj-fUR" eventType="touchUpInside" id="Lfh-s9-w5p"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDy-tb-WYu" userLabel="Contrast">
+                                        <rect key="frame" x="333" y="3" width="32" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <connections>
+                                            <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="WQE-AR-Ykb"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Registracija" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2NO-Be-NPM">
+                                        <rect key="frame" x="139" y="7" width="102" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="Toolbar"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="uHs-Qu-oaS"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Hw-CC-Lt2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-714" y="717"/>
         </scene>
         <!--MainScreen-->
         <scene sceneID="C45-6Y-fge">
@@ -379,7 +437,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="d1L-CD-3CS" kind="show" id="bjh-fQ-FWM"/>
+                                    <action selector="searchBooks:" destination="MM3-Un-QQz" eventType="touchUpInside" id="Rp4-O2-jyJ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ANTRAŠTĖ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lzg-22-8UF">
@@ -414,15 +472,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="SX8-43-WU8"/>
                     </view>
+                    <connections>
+                        <outlet property="tv_announcingPerson" destination="djZ-ZG-HKZ" id="vJX-zm-orU"/>
+                        <outlet property="tv_anyWord" destination="YpA-C5-Uq7" id="EUd-y7-T2f"/>
+                        <outlet property="tv_name" destination="xaR-uT-QLH" id="qz0-C7-cYB"/>
+                        <outlet property="tv_title" destination="fBD-bV-L83" id="qi4-ih-Av6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8LV-nO-qfu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="886" y="27"/>
+            <point key="canvasLocation" x="1030" y="-188"/>
         </scene>
         <!--SearchedBooks-->
         <scene sceneID="J4a-zH-3pt">
             <objects>
-                <viewController id="d1L-CD-3CS" userLabel="SearchedBooks" customClass="SearchedBooksController" customModule="Elvis" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchedBooks" id="d1L-CD-3CS" userLabel="SearchedBooks" customClass="SearchedBooksController" customModule="Elvis" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ona-U2-VX9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -562,7 +626,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gfh-jR-eTW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="885.60000000000002" y="765.96701649175418"/>
+            <point key="canvasLocation" x="1690" y="-188"/>
         </scene>
     </scenes>
     <resources>

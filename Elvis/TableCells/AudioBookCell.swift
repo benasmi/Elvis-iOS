@@ -26,9 +26,9 @@ class AudioBookCell: UITableViewCell {
     }
     
     func setUpBook(audioBook : AudioBook){
-        bookTitle.text = audioBook.bookTitle
-        bookAuthor.text = audioBook.bookAuthor
-        bookAnouncer.text = audioBook.bookAnouncer
+        bookTitle.text = audioBook.Title
+        bookAuthor.text = audioBook.AuthorFirstName
+        bookAnouncer.text = audioBook.SpeakerFirstName 
     }
     
 }
