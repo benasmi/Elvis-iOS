@@ -6,6 +6,7 @@
 //  Copyright © 2019 RM-Elvis. All rights reserved.
 //
 import UIKit
+import SVProgressHUD
 
 class MainScreenController: UIViewController {
     
@@ -18,6 +19,29 @@ class MainScreenController: UIViewController {
     
     @IBAction func back(_ sender: Any) {
        confirmationMessage(message: "Ar tikrai norite atsijungti?", viewController: self)
+    }
+    
+    @IBAction func newestBooks(_ sender: Any) {
+        let disabilities = Utils.readFromSharedPreferences(key: "haveDisabilities")
+        DatabaseUtils.NewestBooks(haveDisabilities: disabilities, onFinishListener: onFinishListener(_:))
+        SVProgressHUD.show(withStatus: "Ieškoma naujausių knygų")
+        SVProgressHUD.setDefaultMaskType(.black)
+    }
+    
+    
+    func onFinishListener(_ books : [AudioBook]){
+        SVProgressHUD.dismiss()
+        if(books.isEmpty){
+            Utils.alertMessage(message: "Nerasta naujų knygų", viewController: self)
+            return
+        }
+        
+        //passing data and going to new view controller
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "SearchedBooks") as! SearchedBooksController
+        newViewController.books = books
+        self.present(newViewController, animated: true, completion: nil)
+        
     }
     
     

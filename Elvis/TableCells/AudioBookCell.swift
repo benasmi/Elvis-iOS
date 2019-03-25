@@ -13,6 +13,8 @@ class AudioBookCell: UITableViewCell {
     @IBOutlet weak var bookTitle: UILabel!
     @IBOutlet weak var bookAuthor: UILabel!
     @IBOutlet weak var bookAnouncer: UILabel!
+    @IBOutlet weak var years: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,8 +29,9 @@ class AudioBookCell: UITableViewCell {
     
     func setUpBook(audioBook : AudioBook){
         bookTitle.text = audioBook.Title
-        bookAuthor.text = audioBook.AuthorFirstName
-        bookAnouncer.text = audioBook.SpeakerFirstName 
+        bookAuthor.text = "Autorius: " + audioBook.AuthorFirstName + ", " + audioBook.AuthorLastName
+        bookAnouncer.text = "Diktorius: " + audioBook.SpeakerFirstName  + ", " + audioBook.SpeakerLastName
+        years.text = audioBook.ReleaseDate
     }
     
 }

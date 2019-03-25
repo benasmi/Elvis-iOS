@@ -236,6 +236,9 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="newestBooks:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="jRW-20-Lex"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KPx-WJ-I3V">
                                 <rect key="frame" x="12" y="242" width="350" height="70"/>
@@ -542,22 +545,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mažasis princas:pasaka" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5P-Ne-Q3z">
-                                                    <rect key="frame" x="15" y="11" width="214" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mažasis princas:pasaka" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5P-Ne-Q3z">
+                                                    <rect key="frame" x="15" y="11" width="345" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Autorius: Antoine de, Saint-Exupery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4At-No-QbT">
-                                                    <rect key="frame" x="15" y="48" width="244" height="18"/>
+                                                    <rect key="frame" x="15" y="48" width="345" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Diktorius: Bružas, Algimantas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqe-a4-Rdf">
-                                                    <rect key="frame" x="15" y="65" width="201" height="18"/>
+                                                    <rect key="frame" x="15" y="65" width="345" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -605,12 +607,18 @@
                                                     </state>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="u5P-Ne-Q3z" firstAttribute="top" secondItem="GnU-YV-apj" secondAttribute="topMargin" id="3wW-oq-MOo"/>
+                                                <constraint firstItem="u5P-Ne-Q3z" firstAttribute="leading" secondItem="GnU-YV-apj" secondAttribute="leadingMargin" id="Soa-SB-bbZ"/>
+                                                <constraint firstItem="u5P-Ne-Q3z" firstAttribute="trailing" secondItem="GnU-YV-apj" secondAttribute="trailingMargin" id="z1E-h7-u7d"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration" identifier="AudioCell"/>
                                         <connections>
                                             <outlet property="bookAnouncer" destination="zqe-a4-Rdf" id="MGL-26-GPl"/>
                                             <outlet property="bookAuthor" destination="4At-No-QbT" id="Xfe-nz-fUs"/>
                                             <outlet property="bookTitle" destination="u5P-Ne-Q3z" id="WlU-Sd-0iR"/>
+                                            <outlet property="years" destination="WPg-LL-78d" id="tN6-zz-OFz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -626,7 +634,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gfh-jR-eTW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1690" y="-188"/>
+            <point key="canvasLocation" x="1688.8" y="-188.45577211394306"/>
         </scene>
     </scenes>
     <resources>
