@@ -33,7 +33,7 @@ class ViewController: UIViewController {
             return
         }
 
-        SVProgressHUD.show(withStatus: "Logging in...")
+        SVProgressHUD.show(withStatus: "Jungiamasi...")
         SVProgressHUD.setDefaultMaskType(.black)
         DatabaseUtils.Login(username: username.text as! String, password: password.text as! String, onFinishLoginListener: onFinishLoginListener)
         

@@ -533,16 +533,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="Toolbar"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UyU-Vh-62u">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="220" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UyU-Vh-62u">
                                 <rect key="frame" x="0.0" y="59" width="375" height="608"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="30" minY="0.0" maxX="30" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioBookCell" id="T23-tv-tgt" customClass="AudioBookCell" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="200"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioBookCell" rowHeight="220" id="T23-tv-tgt" customClass="AudioBookCell" customModule="Elvis" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T23-tv-tgt" id="GnU-YV-apj">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="219.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mažasis princas:pasaka" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5P-Ne-Q3z">
@@ -551,29 +552,26 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Autorius: Antoine de, Saint-Exupery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4At-No-QbT">
-                                                    <rect key="frame" x="15" y="48" width="345" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Autorius: Antoine de, Saint-Exupery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4At-No-QbT">
+                                                    <rect key="frame" x="15" y="43" width="345" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Diktorius: Bružas, Algimantas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqe-a4-Rdf">
-                                                    <rect key="frame" x="15" y="65" width="345" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Diktorius: Bružas, Algimantas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqe-a4-Rdf">
+                                                    <rect key="frame" x="15" y="60" width="345" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2003" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPg-LL-78d">
-                                                    <rect key="frame" x="15" y="86" width="37" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2003" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPg-LL-78d">
+                                                    <rect key="frame" x="15" y="81" width="37" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="ColorAccent"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="47d-FK-dim">
-                                                    <rect key="frame" x="15" y="112" width="130" height="35"/>
+                                                    <rect key="frame" x="15" y="121" width="130" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" name="ColorAccent"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -585,7 +583,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPx-GL-39X">
-                                                    <rect key="frame" x="15" y="154" width="130" height="35"/>
+                                                    <rect key="frame" x="15" y="163" width="130" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <state key="normal" title="SIŲSTIS">
@@ -595,19 +593,8 @@
                                                         <action selector="download:" destination="T23-tv-tgt" eventType="touchUpInside" id="8iJ-cH-DIi"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FiH-up-qPd">
-                                                    <rect key="frame" x="160" y="154" width="200" height="35"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <state key="normal" title="SIŲSTIS PAGREITINTĄ">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="downloadFast:" destination="T23-tv-tgt" eventType="touchUpInside" id="RcB-iA-pix"/>
-                                                    </connections>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qV0-ZL-Hol">
-                                                    <rect key="frame" x="160" y="112" width="200" height="35"/>
+                                                    <rect key="frame" x="160" y="121" width="200" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" name="ColorAccent"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -618,10 +605,30 @@
                                                         <action selector="listenFast:" destination="T23-tv-tgt" eventType="touchUpInside" id="ZCg-pi-Gi1"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FiH-up-qPd">
+                                                    <rect key="frame" x="160" y="163" width="200" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <state key="normal" title="SIŲSTIS PAGREITINTĄ">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="downloadFast:" destination="T23-tv-tgt" eventType="touchUpInside" id="RcB-iA-pix"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="zqe-a4-Rdf" firstAttribute="top" secondItem="4At-No-QbT" secondAttribute="bottom" constant="-1" id="1zk-Wt-Esx"/>
                                                 <constraint firstItem="u5P-Ne-Q3z" firstAttribute="top" secondItem="GnU-YV-apj" secondAttribute="topMargin" id="3wW-oq-MOo"/>
+                                                <constraint firstAttribute="trailing" secondItem="zqe-a4-Rdf" secondAttribute="trailing" constant="159.5" id="9rI-d0-4bh"/>
+                                                <constraint firstItem="WPg-LL-78d" firstAttribute="top" secondItem="zqe-a4-Rdf" secondAttribute="bottom" constant="3" id="Cuu-8g-dqq"/>
+                                                <constraint firstItem="zqe-a4-Rdf" firstAttribute="leading" secondItem="GnU-YV-apj" secondAttribute="leading" constant="15" id="J1n-T8-aRX"/>
                                                 <constraint firstItem="u5P-Ne-Q3z" firstAttribute="leading" secondItem="GnU-YV-apj" secondAttribute="leadingMargin" id="Soa-SB-bbZ"/>
+                                                <constraint firstItem="4At-No-QbT" firstAttribute="leading" secondItem="GnU-YV-apj" secondAttribute="leading" constant="15" id="UEY-C4-Xfh"/>
+                                                <constraint firstAttribute="trailing" secondItem="WPg-LL-78d" secondAttribute="trailing" constant="323" id="ZOM-ne-xjq"/>
+                                                <constraint firstItem="WPg-LL-78d" firstAttribute="leading" secondItem="GnU-YV-apj" secondAttribute="leading" constant="15" id="bCb-q5-cEk"/>
+                                                <constraint firstItem="4At-No-QbT" firstAttribute="top" secondItem="u5P-Ne-Q3z" secondAttribute="bottom" constant="8" id="cgX-P9-k4H"/>
+                                                <constraint firstAttribute="trailing" secondItem="4At-No-QbT" secondAttribute="trailing" constant="116" id="n7C-5A-9CM"/>
                                                 <constraint firstItem="u5P-Ne-Q3z" firstAttribute="trailing" secondItem="GnU-YV-apj" secondAttribute="trailingMargin" id="z1E-h7-u7d"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -634,6 +641,14 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="-1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="d1L-CD-3CS" id="iRo-An-Rh6"/>
                                     <outlet property="delegate" destination="d1L-CD-3CS" id="PaU-K3-NAu"/>
@@ -696,7 +711,7 @@
                                 <color key="backgroundColor" name="Toolbar"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Voro namai: romanas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADg-Kn-XMd">
-                                <rect key="frame" x="16" y="88" width="225" height="30"/>
+                                <rect key="frame" x="16" y="88" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
@@ -764,23 +779,24 @@
                                     <action selector="fastBackwards:" destination="wk8-k9-hxs" eventType="touchUpInside" id="Y1x-Mv-wcP"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JE2-bk-O4c">
-                                <rect key="frame" x="16" y="146" width="343" height="47"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="SKIRSNIS: 1" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rr4-Fa-M2S">
+                                <rect key="frame" x="16" y="147" width="337" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="ColorAccent"/>
+                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="SKIRSNIS: 1">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="changeChapter:" destination="wk8-k9-hxs" eventType="touchUpInside" id="T1M-U1-ElE"/>
-                                </connections>
-                            </button>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" name="ColorAccent"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="r3g-s6-UgT"/>
                     </view>
                     <connections>
+                        <outlet property="chapterTextField" destination="rr4-Fa-M2S" id="GU9-Z0-VzE"/>
                         <outlet property="progress" destination="pF6-4c-M3l" id="YjG-5f-iVW"/>
                         <outlet property="tv_bookTitle" destination="ADg-Kn-XMd" id="gpy-fN-4Re"/>
                         <outlet property="tv_time" destination="txH-vt-hlL" id="Agt-zS-HG9"/>

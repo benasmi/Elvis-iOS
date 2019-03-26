@@ -13,26 +13,25 @@ class PlayerController: UIViewController {
 
     var book: AudioBook!
     var chapters : [String]!
+    var selectedChapterIndex : Int = 0
+    var selectedChapter: String?
     
+   
     @IBOutlet weak var tv_bookTitle: UILabel!
     @IBOutlet weak var tv_time: UILabel!
     @IBOutlet weak var progress: UIProgressView!
+    @IBOutlet weak var chapterTextField: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         chapters = createChapters(book: book)
-        print(chapters)
+        progress.setProgress(0, animated: true)
+        tv_bookTitle.text = book.Title
         
+        createDayPicker()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-
-
-    @IBAction func changeChapter(_ sender: Any) {
-        configureChapterSelector()
-    }
     @IBAction func play(_ sender: Any) {
         
     }
@@ -53,37 +52,96 @@ class PlayerController: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
-        
+        dismiss(animated: true, completion: nil)
     }
     
     
+    
+    //Creates array of all possible chapters: NOT IMPORTANT
     func createChapters(book: AudioBook) -> [String]{
         var chapterArray : [String] = []
         var x: Int = 0;
         while x < book.FileCount{
-            let chapter: String = "Skirsnis: " + String(x+1)
+            let chapter: String = "SKIRSNIS: " + String(x+1)
             chapterArray.append(chapter)
             x = x + 1
         }
         return chapterArray
     }
     
-    func configureChapterSelector(){
-        print("Nu patenk, bet neveik. Hmmm")
-        let selectionList = SelectionList()
-        selectionList.items = chapters
-        selectionList.addTarget(self, action: #selector(onSelectionChanged), for: .valueChanged)
-        selectionList.allowsMultipleSelection = false
-        selectionList.selectedIndex = 3
-        selectionList.selectionImage = UIImage(named: "v")
-        selectionList.deselectionImage = UIImage(named: "o")
-        selectionList.isSelectionMarkTrailing = false // to put checkmark on left side
-        selectionList.rowHeight = 42.0
+    //House keeping stuff fro dayPicker: Not IMPORTANT
+    func createDayPicker() {
         
+        let dayPicker = UIPickerView()
+        dayPicker.delegate = self
+        
+        chapterTextField.inputView = dayPicker
+        //Customizations
+        dayPicker.backgroundColor = .orange
+        
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        //Customizations
+        toolBar.barTintColor = .orange
+        toolBar.tintColor = .white
+        
+        let doneButton = UIBarButtonItem(title: "Baigti", style: .plain, target: self, action: #selector(PlayerController.dismissKeyboard))
+        
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        chapterTextField.inputAccessoryView = toolBar
     }
     
-   @objc func onSelectionChanged(){
-        
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
-  
+
+    
+}
+
+//Chapter picker view: SLIGHTLY IMPORTANT
+extension PlayerController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return chapters.count
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return chapters[row]
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        selectedChapter = chapters[row]
+        selectedChapterIndex = row
+        chapterTextField.text = selectedChapter
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        var label: UILabel
+        
+        if let view = view as? UILabel {
+            label = view
+        } else {
+            label = UILabel()
+        }
+        
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont(name: "Menlo-Regular", size: 25)
+        
+        label.text = chapters[row]
+        
+        return label
+    }
 }
