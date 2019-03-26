@@ -14,8 +14,6 @@ class SearchedBooksController: UIViewController {
     var books : [AudioBook] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
     }
     
     @IBAction func back(_ sender: Any) {
@@ -33,8 +31,7 @@ extension SearchedBooksController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let audioBookCurrent : AudioBook = books[indexPath.row]
         let cell : AudioBookCell = tableView.dequeueReusableCell(withIdentifier: "AudioBookCell") as! AudioBookCell
-        cell.setUpBook(audioBook: audioBookCurrent)
-        
+        cell.setUpCell(audioBook: audioBookCurrent, viewController: self)
         return cell
     }
     
