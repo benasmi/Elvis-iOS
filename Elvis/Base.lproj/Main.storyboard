@@ -581,7 +581,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="listen:" destination="T23-tv-tgt" eventType="touchUpInside" id="eC5-na-Q8a"/>
+                                                        <action selector="listen:" destination="T23-tv-tgt" eventType="touchUpInside" id="pnA-s0-wVm"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPx-GL-39X">
@@ -673,6 +673,7 @@
                                         <connections>
                                             <action selector="back:" destination="MM3-Un-QQz" eventType="touchUpInside" id="6BZ-Li-8fg"/>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="aBP-qw-ljj"/>
+                                            <action selector="back:" destination="wk8-k9-hxs" eventType="touchUpInside" id="bcA-kO-TsH"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dq-Xs-07T" userLabel="Contrast">
@@ -701,11 +702,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zpp-WP-Xnf">
-                                <rect key="frame" x="16" y="145" width="343" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="ColorAccent"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txH-vt-hlL">
                                 <rect key="frame" x="22" y="218" width="36" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -723,6 +719,9 @@
                                 <color key="backgroundColor" name="ColorAccent"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <state key="normal" image="Play"/>
+                                <connections>
+                                    <action selector="play:" destination="wk8-k9-hxs" eventType="touchUpInside" id="rCH-eX-ivJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k9P-gJ-CSB">
                                 <rect key="frame" x="222" y="268" width="54" height="54"/>
@@ -730,6 +729,9 @@
                                 <color key="backgroundColor" name="ColorAccent"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <state key="normal" image="Fastforward"/>
+                                <connections>
+                                    <action selector="fastForward:" destination="wk8-k9-hxs" eventType="touchUpInside" id="XXe-RP-6mG"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJe-Zt-S75">
                                 <rect key="frame" x="284" y="268" width="54" height="54"/>
@@ -737,6 +739,9 @@
                                 <color key="backgroundColor" name="ColorAccent"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <state key="normal" image="SkipForward"/>
+                                <connections>
+                                    <action selector="skipForward:" destination="wk8-k9-hxs" eventType="touchUpInside" id="LmT-aX-BV4"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45o-Ie-Ywt">
                                 <rect key="frame" x="36" y="268" width="54" height="54"/>
@@ -744,6 +749,9 @@
                                 <color key="backgroundColor" name="ColorAccent"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <state key="normal" image="SkipPrevious"/>
+                                <connections>
+                                    <action selector="skipPrevious:" destination="wk8-k9-hxs" eventType="touchUpInside" id="kpN-j3-cmb"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63d-cq-PvI">
                                 <rect key="frame" x="98" y="268" width="54" height="54"/>
@@ -752,11 +760,31 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <state key="normal" image="BackForward"/>
+                                <connections>
+                                    <action selector="fastBackwards:" destination="wk8-k9-hxs" eventType="touchUpInside" id="Y1x-Mv-wcP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JE2-bk-O4c">
+                                <rect key="frame" x="16" y="146" width="343" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="ColorAccent"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="SKIRSNIS: 1">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeChapter:" destination="wk8-k9-hxs" eventType="touchUpInside" id="T1M-U1-ElE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="r3g-s6-UgT"/>
                     </view>
+                    <connections>
+                        <outlet property="progress" destination="pF6-4c-M3l" id="YjG-5f-iVW"/>
+                        <outlet property="tv_bookTitle" destination="ADg-Kn-XMd" id="gpy-fN-4Re"/>
+                        <outlet property="tv_time" destination="txH-vt-hlL" id="Agt-zS-HG9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W8v-mY-Twb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

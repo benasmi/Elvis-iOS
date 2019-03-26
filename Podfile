@@ -6,5 +6,7 @@ target 'Elvis' do
 pod 'Alamofire', '~> 5.0.0-beta.3'
 pod 'SwiftyJSON', '~> 4.0'
 pod 'SVProgressHUD'
+pod 'SelectionList'
+pod 'RSSelectionMenu'
 
 end
