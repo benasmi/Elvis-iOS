@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 import SelectionList
 
 class PlayerController: UIViewController {
 
+    var player:AVPlayer?
+    var playerItem:AVPlayerItem?
+
+    
     var book: AudioBook!
     var chapters : [String]!
     var selectedChapterIndex : Int = 0
@@ -26,6 +32,8 @@ class PlayerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         chapters = createChapters(book: book)
+        print(Utils.readFromSharedPreferences(key: "sessionID"))
+        print(book.FileIDs)
         progress.setProgress(0, animated: true)
         tv_bookTitle.text = book.Title
         
@@ -33,8 +41,30 @@ class PlayerController: UIViewController {
     }
     
     @IBAction func play(_ sender: Any) {
-        
+        if(player==nil){
+             playAudioBook(audioUrl: "http://elvis.labiblioteka.lt/publications/getmediafile/475557/475557.mp3?session_id=ccip6ckgbns4lrkbpd77p31bi4")
+             return
+        }
+        if(player?.rate == 0){
+            player?.play()
+        }else{
+            player?.pause()
+        }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       
+    }
+    
+    func playAudioBook(audioUrl: String){
+        let url = URL(string: audioUrl)
+        let playerItem:AVPlayerItem = AVPlayerItem(url: url!)
+        player = AVPlayer(playerItem: playerItem)
+        player?.play()
+    }
+
+    
     @IBAction func fastForward(_ sender: Any) {
         
     }
