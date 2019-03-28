@@ -24,23 +24,26 @@ class PlayerController: UIViewController {
     var sessionID: String?
    
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var progressSlider: UISlider!
     @IBOutlet weak var tv_bookTitle: UILabel!
     @IBOutlet weak var tv_time: UILabel!
-    @IBOutlet weak var progress: UIProgressView!
     @IBOutlet weak var chapterTextField: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         chapters = createChapters(book: book)
         sessionID = Utils.readFromSharedPreferences(key: "sessionID")
-        progress.setProgress(0, animated: true)
+        
+        progressSlider.addTarget(self, action: #selector(PlayerController.playbackSliderValueChanged(_:)), for: .valueChanged)
+        
         tv_bookTitle.text = book.Title
         createDayPicker()
     }
     
     @IBAction func play(_ sender: Any) {
-        print(book.AudioIDS.FileNormal[selectedChapterIndex])
+        
         if(player==nil){
              let url1 = "http://elvis.labiblioteka.lt/publications/getmediafile/" + book.AudioIDS.FileNormal[selectedChapterIndex]
              let url2 = "/" + book.AudioIDS.FileNormal[selectedChapterIndex] + ".mp3?session_id=" + sessionID!
@@ -59,17 +62,11 @@ class PlayerController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
        
     }
     
-    func playAudioBook(audioUrl: String){
-        let url = URL(string: audioUrl)
-        let playerItem:AVPlayerItem = AVPlayerItem(url: url!)
-        player = AVPlayer(playerItem: playerItem)
-        player?.play()
-    }
-
     
     @IBAction func fastForward(_ sender: Any) {
         
@@ -92,6 +89,34 @@ class PlayerController: UIViewController {
         player?.pause()
         player?.rate = 0
         dismiss(animated: true, completion: nil)
+    }
+    
+    func playAudioBook(audioUrl: String){
+        let url = URL(string: audioUrl)
+        let playerItem:AVPlayerItem = AVPlayerItem(url: url!)
+        
+        let seconds : Float64 = CMTimeGetSeconds(playerItem.asset.duration)
+        progressSlider.minimumValue = 0
+        progressSlider.maximumValue = Float(seconds)
+        progressSlider.isContinuous = true
+        progressSlider.tintColor = UIColor.green
+        
+        player = AVPlayer(playerItem: playerItem)
+        player?.play()
+    }
+    
+  @objc func playbackSliderValueChanged(_ playbackSlider:UISlider)
+    {
+        
+        let seconds : Int64 = Int64(playbackSlider.value)
+        let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
+        
+        player!.seek(to: targetTime)
+        
+        if player!.rate == 0
+        {
+            player?.play()
+        }
     }
     
     

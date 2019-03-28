@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Elvis/ViewControllers/PlayerController.swift"
-            timestampString = "575477854.937874"
+            timestampString = "575479198.690123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "PlayerController"
             landmarkType = "3">
          </BreakpointContent>
