@@ -13,6 +13,7 @@
 		0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5CB22452F8F00915C48 /* AudioBook.swift */; };
 		0141B5CE2245322200915C48 /* AudioBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5CD2245322200915C48 /* AudioBookCell.swift */; };
 		0141B5D02245378400915C48 /* SearchedBooksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5CF2245378400915C48 /* SearchedBooksController.swift */; };
+		01563558224D017200E159E7 /* AudioBookIDS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01563557224D017200E159E7 /* AudioBookIDS.swift */; };
 		01A52EE82245057E002982CF /* MainScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A52EE72245057E002982CF /* MainScreenController.swift */; };
 		01A829DF22438F0B00D89105 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829DE22438F0B00D89105 /* AppDelegate.swift */; };
 		01A829E122438F0B00D89105 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829E022438F0B00D89105 /* ViewController.swift */; };
@@ -51,6 +52,7 @@
 		0141B5CB22452F8F00915C48 /* AudioBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBook.swift; sourceTree = "<group>"; };
 		0141B5CD2245322200915C48 /* AudioBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBookCell.swift; sourceTree = "<group>"; };
 		0141B5CF2245378400915C48 /* SearchedBooksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedBooksController.swift; sourceTree = "<group>"; };
+		01563557224D017200E159E7 /* AudioBookIDS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBookIDS.swift; sourceTree = "<group>"; };
 		01A52EE72245057E002982CF /* MainScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenController.swift; sourceTree = "<group>"; };
 		01A829DB22438F0B00D89105 /* Elvis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elvis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A829DE22438F0B00D89105 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				0141B5CB22452F8F00915C48 /* AudioBook.swift */,
+				01563557224D017200E159E7 /* AudioBookIDS.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				0123C5BA22484270006DEFF1 /* RegistrationController.swift in Sources */,
 				01AE185822466B8E0009C89D /* DatabaseUtils.swift in Sources */,
 				0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */,
+				01563558224D017200E159E7 /* AudioBookIDS.swift in Sources */,
 				0141B5CA22451D9400915C48 /* BookSearchController.swift in Sources */,
 				01A82A0D2243964300D89105 /* DesignableView.swift in Sources */,
 			);

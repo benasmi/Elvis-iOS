@@ -797,6 +797,7 @@
                     </view>
                     <connections>
                         <outlet property="chapterTextField" destination="rr4-Fa-M2S" id="GU9-Z0-VzE"/>
+                        <outlet property="playButton" destination="sUz-Wi-1wV" id="YVo-Wd-374"/>
                         <outlet property="progress" destination="pF6-4c-M3l" id="YjG-5f-iVW"/>
                         <outlet property="tv_bookTitle" destination="ADg-Kn-XMd" id="gpy-fN-4Re"/>
                         <outlet property="tv_time" destination="txH-vt-hlL" id="Agt-zS-HG9"/>

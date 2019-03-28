@@ -21,8 +21,9 @@ class PlayerController: UIViewController {
     var chapters : [String]!
     var selectedChapterIndex : Int = 0
     var selectedChapter: String?
-    
+    var sessionID: String?
    
+    @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var tv_bookTitle: UILabel!
     @IBOutlet weak var tv_time: UILabel!
     @IBOutlet weak var progress: UIProgressView!
@@ -32,22 +33,27 @@ class PlayerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         chapters = createChapters(book: book)
-        print(Utils.readFromSharedPreferences(key: "sessionID"))
-        print(book.FileIDs)
+        sessionID = Utils.readFromSharedPreferences(key: "sessionID")
         progress.setProgress(0, animated: true)
         tv_bookTitle.text = book.Title
-        
         createDayPicker()
     }
     
     @IBAction func play(_ sender: Any) {
+        print(book.AudioIDS.FileNormal[selectedChapterIndex])
         if(player==nil){
-             playAudioBook(audioUrl: "http://elvis.labiblioteka.lt/publications/getmediafile/475557/475557.mp3?session_id=ccip6ckgbns4lrkbpd77p31bi4")
+             let url1 = "http://elvis.labiblioteka.lt/publications/getmediafile/" + book.AudioIDS.FileNormal[selectedChapterIndex]
+             let url2 = "/" + book.AudioIDS.FileNormal[selectedChapterIndex] + ".mp3?session_id=" + sessionID!
+             let finalUrl = url1 + url2
+             playAudioBook(audioUrl: finalUrl)
+             playButton.setImage(UIImage(named: "Pause"), for: .normal)
              return
         }
         if(player?.rate == 0){
             player?.play()
+            playButton.setImage(UIImage(named: "Pause"), for: .normal)
         }else{
+            playButton.setImage(UIImage(named: "Play"), for: .normal)
             player?.pause()
         }
     }
@@ -82,6 +88,9 @@ class PlayerController: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
+
+        player?.pause()
+        player?.rate = 0
         dismiss(animated: true, completion: nil)
     }
     
@@ -91,7 +100,7 @@ class PlayerController: UIViewController {
     func createChapters(book: AudioBook) -> [String]{
         var chapterArray : [String] = []
         var x: Int = 0;
-        while x < book.FileCount{
+        while x < book.FileCount/2{
             let chapter: String = "SKIRSNIS: " + String(x+1)
             chapterArray.append(chapter)
             x = x + 1
@@ -101,18 +110,15 @@ class PlayerController: UIViewController {
     
     //House keeping stuff fro dayPicker: Not IMPORTANT
     func createDayPicker() {
-        
         let dayPicker = UIPickerView()
         dayPicker.delegate = self
-        
         chapterTextField.inputView = dayPicker
-        //Customizations
-        dayPicker.backgroundColor = .orange
         
+        dayPicker.backgroundColor = .orange
+    
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
         
-        //Customizations
         toolBar.barTintColor = .orange
         toolBar.tintColor = .white
         
@@ -124,7 +130,16 @@ class PlayerController: UIViewController {
         chapterTextField.inputAccessoryView = toolBar
     }
     
+    //Triggers when you dismiss the selector
     @objc func dismissKeyboard() {
+      
+        if(player?.rate != 0){
+            playButton.setImage(UIImage(named: "Play"), for: .normal)
+            player?.pause()
+            player?.rate = 0
+            player = nil
+        }
+        print(selectedChapterIndex)
         view.endEditing(true)
     }
 
@@ -149,11 +164,12 @@ extension PlayerController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     
+    //This triggers when you try to select new stuff
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
         selectedChapter = chapters[row]
         selectedChapterIndex = row
         chapterTextField.text = selectedChapter
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {

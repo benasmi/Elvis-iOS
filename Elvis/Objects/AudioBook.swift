@@ -22,11 +22,9 @@ class AudioBook{
     var SpeakerLastName: String
     var PublicationNumber: Int
     var FileCount: Int
-    var FileIDs: [String]
-    var FileIsFast: [String]
-    var FilePosition: [String]
+    var AudioIDS: AudioBookIDS
     
-    init(id: String, title: String, realeaseDate: String, authorID: String, authorFirstName: String, authorLastName: String, speakerId: String, speakerFirstName: String, speakerLastName: String, publicationNumber: Int, fileCount: Int, fileIDs: [String], fileIsFast : [String], filePosition : [String]){
+    init(id: String, title: String, realeaseDate: String, authorID: String, authorFirstName: String, authorLastName: String, speakerId: String, speakerFirstName: String, speakerLastName: String, publicationNumber: Int, fileCount: Int, audioIDS: AudioBookIDS){
         
         ID = id
         Title = title
@@ -39,9 +37,7 @@ class AudioBook{
         SpeakerLastName = speakerLastName
         PublicationNumber = publicationNumber
         FileCount = fileCount
-        FileIDs = fileIDs
-        FileIsFast = fileIsFast
-        FilePosition = filePosition
+        AudioIDS = audioIDS
     }
     
 }

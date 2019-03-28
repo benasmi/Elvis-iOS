@@ -61,7 +61,6 @@ class DatabaseUtils{
     static func NewestBooks(haveDisabilities:String, onFinishListener: @escaping (_ books : [AudioBook]) -> Void){
         
         var books: [AudioBook] = []
-        
         let url = BaseURL + "newestPublications.php";
         let json : Parameters = ["HaveDisabilities": haveDisabilities]
         
@@ -88,10 +87,11 @@ class DatabaseUtils{
                     let PublicationNumber = swiftyJsonVar[x]["PublicationNumber"].int ?? 0
                     let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
                     let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
-                    let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
                     let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
-                    
-                    books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIDs: FileIDs, fileIsFast: FileIsFast, filePosition: FilePosition))
+                    //Back end is written badly, because it returns fileIds in random position. Method below rearanges normal and fast files for easy usage.
+                    let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition)
+                  
+                    books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, audioIDS: audioIDS))
                 }
                 //print("is utilsu: ", books.count)
                 onFinishListener(books)
@@ -99,6 +99,36 @@ class DatabaseUtils{
                 onFinishListener(books)
             }
         }
+    }
+    
+    static func PositionIDSCorrectly(fileCount: Int, fileIDS: [String],filePosition: [String]) -> AudioBookIDS{
+        let totalCount: Int = fileCount
+        let actualCount = totalCount/2
+        
+        var filesNormal: [String] = []
+        var filesFast: [String] = []
+        
+        var secondTime: Bool = false
+        var lastIndex: Int = -1
+    
+        for i in 1...actualCount{
+            for x in 0...totalCount-1{
+                if(String(i) == filePosition[x] && x != lastIndex){
+                    lastIndex = x
+                    if(!secondTime){
+                        filesNormal.append(fileIDS[x])
+                        secondTime = true
+                    }else{
+                        filesFast.append(fileIDS[x])
+                        break
+                    }
+                }
+                
+            }
+            secondTime = false
+            lastIndex = -1
+        }
+        return AudioBookIDS(fileIDs: filesNormal, fileIsFast: filesFast)
     }
     
     
@@ -138,12 +168,11 @@ class DatabaseUtils{
                     let PublicationNumber = swiftyJsonVar[x]["PublicationNumber"].int ?? 0
                     let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
                     let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
-                    let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
                     let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
+                    let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition)
                     
-                    books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIDs: FileIDs, fileIsFast: FileIsFast, filePosition: FilePosition))
+                    books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, audioIDS: audioIDS))
                 }
-                //print("is utilsu: ", books.count)
                 onFinishListener(books)
             }else{
                 onFinishListener(books)
