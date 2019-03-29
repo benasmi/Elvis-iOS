@@ -15,7 +15,9 @@ class PlayerController: UIViewController {
 
     var player:AVPlayer?
     var playerItem:AVPlayerItem?
-
+    var timer : Timer?
+    var timerRunning : Bool = false;
+    let seekDuration: Float64 = 50
     
     var book: AudioBook!
     var chapters : [String]!
@@ -54,38 +56,111 @@ class PlayerController: UIViewController {
         }
         if(player?.rate == 0){
             player?.play()
+            timerRunning = true;
             playButton.setImage(UIImage(named: "Pause"), for: .normal)
         }else{
+            timerRunning = false;
             playButton.setImage(UIImage(named: "Play"), for: .normal)
             player?.pause()
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        super.viewWillAppear(animated)
-       
-    }
-    
-    
     @IBAction func fastForward(_ sender: Any) {
-        
-    }
-    
-    @IBAction func skipForward(_ sender: Any) {
-        
+        if(player?.rate != 0){
+         
+            guard let duration  = player?.currentItem?.duration else{
+                return
+            }
+            let playerCurrentTime = CMTimeGetSeconds((player?.currentTime())!)
+            let newTime = playerCurrentTime + seekDuration
+            
+            if newTime < CMTimeGetSeconds(duration) {
+                
+                let time2: CMTime = CMTimeMake(value: Int64(newTime * 1000 as Float64), timescale: 1000)
+                let cTime = Float(time2.seconds)
+                player?.seek(to: time2)
+                tv_time.text = timeLabelSetter(seconds: Int(cTime))
+                progressSlider.setValue(Float(cTime), animated: true)
+            }
+        }
     }
     
     @IBAction func fastBackwards(_ sender: Any) {
         
+        if(player?.rate != 0){
+            let playerCurrentTime = CMTimeGetSeconds((player?.currentTime())!)
+            var newTime = playerCurrentTime - seekDuration
+        
+            if newTime < 0 {
+                newTime = 0
+            }
+            
+            let time2: CMTime = CMTimeMake(value: Int64(newTime * 1000 as Float64), timescale: 1000)
+            let cTime = Float(time2.seconds)
+            player?.seek(to: time2)
+            tv_time.text = timeLabelSetter(seconds: Int(cTime))
+            progressSlider.setValue(Float(cTime), animated: true)
+        }
     }
     
+    
+    
+    @IBAction func skipForward(_ sender: Any) {
+        if(player?.rate != 0){
+            player?.pause()
+            player = nil
+            player?.rate = 0
+            timer!.invalidate()
+            timer = nil
+            progressSlider.setValue(0, animated: true)
+            tv_time.text = "0:00"
+    
+            var nextChapter: Int = selectedChapterIndex + 1
+           
+            if(nextChapter > (book.FileCount/2)-1){
+                nextChapter = 0;
+                
+            }
+            chapterTextField.text = "SKIRSNIS:" + String(nextChapter+1)
+            selectedChapterIndex = nextChapter
+            playButton.sendActions(for: .touchUpInside)
+            
+        }
+        
+    }
+
     @IBAction func skipPrevious(_ sender: Any) {
+        
+        if(player?.rate != 0){
+            player?.pause()
+            player = nil
+            player?.rate = 0
+            timer!.invalidate()
+            timer = nil
+            progressSlider.setValue(0, animated: true)
+            tv_time.text = "0:00"
+            
+            var nextChapter: Int = selectedChapterIndex - 1
+            
+            if(nextChapter < 0){
+                nextChapter = (book.FileCount/2)-1;
+                
+            }
+            chapterTextField.text = "SKIRSNIS:" + String(nextChapter+1)
+            selectedChapterIndex = nextChapter
+            playButton.sendActions(for: .touchUpInside)
+            
+        }
         
     }
     
     @IBAction func back(_ sender: Any) {
-
+    
+        if timer != nil {
+            timer!.invalidate()
+            timer = nil
+        }
+        
         player?.pause()
         player?.rate = 0
         dismiss(animated: true, completion: nil)
@@ -99,26 +174,14 @@ class PlayerController: UIViewController {
         progressSlider.minimumValue = 0
         progressSlider.maximumValue = Float(seconds)
         progressSlider.isContinuous = true
-        progressSlider.tintColor = UIColor.green
+        progressSlider.tintColor = UIColor.orange
+        
+        timer =  Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
         player = AVPlayer(playerItem: playerItem)
         player?.play()
+        timerRunning = true;
     }
-    
-  @objc func playbackSliderValueChanged(_ playbackSlider:UISlider)
-    {
-        
-        let seconds : Int64 = Int64(playbackSlider.value)
-        let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
-        
-        player!.seek(to: targetTime)
-        
-        if player!.rate == 0
-        {
-            player?.play()
-        }
-    }
-    
     
     
     //Creates array of all possible chapters: NOT IMPORTANT
@@ -155,9 +218,26 @@ class PlayerController: UIViewController {
         chapterTextField.inputAccessoryView = toolBar
     }
     
+    func timeLabelSetter(seconds: Int) -> String{
+        var builder: String = ""
+        let mins: Int = seconds/60;
+        let secs: Int = seconds - mins*60;
+        if(secs<10){
+            builder = "" + String(mins) + ":" + "0" + String(secs)
+        }else{
+            builder = "" + String(mins) + ":" + String(secs)
+        }
+        return builder
+    }
+    
     //Triggers when you dismiss the selector
     @objc func dismissKeyboard() {
-      
+        progressSlider.setValue(0, animated: true)
+        tv_time.text = "0:00"
+        if timer != nil {
+            timer!.invalidate()
+            timer = nil
+        }
         if(player?.rate != 0){
             playButton.setImage(UIImage(named: "Play"), for: .normal)
             player?.pause()
@@ -167,9 +247,43 @@ class PlayerController: UIViewController {
         print(selectedChapterIndex)
         view.endEditing(true)
     }
+    
+    @objc func playbackSliderValueChanged(_ playbackSlider:UISlider)
+    {
+        
+        let seconds : Int64 = Int64(playbackSlider.value)
+        let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
+        
+        player!.seek(to: targetTime)
+        
+        if player!.rate == 0
+        {
+            player?.play()
+        }
+    }
+    
+    @objc func timerAction(){
+        if(timerRunning){
+            let value = progressSlider.value
+            progressSlider.setValue(value+1, animated: true)
+            tv_time.text = timeLabelSetter(seconds: Int(value))
+        }
+    }
+    
+    
 
     
 }
+
+
+
+
+
+
+
+
+
+
 
 //Chapter picker view: SLIGHTLY IMPORTANT
 extension PlayerController: UIPickerViewDelegate, UIPickerViewDataSource {
