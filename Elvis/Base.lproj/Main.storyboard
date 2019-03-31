@@ -345,6 +345,9 @@
                                                 <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="seeDownloads:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="o2E-WC-bPb"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

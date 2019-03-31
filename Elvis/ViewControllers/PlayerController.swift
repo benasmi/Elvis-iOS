@@ -50,7 +50,7 @@ class PlayerController: UIViewController {
         
         if(player==nil){
             let finalUrl: URL!
-            let chapter = isFast ? book.AudioIDS!.FileFast[selectedChapterIndex] : book.AudioIDS!.FileNormal[selectedChapterIndex]
+            let chapter = isFast ? book.FileFastIDS[selectedChapterIndex] : book.FileNormalIDS[selectedChapterIndex]
             if(isLocal){
                 let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
                 finalUrl = documentsDirectoryURL.appendingPathComponent(chapter + ".mp3")

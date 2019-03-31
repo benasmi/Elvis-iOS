@@ -39,7 +39,7 @@ class DatabaseUtils{
         
         var chaptersDownloaded = 0;
         
-        for var id in downloadFast ? (audioBook.AudioIDS?.FileFast)! : audioBook.AudioIDS!.FileNormal{
+        for var id in downloadFast ? (audioBook.FileFastIDS) : audioBook.FileNormalIDS{
             
             if let audioUrl = URL(string: getFileDownloadUrl(audioID: id, sessionID: sessionID)) {
                 
@@ -56,7 +56,7 @@ class DatabaseUtils{
                     }
                     
                     chaptersDownloaded+=1;
-                    if(chaptersDownloaded == audioBook.AudioIDS!.FileFast.count){
+                    if(chaptersDownloaded == audioBook.FileFastIDS.count){
                         DispatchQueue.main.async {
                             print("Patenks")
                             saveBookInfo(audioBook: audioBook)
@@ -68,6 +68,15 @@ class DatabaseUtils{
             }
         }
     }
+    
+    public static func getDownloadedBooks() -> Results<AudioBook> {
+        let realm = try! Realm()
+      
+        let results: Results<AudioBook> = realm.objects(AudioBook.self)
+        return results
+        
+    }
+
     
     private static func saveBookInfo(audioBook: AudioBook){
         let realm = try! Realm()
@@ -95,7 +104,7 @@ class DatabaseUtils{
         return url1 + url2
     }
     
-    static func eraseBooks(audioBookIDs: [String], listener: @escaping ()->Void ){
+    static func eraseBooks(audioBookIDs: List<String>, listener: @escaping ()->Void ){
         let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         
         for var id in audioBookIDs{
@@ -165,10 +174,19 @@ class DatabaseUtils{
                     let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
                     let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
                     let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
-                    //Back end is written badly, because it returns fileIds in random position. Method below rearanges normal and fast files for easy usage.
+                
                     let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition)
-                  
-                    books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, audioIDS: audioIDS))
+                    let FileFastIDS = List<String>()
+                    let FileNormalIDS = List<String>()
+                    
+                    for x in 0...audioIDS.FileNormal.count-1{
+                        FileFastIDS.append(audioIDS.FileFast[x])
+                        FileNormalIDS.append(audioIDS.FileNormal[x])
+                    }
+                    
+                    books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIdsNormal: FileNormalIDS, fileIdsFast: FileFastIDS))
+                    
+                
                 }
                 //print("is utilsu: ", books.count)
                 onFinishListener(books)
@@ -246,9 +264,17 @@ class DatabaseUtils{
                     let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
                     let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
                     let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
-                    let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition)
                     
-                    books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, audioIDS: audioIDS))
+                    let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition)
+                    let FileFastIDS = List<String>()
+                    let FileNormalIDS = List<String>()
+            
+                    for x in 0...audioIDS.FileNormal.count{
+                        FileFastIDS.append(audioIDS.FileFast[x])
+                        FileNormalIDS.append(audioIDS.FileNormal[x])
+                    }
+                    
+                    books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIdsNormal: FileFastIDS, fileIdsFast: FileNormalIDS))
                 }
                 onFinishListener(books)
             }else{

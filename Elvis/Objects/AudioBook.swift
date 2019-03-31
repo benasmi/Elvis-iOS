@@ -23,9 +23,11 @@ class AudioBook : Object{
     @objc dynamic var SpeakerLastName: String = ""
     @objc dynamic var PublicationNumber: Int = 0
     @objc dynamic var FileCount: Int = 0
-    var AudioIDS: AudioBookIDS?
+    var FileNormalIDS = List<String>()
+    var FileFastIDS = List<String>()
     
-    convenience init(id: String, title: String, realeaseDate: String, authorID: String, authorFirstName: String, authorLastName: String, speakerId: String, speakerFirstName: String, speakerLastName: String, publicationNumber: Int, fileCount: Int, audioIDS: AudioBookIDS){
+    
+    convenience init(id: String, title: String, realeaseDate: String, authorID: String, authorFirstName: String, authorLastName: String, speakerId: String, speakerFirstName: String, speakerLastName: String, publicationNumber: Int, fileCount: Int, fileIdsNormal: List<String>, fileIdsFast: List<String>){
         self.init()
         
         ID = id
@@ -39,7 +41,9 @@ class AudioBook : Object{
         SpeakerLastName = speakerLastName
         PublicationNumber = publicationNumber
         FileCount = fileCount
-        AudioIDS = audioIDS
+        FileNormalIDS = fileIdsNormal
+        FileFastIDS = fileIdsFast
+        
     }
     
  

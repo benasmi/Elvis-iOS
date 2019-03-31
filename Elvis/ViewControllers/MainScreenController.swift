@@ -7,6 +7,7 @@
 //
 import UIKit
 import SVProgressHUD
+import RealmSwift
 
 class MainScreenController: UIViewController {
     
@@ -28,6 +29,15 @@ class MainScreenController: UIViewController {
         SVProgressHUD.setDefaultMaskType(.black)
     }
     
+    @IBAction func seeDownloads(_ sender: Any) {
+        let books: [AudioBook] = Array(DatabaseUtils.getDownloadedBooks())
+        //passing data and going to new view controller
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "SearchedBooks") as! SearchedBooksController
+        newViewController.books = books
+        self.present(newViewController, animated: true, completion: nil)
+        print(books.count)
+    }
     
     func onFinishListener(_ books : [AudioBook]){
         SVProgressHUD.dismiss()
