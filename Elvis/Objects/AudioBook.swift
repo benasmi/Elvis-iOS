@@ -8,23 +8,25 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
-class AudioBook{
+class AudioBook : Object{
     
-    var ID : String
-    var Title: String
-    var ReleaseDate: String
-    var AuthorID: String
-    var AuthorFirstName: String
-    var AuthorLastName: String
-    var SpeakerID: String
-    var SpeakerFirstName: String
-    var SpeakerLastName: String
-    var PublicationNumber: Int
-    var FileCount: Int
-    var AudioIDS: AudioBookIDS
+    @objc dynamic var ID : String = ""
+    @objc dynamic var Title: String = ""
+    @objc dynamic var ReleaseDate: String = ""
+    @objc dynamic var AuthorID: String = ""
+    @objc dynamic var AuthorFirstName: String = ""
+    @objc dynamic var AuthorLastName: String = ""
+    @objc dynamic var SpeakerID: String = ""
+    @objc dynamic var SpeakerFirstName: String = ""
+    @objc dynamic var SpeakerLastName: String = ""
+    @objc dynamic var PublicationNumber: Int = 0
+    @objc dynamic var FileCount: Int = 0
+    var AudioIDS: AudioBookIDS?
     
-    init(id: String, title: String, realeaseDate: String, authorID: String, authorFirstName: String, authorLastName: String, speakerId: String, speakerFirstName: String, speakerLastName: String, publicationNumber: Int, fileCount: Int, audioIDS: AudioBookIDS){
+    convenience init(id: String, title: String, realeaseDate: String, authorID: String, authorFirstName: String, authorLastName: String, speakerId: String, speakerFirstName: String, speakerLastName: String, publicationNumber: Int, fileCount: Int, audioIDS: AudioBookIDS){
+        self.init()
         
         ID = id
         Title = title
@@ -40,4 +42,5 @@ class AudioBook{
         AudioIDS = audioIDS
     }
     
+ 
 }

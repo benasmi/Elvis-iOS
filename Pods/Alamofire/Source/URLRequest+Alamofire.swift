@@ -24,10 +24,9 @@
 
 import Foundation
 
-public extension URLRequest {
-    /// Returns the `httpMethod` as Alamofire's `HTTPMethod` type.
+extension URLRequest {
     var method: HTTPMethod? {
-        get { return httpMethod.flatMap(HTTPMethod.init) }
-        set { httpMethod = newValue?.rawValue }
+        guard let httpMethod = self.httpMethod else { return nil }
+        return HTTPMethod(rawValue: httpMethod)
     }
 }

@@ -32,11 +32,11 @@ class AudioBookCell: UITableViewCell {
     @IBOutlet weak var downloadBtn: UIButton!
     
     @IBAction func download(_ sender: Any) {
-        if(doesLocalVersionExist(IDsToCheck: book.AudioIDS.FileNormal)){
+        if(doesLocalVersionExist(IDsToCheck: book.AudioIDS!.FileNormal)){
             //Erasing audio
             SVProgressHUD.show(withStatus: "Knyga istrinama...")
             SVProgressHUD.setDefaultMaskType(.black)
-            DatabaseUtils.eraseBooks(audioBookIDs: book.AudioIDS.FileNormal, listener: {
+            DatabaseUtils.eraseBooks(audioBookIDs: book.AudioIDS!.FileNormal, listener: {
                 self.downloadBtn.setTitle("Siusti", for: [])
                 SVProgressHUD.dismiss()
             })
@@ -44,7 +44,7 @@ class AudioBookCell: UITableViewCell {
             SVProgressHUD.show(withStatus: "Knyga siunciama...")
             SVProgressHUD.setDefaultMaskType(.black)
             //Downloading audio
-            DatabaseUtils.downloadBooks(sessionID: sessionID, audioBookIDs: book.AudioIDS.FileNormal, listener: {
+            DatabaseUtils.downloadBooks(sessionID: sessionID, audioBook: book, downloadFast: false, listener: {
                 self.downloadBtn.setTitle("Istrinti", for: [])
                 SVProgressHUD.dismiss()
             })
@@ -55,20 +55,22 @@ class AudioBookCell: UITableViewCell {
     @IBOutlet weak var downloadFastBtn: UIButton!
     
     @IBAction func downloadFast(_ sender: Any) {
-        if(doesLocalVersionExist(IDsToCheck: book.AudioIDS.FileFast)){
+        if(doesLocalVersionExist(IDsToCheck: book.AudioIDS!.FileFast)){
             //Erasing audio
             SVProgressHUD.show(withStatus: "Knyga istrinama...")
             SVProgressHUD.setDefaultMaskType(.black)
-            DatabaseUtils.eraseBooks(audioBookIDs: book.AudioIDS.FileFast, listener: {
+            DatabaseUtils.eraseBooks(audioBookIDs: book.AudioIDS!.FileFast, listener: {
                 self.downloadFastBtn.setTitle("Siusti", for: [])
+                DatabaseUtils.deleteBookInfo(audioBook: self.book)
                 SVProgressHUD.dismiss()
             })
         }else{
             SVProgressHUD.show(withStatus: "Knyga siunciama...")
             SVProgressHUD.setDefaultMaskType(.black)
             //Downloading audio
-            DatabaseUtils.downloadBooks(sessionID: sessionID, audioBookIDs: book.AudioIDS.FileFast, listener: {
+            DatabaseUtils.downloadBooks(sessionID: sessionID, audioBook: book, downloadFast: true, listener: {
                 self.downloadFastBtn.setTitle("Istrinti", for: [])
+                DatabaseUtils.deleteBookInfo(audioBook: self.book)
                 SVProgressHUD.dismiss()
             })
         }
@@ -94,7 +96,8 @@ class AudioBookCell: UITableViewCell {
         bookAnouncer.text = "Diktorius: " + audioBook.SpeakerFirstName  + ", " + audioBook.SpeakerLastName
         years.text = audioBook.ReleaseDate
         
-        self.downloadBtn.setTitle(doesLocalVersionExist(IDsToCheck: book.AudioIDS.FileNormal) ? "Istrinti" : "Siustis", for: [])
+        self.downloadBtn.setTitle(doesLocalVersionExist(IDsToCheck: book.AudioIDS!.FileNormal) ? "Istrinti" : "Siustis", for: [])
+        self.downloadFastBtn.setTitle(doesLocalVersionExist(IDsToCheck: book.AudioIDS!.FileFast) ? "Istrinti" : "Siustis", for: [])
     }
     
     //This only checks if all parts of the audiobook ar present in the file system. Such a method is not foolproof
@@ -116,7 +119,7 @@ class AudioBookCell: UITableViewCell {
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "PlayerController") as! PlayerController
         newViewController.book = book
         newViewController.isFast = fast;
-        newViewController.isLocal = doesLocalVersionExist(IDsToCheck: fast ? book.AudioIDS.FileFast : book.AudioIDS.FileNormal)
+        newViewController.isLocal = doesLocalVersionExist(IDsToCheck: fast ? book.AudioIDS!.FileFast : book.AudioIDS!.FileNormal)
         viewController.present(newViewController, animated: true, completion: nil)
     }
     

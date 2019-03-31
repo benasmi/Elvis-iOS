@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
-//import RealmSwift
+import RealmSwift
 
 let BaseURL: String = "http://elvis.labiblioteka.lt/app/";
 
@@ -39,7 +39,7 @@ class DatabaseUtils{
         
         var chaptersDownloaded = 0;
         
-        for var id in downloadFast ? audioBook.AudioIDS.FileFast : audioBook.AudioIDS.FileNormal{
+        for var id in downloadFast ? (audioBook.AudioIDS?.FileFast)! : audioBook.AudioIDS!.FileNormal{
             
             if let audioUrl = URL(string: getFileDownloadUrl(audioID: id, sessionID: sessionID)) {
                 
@@ -56,8 +56,9 @@ class DatabaseUtils{
                     }
                     
                     chaptersDownloaded+=1;
-                    if(chaptersDownloaded == audioBook.AudioIDS.FileFast.count){
+                    if(chaptersDownloaded == audioBook.AudioIDS!.FileFast.count){
                         DispatchQueue.main.async {
+                            print("Patenks")
                             saveBookInfo(audioBook: audioBook)
                             listener()
                         }
@@ -69,17 +70,23 @@ class DatabaseUtils{
     }
     
     private static func saveBookInfo(audioBook: AudioBook){
-        /*let realm = try! Realm();
-        
+        let realm = try! Realm()
+        print(Realm.Configuration.defaultConfiguration.fileURL?.path)
         //Checking if a book entry exists
-        if(realm.objects(AudioBook).filter("Title == %@", audioBook.Title).count == 0){
+        if(realm.objects(AudioBook.self).filter("Title == %@", audioBook.Title).count == 0){
             print("book does not exist")
             try! realm.write {
                 realm.add(audioBook)
             }
         }else{
             print("book DOES exist")
-        }*/
+        }
+    }
+    public static func deleteBookInfo(audioBook: AudioBook){
+        let realm = try! Realm()
+        try! realm.write {
+            realm.delete(audioBook)
+        }
     }
     
     static func getFileDownloadUrl(audioID: String, sessionID: String) -> String{

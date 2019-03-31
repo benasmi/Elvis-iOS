@@ -74,7 +74,7 @@ open class Session {
         delegate.stateProvider = self
     }
 
-    public convenience init(configuration: URLSessionConfiguration = URLSessionConfiguration.af.default,
+    public convenience init(configuration: URLSessionConfiguration = .alamofireDefault,
                             delegate: SessionDelegate = SessionDelegate(),
                             rootQueue: DispatchQueue = DispatchQueue(label: "org.alamofire.sessionManager.rootQueue"),
                             startRequestsImmediately: Bool = true,
@@ -326,23 +326,22 @@ open class Session {
                      interceptor: RequestInterceptor? = nil) -> UploadRequest {
         let convertible = ParameterlessRequestConvertible(url: url, method: method, headers: headers)
 
-        let formData = MultipartFormData(fileManager: fileManager)
-        multipartFormData(formData)
-
-        return upload(multipartFormData: formData,
+        return upload(multipartFormData: multipartFormData,
                       usingThreshold: encodingMemoryThreshold,
                       with: convertible,
                       interceptor: interceptor)
     }
 
-    open func upload(multipartFormData: MultipartFormData,
+    open func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
                      usingThreshold encodingMemoryThreshold: UInt64 = MultipartUpload.encodingMemoryThreshold,
+                     fileManager: FileManager = .default,
                      with request: URLRequestConvertible,
                      interceptor: RequestInterceptor? = nil) -> UploadRequest {
         let multipartUpload = MultipartUpload(isInBackgroundSession: (session.configuration.identifier != nil),
                                               encodingMemoryThreshold: encodingMemoryThreshold,
                                               request: request,
-                                              multipartFormData: multipartFormData)
+                                              fileManager: fileManager,
+                                              multipartBuilder: multipartFormData)
 
         return upload(multipartUpload, interceptor: interceptor)
     }
@@ -429,7 +428,7 @@ open class Session {
             if let adapter = adapter(for: request) {
                 adapter.adapt(initialRequest, for: self) { result in
                     do {
-                        let adaptedRequest = try result.get()
+                        let adaptedRequest = try result.unwrap()
 
                         self.rootQueue.async {
                             request.didAdaptInitialRequest(initialRequest, to: adaptedRequest)
@@ -514,35 +513,41 @@ extension Session: RequestDelegate {
         return session.configuration
     }
 
-    public func retryResult(for request: Request, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
-        guard let retrier = retrier(for: request) else {
-            rootQueue.async { completion(.doNotRetry) }
-            return
-        }
-
-        retrier.retry(request, for: self, dueTo: error) { retryResult in
-            self.rootQueue.async {
-                guard let retryResultError = retryResult.error else { completion(retryResult); return }
-
-                let retryError = AFError.requestRetryFailed(retryError: retryResultError, originalError: error)
-                completion(.doNotRetryWithError(retryError))
-            }
-        }
+    public func willAttemptToRetryRequest(_ request: Request) -> Bool {
+        return retrier(for: request) != nil
     }
 
-    public func retryRequest(_ request: Request, withDelay timeDelay: TimeInterval?) {
-        self.rootQueue.async {
-            let retry: () -> Void = {
+    public func retryRequest(_ request: Request, ifNecessaryWithError error: Error) {
+        guard let retrier = retrier(for: request) else { request.finish(); return }
+
+        retrier.retry(request, for: self, dueTo: error) { result in
+            guard !request.isCancelled else { return }
+
+            self.rootQueue.async {
                 guard !request.isCancelled else { return }
 
-                request.prepareForRetry()
-                self.perform(request)
-            }
+                if result.retryRequired {
+                    let retry: () -> Void = {
+                        guard !request.isCancelled else { return }
 
-            if let retryDelay = timeDelay {
-                self.rootQueue.after(retryDelay) { retry() }
-            } else {
-                retry()
+                        request.requestIsRetrying()
+                        self.perform(request)
+                    }
+
+                    if let retryDelay = result.delay {
+                        self.rootQueue.after(retryDelay) { retry() }
+                    } else {
+                        self.rootQueue.async { retry() }
+                    }
+                } else {
+                    var retryError = error
+
+                    if let retryResultError = result.error {
+                        retryError = AFError.requestRetryFailed(retryError: retryResultError, originalError: error)
+                    }
+
+                    request.finish(error: retryError)
+                }
             }
         }
     }
