@@ -1,32 +1,24 @@
 PODS:
-  - Alamofire (5.0.0-beta.3)
-  - RSSelectionMenu (6.0)
-  - SelectionList (1.3.0)
+  - Alamofire (5.0.0-beta.4)
   - SVProgressHUD (2.2.5)
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.3)
-  - RSSelectionMenu
-  - SelectionList
   - SVProgressHUD
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - RSSelectionMenu
-    - SelectionList
     - SVProgressHUD
     - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: 50d6fa7e8cbe7f84559e86ab641ffd029db655f8
-  RSSelectionMenu: 165136011efa3b4141249de88d2c7346be2780c6
-  SelectionList: 4f4c720baf48f3d19c28d0622a43cbef237bb984
+  Alamofire: 6458d95477bc40adf10129f22c67cfb014162dc8
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: f730e639e9c817f1085929e6e978702d420df9e5
+PODFILE CHECKSUM: 7a85ffda087b0966f15b2a1de2aca9bf637239e3
 
 COCOAPODS: 1.6.1

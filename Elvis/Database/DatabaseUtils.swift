@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+//import RealmSwift
 
 let BaseURL: String = "http://elvis.labiblioteka.lt/app/";
 
@@ -31,6 +32,75 @@ class DatabaseUtils{
                 }else{
                     onFinishLoginListener(false)
             }
+        }
+    }
+    
+    static func downloadBooks(sessionID: String, audioBook: AudioBook, downloadFast: Bool, listener: @escaping ()->Void ){
+        
+        var chaptersDownloaded = 0;
+        
+        for var id in downloadFast ? audioBook.AudioIDS.FileFast : audioBook.AudioIDS.FileNormal{
+            
+            if let audioUrl = URL(string: getFileDownloadUrl(audioID: id, sessionID: sessionID)) {
+                
+                let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                
+                let destinationUrl = documentsDirectoryURL.appendingPathComponent(id + ".mp3")
+                                
+                URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
+                    guard let location = location, error == nil else {return }
+                    do {
+                        try FileManager.default.moveItem(at: location, to: destinationUrl)
+                    } catch let error as NSError {
+                        print(error.localizedDescription)
+                    }
+                    
+                    chaptersDownloaded+=1;
+                    if(chaptersDownloaded == audioBook.AudioIDS.FileFast.count){
+                        DispatchQueue.main.async {
+                            saveBookInfo(audioBook: audioBook)
+                            listener()
+                        }
+                    }
+                }).resume()
+                
+            }
+        }
+    }
+    
+    private static func saveBookInfo(audioBook: AudioBook){
+        /*let realm = try! Realm();
+        
+        //Checking if a book entry exists
+        if(realm.objects(AudioBook).filter("Title == %@", audioBook.Title).count == 0){
+            print("book does not exist")
+            try! realm.write {
+                realm.add(audioBook)
+            }
+        }else{
+            print("book DOES exist")
+        }*/
+    }
+    
+    static func getFileDownloadUrl(audioID: String, sessionID: String) -> String{
+        let url1 = "http://elvis.labiblioteka.lt/publications/getmediafile/" + audioID
+        let url2 = "/" + audioID + ".mp3?session_id=" + sessionID
+        return url1 + url2
+    }
+    
+    static func eraseBooks(audioBookIDs: [String], listener: @escaping ()->Void ){
+        let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        
+        for var id in audioBookIDs{
+            let destinationUrl = documentsDirectoryURL.appendingPathComponent(id + ".mp3")
+            
+            do {
+                try FileManager.default.removeItem(at: destinationUrl.asURL())
+            }
+            catch let error as NSError {
+            }
+            
+            listener()
         }
     }
     

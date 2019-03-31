@@ -24,7 +24,9 @@ class PlayerController: UIViewController {
     var selectedChapterIndex : Int = 0
     var selectedChapter: String?
     var sessionID: String?
-   
+    var isLocal: Bool = false;
+    var isFast: Bool = false;
+    
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var progressSlider: UISlider!
     @IBOutlet weak var tv_bookTitle: UILabel!
@@ -47,11 +49,21 @@ class PlayerController: UIViewController {
     @IBAction func play(_ sender: Any) {
         
         if(player==nil){
-             let url1 = "http://elvis.labiblioteka.lt/publications/getmediafile/" + book.AudioIDS.FileNormal[selectedChapterIndex]
-             let url2 = "/" + book.AudioIDS.FileNormal[selectedChapterIndex] + ".mp3?session_id=" + sessionID!
-             let finalUrl = url1 + url2
-             playAudioBook(audioUrl: finalUrl)
-             playButton.setImage(UIImage(named: "Pause"), for: .normal)
+            let finalUrl: URL!
+            let chapter = isFast ? book.AudioIDS.FileFast[selectedChapterIndex] : book.AudioIDS.FileNormal[selectedChapterIndex]
+            if(isLocal){
+                let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                finalUrl = documentsDirectoryURL.appendingPathComponent(chapter + ".mp3")
+            }else{
+                let url1 = "http://elvis.labiblioteka.lt/publications/getmediafile/" + chapter
+                let url2 = "/" + chapter + ".mp3?session_id=" + sessionID!
+                finalUrl = URL(string: (url1 + url2))
+            }
+            
+             playAudioBook(url: finalUrl)
+            playButton.setImage(UIImage(named: "Pause"), for: .normal)
+            print(finalUrl)
+
              return
         }
         if(player?.rate == 0){
@@ -166,9 +178,8 @@ class PlayerController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func playAudioBook(audioUrl: String){
-        let url = URL(string: audioUrl)
-        let playerItem:AVPlayerItem = AVPlayerItem(url: url!)
+    func playAudioBook(url: URL){
+        let playerItem:AVPlayerItem = AVPlayerItem(url: url)
         
         let seconds : Float64 = CMTimeGetSeconds(playerItem.asset.duration)
         progressSlider.minimumValue = 0

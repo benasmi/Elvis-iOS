@@ -31,9 +31,7 @@ extension SearchedBooksController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let audioBookCurrent : AudioBook = books[indexPath.row]
         let cell : AudioBookCell = tableView.dequeueReusableCell(withIdentifier: "AudioBookCell") as! AudioBookCell
-        cell.setUpCell(audioBook: audioBookCurrent, viewController: self)
+        cell.setUpCell(audioBook: audioBookCurrent, viewController: self, session: Utils.readFromSharedPreferences(key: "sessionID"))
         return cell
     }
-    
-    
 }

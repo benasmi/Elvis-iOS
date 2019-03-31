@@ -1,8 +1,7 @@
 //
-//  NSObjectExtension.swift
-//  RSSelectionMenu
+//  AlamofireExtended.swift
 //
-//  Copyright (c) 2019 Rushi Sangani
+//  Copyright (c) 2019 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,28 +22,34 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
-import CoreData
+/// Type that acts as a generic extension point for all `AlamofireExtended` types.
+public struct AlamofireExtension<ExtendedType> {
+    /// Stores the type or metatype of any extended type.
+    let type: ExtendedType
 
-/// NSObject Extension
-public extension NSObject {
-    
-    /// Convert NSObject model to dictionary
-    @objc public func toDictionary() -> [String: AnyObject] {
-        
-        let propertiesDictionary : NSMutableDictionary = NSMutableDictionary()
-        
-        // check of object is NSManagedObject
-        if let object = self as? NSManagedObject {
-            let keys = Array(object.entity.attributesByName.keys)
-            propertiesDictionary.setDictionary(object.dictionaryWithValues(forKeys: keys))
-        }
-        else {
-            let model = Mirror(reflecting: self)
-            for (name, value) in model.children {
-                propertiesDictionary.setValue(value, forKey: name!)
-            }
-        }
-        return propertiesDictionary as! [String: AnyObject]
+    init(_ type: ExtendedType) {
+        self.type = type
+    }
+}
+
+/// Protocol describing the `af` extension points for Alamofire extended types.
+public protocol AlamofireExtended {
+    associatedtype ExtendedType
+
+    /// Static Alamofire extension point.
+    static var af: AlamofireExtension<ExtendedType>.Type { get set }
+    /// Instance Alamofire extension point.
+    var af: AlamofireExtension<ExtendedType> { get set }
+}
+
+public extension AlamofireExtended {
+    static var af: AlamofireExtension<Self>.Type {
+        get { return AlamofireExtension<Self>.self }
+        set { }
+    }
+
+    var af: AlamofireExtension<Self> {
+        get { return AlamofireExtension(self) }
+        set { }
     }
 }
