@@ -40,6 +40,9 @@ class AudioBookCell: UITableViewCell {
             SVProgressHUD.setDefaultMaskType(.black)
             DatabaseUtils.eraseBooks(audioBookIDs: book!.FileNormalIDS, listener: {
                 self.downloadBtn.setTitle("Siusti", for: [])
+                if(!self.dontRemove(audioBook: self.book)){
+                    DatabaseUtils.deleteBookInfo(audioBook: self.book)
+                }
                 SVProgressHUD.dismiss()
             })
         }else{
@@ -63,7 +66,9 @@ class AudioBookCell: UITableViewCell {
             SVProgressHUD.setDefaultMaskType(.black)
             DatabaseUtils.eraseBooks(audioBookIDs: book.FileFastIDS, listener: {
                 self.downloadFastBtn.setTitle("Siusti", for: [])
-                DatabaseUtils.deleteBookInfo(audioBook: self.book)
+                if(!self.dontRemove(audioBook: self.book)){
+                    DatabaseUtils.deleteBookInfo(audioBook: self.book)
+                }
                 SVProgressHUD.dismiss()
             })
         }else{
@@ -72,7 +77,6 @@ class AudioBookCell: UITableViewCell {
             //Downloading audio
             DatabaseUtils.downloadBooks(sessionID: sessionID, audioBook: book, downloadFast: true, listener: {
                 self.downloadFastBtn.setTitle("Istrinti", for: [])
-                DatabaseUtils.deleteBookInfo(audioBook: self.book)
                 SVProgressHUD.dismiss()
             })
         }
@@ -86,6 +90,14 @@ class AudioBookCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+    
+    func dontRemove(audioBook: AudioBook) -> Bool{
+        if(doesLocalVersionExist(IDsToCheck: audioBook.FileNormalIDS) && doesLocalVersionExist(IDsToCheck: audioBook.FileFastIDS) ){
+            return true
+        }
+        
+        return false
     }
     
     func setUpCell(audioBook: AudioBook, viewController: UIViewController, session: String){

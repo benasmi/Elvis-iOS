@@ -91,6 +91,7 @@ class DatabaseUtils{
             print("book DOES exist")
         }
     }
+    
     public static func deleteBookInfo(audioBook: AudioBook){
         let realm = try! Realm()
         try! realm.write {
