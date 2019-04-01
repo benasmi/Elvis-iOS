@@ -12,7 +12,7 @@ import SwiftyJSON
 import RealmSwift
 
 let BaseURL: String = "http://elvis.labiblioteka.lt/app/";
-
+let taskID : Int = 0;
 class DatabaseUtils{
 
  
@@ -40,6 +40,7 @@ class DatabaseUtils{
         var chaptersDownloaded = 0;
         
         for var id in downloadFast ? (audioBook.FileFastIDS) : audioBook.FileNormalIDS{
+         
             
             if let audioUrl = URL(string: getFileDownloadUrl(audioID: id, sessionID: sessionID)) {
                 
@@ -48,17 +49,20 @@ class DatabaseUtils{
                 let destinationUrl = documentsDirectoryURL.appendingPathComponent(id + ".mp3")
                                 
                 URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
+                    
+                    
                     guard let location = location, error == nil else {return }
                     do {
                         try FileManager.default.moveItem(at: location, to: destinationUrl)
                     } catch let error as NSError {
+                        print(destinationUrl)
                         print(error.localizedDescription)
                     }
                     
+                    DispatchQueue.main.async {
                     chaptersDownloaded+=1;
                     if(chaptersDownloaded == audioBook.FileFastIDS.count){
-                        DispatchQueue.main.async {
-                            print("Patenks")
+                        
                             saveBookInfo(audioBook: audioBook)
                             listener()
                         }
@@ -70,8 +74,8 @@ class DatabaseUtils{
     }
     
     public static func getDownloadedBooks() -> Results<AudioBook> {
+        
         let realm = try! Realm()
-      
         let results: Results<AudioBook> = realm.objects(AudioBook.self)
         return results
         
@@ -79,23 +83,26 @@ class DatabaseUtils{
 
     
     private static func saveBookInfo(audioBook: AudioBook){
-        let realm = try! Realm()
+
         print(Realm.Configuration.defaultConfiguration.fileURL?.path)
-        //Checking if a book entry exists
-        if(realm.objects(AudioBook.self).filter("Title == %@", audioBook.Title).count == 0){
-            print("book does not exist")
+        DispatchQueue.main.async {
+            let realm = try! Realm()
             try! realm.write {
-                realm.add(audioBook)
+                if(realm.objects(AudioBook.self).filter("Title == %@", audioBook.Title).count == 0){
+                    print("book does not exist")
+                    realm.add(audioBook)
+                }
             }
-        }else{
-            print("book DOES exist")
+            
         }
     }
     
     public static func deleteBookInfo(audioBook: AudioBook){
-        let realm = try! Realm()
-        try! realm.write {
-            realm.delete(audioBook)
+        DispatchQueue.main.async {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.delete(realm.objects(AudioBook.self).filter("ID=%@",audioBook.ID))
+            }
         }
     }
     
