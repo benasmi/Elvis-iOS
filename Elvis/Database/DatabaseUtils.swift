@@ -14,7 +14,6 @@ import RealmSwift
 let BaseURL: String = "http://elvis.labiblioteka.lt/app/";
 let taskID : Int = 0;
 class DatabaseUtils{
-
  
     static func Login(username: String, password: String, onFinishLoginListener:@escaping (_ success: Bool) -> Void ){
  
@@ -35,7 +34,7 @@ class DatabaseUtils{
         }
     }
     
-    static func downloadBooks(sessionID: String, audioBook: AudioBook, downloadFast: Bool, listener: @escaping ()->Void ){
+    static func downloadBooks(sessionID: String, audioBook: AudioBook, downloadFast: Bool, updateListener: @escaping (Int, Int)->Void ){
         
         var chaptersDownloaded = 0;
         
@@ -47,7 +46,7 @@ class DatabaseUtils{
                 let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
                 
                 let destinationUrl = documentsDirectoryURL.appendingPathComponent(id + ".mp3")
-                                
+                
                 URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
                     
                     
@@ -62,15 +61,19 @@ class DatabaseUtils{
                     DispatchQueue.main.async {
                     chaptersDownloaded+=1;
                     if(chaptersDownloaded == audioBook.FileFastIDS.count){
-                        
                             saveBookInfo(audioBook: audioBook)
-                            listener()
                         }
+                    }
+                    DispatchQueue.main.async {
+                        updateListener(chaptersDownloaded, audioBook.FileFastIDS.count)
                     }
                 }).resume()
                 
             }
         }
+        
+        
+        
     }
     
     public static func getDownloadedBooks() -> Results<AudioBook> {
@@ -100,8 +103,9 @@ class DatabaseUtils{
     public static func deleteBookInfo(audioBook: AudioBook){
         DispatchQueue.main.async {
             let realm = try! Realm()
+            let objToRemove = realm.objects(AudioBook.self).filter("ID=%@",audioBook.ID);
             try! realm.write {
-                realm.delete(realm.objects(AudioBook.self).filter("ID=%@",audioBook.ID))
+                realm.delete(audioBook)
             }
         }
     }
@@ -124,8 +128,9 @@ class DatabaseUtils{
             catch let error as NSError {
             }
             
-            listener()
         }
+        listener()
+
     }
     
     static func GetCookie(username: String, password: String, disabilities: String, onFinishLoginListener:@escaping (_ success: Bool) -> Void){

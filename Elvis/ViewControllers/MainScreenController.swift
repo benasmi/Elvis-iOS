@@ -9,9 +9,13 @@ import UIKit
 import SVProgressHUD
 import RealmSwift
 
-class MainScreenController: UIViewController {
+class MainScreenController: BaseViewController {
     
     let preferences = UserDefaults.standard
+    
+    @IBAction func changeTheme(_ sender: Any) {
+        NotificationCenter.default.post(name: .darkModeEnabled, object: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +27,7 @@ class MainScreenController: UIViewController {
     }
     
     @IBAction func newestBooks(_ sender: Any) {
-        let disabilities = Utils.readFromSharedPreferences(key: "haveDisabilities")
+        let disabilities = Utils.readFromSharedPreferences(key: "haveDisabilities") as! String
         DatabaseUtils.NewestBooks(haveDisabilities: disabilities, onFinishListener: onFinishListener(_:))
         SVProgressHUD.show(withStatus: "Ieškoma naujausių knygų")
         SVProgressHUD.setDefaultMaskType(.black)

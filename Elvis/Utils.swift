@@ -23,14 +23,14 @@ class Utils{
         viewController.present(alert, animated: true, completion: nil);
     }
     
-    static func writeToSharedPreferences(key: String, value: String){
+    static func writeToSharedPreferences(key: String, value: Any){
         let preferences = UserDefaults.standard
         preferences.set(value, forKey: key);
         preferences.synchronize()
     }
     
-    static func readFromSharedPreferences(key: String) -> String{
-        return UserDefaults.standard.object(forKey: key) as! String
+    static func readFromSharedPreferences(key: String) -> Any{
+        return UserDefaults.standard.object(forKey: key) as! Any
     }
     
     static func deleteFromSharedPreferences(key: String){

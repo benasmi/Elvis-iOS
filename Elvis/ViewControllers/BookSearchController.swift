@@ -26,7 +26,7 @@ class BookSearchController: UIViewController {
     }
     
     @IBAction func searchBooks(_ sender: Any) {
-        let haveDisabilities = Utils.readFromSharedPreferences(key: "haveDisabilities")
+        let haveDisabilities = Utils.readFromSharedPreferences(key: "haveDisabilities") as! String
         let anyWord = tv_anyWord.text as! String
         let announcingPerson = tv_announcingPerson.text as! String
         let name = tv_name.text as! String

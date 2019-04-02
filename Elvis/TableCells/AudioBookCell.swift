@@ -18,6 +18,9 @@ class AudioBookCell: UITableViewCell {
     @IBOutlet weak var bookAuthor: UILabel!
     @IBOutlet weak var bookAnouncer: UILabel!
     @IBOutlet weak var years: UILabel!
+    var delegate: SearchedBooksController!
+    var indexPath: IndexPath!
+    
     
     var sessionID: String!
     var book: AudioBook!
@@ -44,18 +47,25 @@ class AudioBookCell: UITableViewCell {
                 self.downloadBtn.setTitle("Siusti", for: [])
                 if(!self.bothExist){
                     DatabaseUtils.deleteBookInfo(audioBook: self.book)
+                    self.delegate.removeBook(at: self.indexPath)
                 }
                 SVProgressHUD.dismiss()
             })
         }else{
-            SVProgressHUD.show(withStatus: "Knyga siunciama...")
+            SVProgressHUD.show(withStatus: "Knyga siunciama (0/" + String(book.FileNormalIDS.count) + ")")
             SVProgressHUD.setDefaultMaskType(.black)
             //Downloading audio
-         
-                DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: false, listener: {
+            
+            DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: false, updateListener: { (chaptersDownloaded, totalChapters) in
+                    
+                SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Knyga siunciama (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
+                
+                if(chaptersDownloaded == totalChapters){
                     self.downloadBtn.setTitle("Istrinti", for: [])
                     SVProgressHUD.dismiss()
-                })
+                }
+
+            })
             
         }
     }
@@ -73,18 +83,24 @@ class AudioBookCell: UITableViewCell {
                 self.downloadFastBtn.setTitle("Siusti", for: [])
                 if(!self.bothExist){
                     DatabaseUtils.deleteBookInfo(audioBook: self.book)
+                    self.delegate.removeBook(at: self.indexPath)
                 }
                 SVProgressHUD.dismiss()
             })
         }else{
-            SVProgressHUD.show(withStatus: "Knyga siunciama...")
+            
+            SVProgressHUD.show(withStatus: "Knyga siunciama (0/" + String(book.FileFastIDS.count) + ")")
             SVProgressHUD.setDefaultMaskType(.black)
             //Downloading audio
             
-                DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: true, listener: {
+            DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: true, updateListener: { (chaptersDownloaded, totalChapters) in
+                
+                SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Knyga siunciama (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
+                if(chaptersDownloaded == totalChapters){
                     self.downloadFastBtn.setTitle("Istrinti", for: [])
                     SVProgressHUD.dismiss()
-                })
+                }
+            })
             
             
         }
@@ -121,7 +137,7 @@ class AudioBookCell: UITableViewCell {
         self.downloadFastBtn.setTitle(doesLocalVersionExist(IDsToCheck: book.FileFastIDS) ? "Istrinti" : "Siustis", for: [])
     }
     
-    //This only checks if all parts of the audiobook ar present in the file system. Such a method is not foolproof
+    
     func doesLocalVersionExist(IDsToCheck: List<String>) -> Bool{
         let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         

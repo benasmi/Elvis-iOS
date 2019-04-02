@@ -38,7 +38,7 @@ class PlayerController: UIViewController {
         super.viewDidLoad()
         
         chapters = createChapters(book: book)
-        sessionID = Utils.readFromSharedPreferences(key: "sessionID")
+        sessionID = Utils.readFromSharedPreferences(key: "sessionID") as! String
         
         progressSlider.addTarget(self, action: #selector(PlayerController.playbackSliderValueChanged(_:)), for: .valueChanged)
         
