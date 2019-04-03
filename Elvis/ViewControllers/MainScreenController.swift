@@ -9,17 +9,17 @@ import UIKit
 import SVProgressHUD
 import RealmSwift
 
-class MainScreenController: BaseViewController {
+class MainScreenController: UIViewController {
     
     let preferences = UserDefaults.standard
     
     @IBAction func changeTheme(_ sender: Any) {
-        NotificationCenter.default.post(name: .darkModeEnabled, object: nil)
+        Theme.toggleTheme(viewController: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
     
     @IBAction func back(_ sender: Any) {

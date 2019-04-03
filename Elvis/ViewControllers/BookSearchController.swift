@@ -21,6 +21,9 @@ class BookSearchController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    @IBAction func changeContrast(_ sender: Any) {
+        Theme.toggleTheme(viewController: self)
+    }
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }

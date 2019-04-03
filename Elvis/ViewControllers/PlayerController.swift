@@ -33,6 +33,9 @@ class PlayerController: UIViewController {
     @IBOutlet weak var tv_time: UILabel!
     @IBOutlet weak var chapterTextField: UITextField!
     
+    @IBAction func changeContrast(_ sender: Any) {
+        Theme.toggleTheme(viewController: self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

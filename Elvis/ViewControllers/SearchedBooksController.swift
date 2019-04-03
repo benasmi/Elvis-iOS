@@ -15,6 +15,9 @@ class SearchedBooksController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    @IBAction func changeContrast(_ sender: Any) {
+        Theme.toggleTheme(viewController: self)
+    }
     
     @IBAction func back(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -40,7 +43,7 @@ extension SearchedBooksController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if(books.count == 0){
-            let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            let noDataLabel: UILabelPrimary  = UILabelPrimary(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
             noDataLabel.text          = "Knygu nerasta"
             noDataLabel.textColor     = UIColor.black
             noDataLabel.textAlignment = .center

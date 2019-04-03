@@ -9,12 +9,6 @@
 import UIKit
 import Foundation
 
-
-extension Notification.Name {
-    static let darkModeEnabled = Notification.Name("net.sltch.vcoin.notifications.darkModeEnabled")
-    static let darkModeDisabled = Notification.Name("net.sltch.vcoin.notifications.darkModeDisabled")
-}
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -24,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UIApplication.shared.statusBarStyle = .lightContent
+        Theme.setUp()
         return true
     }
     

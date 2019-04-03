@@ -12,7 +12,7 @@ import SVProgressHUD
 import RealmSwift
 
 
-class AudioBookCell: UITableViewCell {
+class AudioBookCell: UICell {
     
     @IBOutlet weak var bookTitle: UILabel!
     @IBOutlet weak var bookAuthor: UILabel!

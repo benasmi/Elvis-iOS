@@ -25,7 +25,8 @@
 		01A82A0D2243964300D89105 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A82A0C2243964300D89105 /* DesignableView.swift */; };
 		01AE1855224669A70009C89D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE1854224669A70009C89D /* Utils.swift */; };
 		01AE185822466B8E0009C89D /* DatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE185722466B8E0009C89D /* DatabaseUtils.swift */; };
-		2AC94E792253DD0200552C34 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC94E782253DD0200552C34 /* BaseViewController.swift */; };
+		2A2B4E6D2253FBDA009EDBC9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B4E6C2253FBDA009EDBC9 /* Theme.swift */; };
+		2A2B4E722254D9D3009EDBC9 /* UIClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B4E712254D9D3009EDBC9 /* UIClasses.swift */; };
 		353FD1A3803F5F5EF7D4299D /* Pods_Elvis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,7 +72,8 @@
 		01A82A0C2243964300D89105 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		01AE1854224669A70009C89D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		01AE185722466B8E0009C89D /* DatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUtils.swift; sourceTree = "<group>"; };
-		2AC94E782253DD0200552C34 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		2A2B4E6C2253FBDA009EDBC9 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		2A2B4E712254D9D3009EDBC9 /* UIClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIClasses.swift; sourceTree = "<group>"; };
 		D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Elvis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFD4F585C2A488F07335CF37 /* Pods-Elvis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.debug.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.debug.xcconfig"; sourceTree = "<group>"; };
 		E5338918A7A70243F52EB220 /* Pods-Elvis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.release.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.release.xcconfig"; sourceTree = "<group>"; };
@@ -119,7 +121,6 @@
 				01A52EE72245057E002982CF /* MainScreenController.swift */,
 				01A829E022438F0B00D89105 /* ViewController.swift */,
 				0123C5BC224A5F6F006DEFF1 /* PlayerController.swift */,
-				2AC94E782253DD0200552C34 /* BaseViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -174,6 +175,7 @@
 		01A829DD22438F0B00D89105 /* Elvis */ = {
 			isa = PBXGroup;
 			children = (
+				2A2B4E6E2254013B009EDBC9 /* CustomViews */,
 				0123C5BB224843C2006DEFF1 /* PLists */,
 				01AE185622466B700009C89D /* Database */,
 				0141B5D4224537E500915C48 /* TableCells */,
@@ -186,6 +188,7 @@
 				01A829E722438F0D00D89105 /* LaunchScreen.storyboard */,
 				01A829EA22438F0D00D89105 /* Info.plist */,
 				01AE1854224669A70009C89D /* Utils.swift */,
+				2A2B4E6C2253FBDA009EDBC9 /* Theme.swift */,
 			);
 			path = Elvis;
 			sourceTree = "<group>";
@@ -222,6 +225,14 @@
 				D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A2B4E6E2254013B009EDBC9 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				2A2B4E712254D9D3009EDBC9 /* UIClasses.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		AF21FBCF73E2D0C2DB82797D /* Pods */ = {
@@ -426,7 +437,6 @@
 				0123C5BD224A5F6F006DEFF1 /* PlayerController.swift in Sources */,
 				01AE1855224669A70009C89D /* Utils.swift in Sources */,
 				01A829DF22438F0B00D89105 /* AppDelegate.swift in Sources */,
-				2AC94E792253DD0200552C34 /* BaseViewController.swift in Sources */,
 				0141B5CE2245322200915C48 /* AudioBookCell.swift in Sources */,
 				01A52EE82245057E002982CF /* MainScreenController.swift in Sources */,
 				0123C5BA22484270006DEFF1 /* RegistrationController.swift in Sources */,
@@ -435,6 +445,8 @@
 				01563558224D017200E159E7 /* AudioBookIDS.swift in Sources */,
 				0141B5CA22451D9400915C48 /* BookSearchController.swift in Sources */,
 				01A82A0D2243964300D89105 /* DesignableView.swift in Sources */,
+				2A2B4E6D2253FBDA009EDBC9 /* Theme.swift in Sources */,
+				2A2B4E722254D9D3009EDBC9 /* UIClasses.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
