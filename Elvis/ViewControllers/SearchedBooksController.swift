@@ -14,6 +14,7 @@ class SearchedBooksController: UIViewController {
     var books : [AudioBook] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
     }
     @IBAction func changeContrast(_ sender: Any) {
         Theme.toggleTheme(viewController: self)

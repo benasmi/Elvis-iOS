@@ -9,16 +9,28 @@ import UIKit
 import SVProgressHUD
 import RealmSwift
 
+
 class MainScreenController: UIViewController {
     
     let preferences = UserDefaults.standard
+    
+
+    
+    @IBOutlet weak var listenHistoryBtn: UIButtonDefault!
+    @IBOutlet weak var searchBooksBtn: UIButtonDefault!
+    @IBOutlet weak var newestPublicationsBtn: UIButtonDefault!
+    @IBOutlet weak var messagesBtn: UIButtonDefault!
+    @IBOutlet weak var downloadsBtn: UIButtonDefault!
+    
     
     @IBAction func changeTheme(_ sender: Any) {
         Theme.toggleTheme(viewController: self)
     }
     
     override func viewDidLoad() {
+        applyAccesibility()
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         
     }
     
@@ -82,6 +94,36 @@ class MainScreenController: UIViewController {
         
         // Present dialog message to user
         viewController.present(dialogMessage, animated: true, completion: nil)
+    }
+    
+}
+
+extension MainScreenController{
+    func applyAccesibility(){
+        
+        listenHistoryBtn.isAccessibilityElement = true
+        listenHistoryBtn.accessibilityLabel = "Your listening history"
+        listenHistoryBtn.accessibilityTraits = .button
+        
+        searchBooksBtn.isAccessibilityElement = true
+        searchBooksBtn.accessibilityLabel = "Books search"
+        searchBooksBtn.accessibilityTraits = .button
+        
+        
+        newestPublicationsBtn.isAccessibilityElement = true
+        newestPublicationsBtn.accessibilityLabel = "Newest publications"
+        newestPublicationsBtn.accessibilityTraits = .button
+        
+        messagesBtn.isAccessibilityElement = true
+        messagesBtn.accessibilityLabel = "Messages button"
+        messagesBtn.accessibilityValue = "click here to see and send messages"
+        messagesBtn.accessibilityTraits = .button
+        
+        downloadsBtn.isAccessibilityElement = true
+        downloadsBtn.accessibilityLabel = "Downloaded books"
+        downloadsBtn.accessibilityTraits = .button
+        
+        
     }
     
 }

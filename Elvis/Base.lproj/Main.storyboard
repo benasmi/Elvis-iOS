@@ -22,15 +22,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Bv-Gf-ttF">
                                 <rect key="frame" x="0.0" y="78" width="375" height="511"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ElvisIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fow-5g-oHs">
-                                        <rect key="frame" x="123.5" y="20" width="128" height="128"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ElvisIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fow-5g-oHs">
+                                        <rect key="frame" x="133" y="0.0" width="109" height="117"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="fow-5g-oHs" secondAttribute="height" multiplier="1:1" id="MFv-ah-CXj"/>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="128" id="Mrx-oV-xBx"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRISIJUNGIMO VARDAS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SK7-H2-VfU">
-                                        <rect key="frame" x="53" y="170" width="269" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRISIJUNGIMO VARDAS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="SK7-H2-VfU">
+                                        <rect key="frame" x="53" y="160" width="269" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="6R1-Iq-8oF"/>
                                         </constraints>
@@ -38,57 +38,13 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pax-77-GQ9">
-                                        <rect key="frame" x="50" y="208" width="275" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="wBu-nr-ZHb"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits" textContentType="username"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" name="ColorAccent"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="2"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLAPTAŽODIS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2z6-Uv-ZhN">
-                                        <rect key="frame" x="106.5" y="259" width="162" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="eTD-Mi-QXs"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="uzR-mK-f1Q"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cTH-jv-n3q">
-                                        <rect key="frame" x="50" y="297" width="275" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="l9g-w8-Nak"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" name="ColorAccent"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="2"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rcx-OS-Dhb" customClass="DesignableButton" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="50" y="363" width="275" height="60"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rcx-OS-Dhb" customClass="DesignableButton" customModule="Elvis" customModuleProvider="target">
+                                        <rect key="frame" x="50" y="377" width="275" height="60"/>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.61176470589999998" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="bkt-fV-s7K"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <state key="normal" title="PRISIJUNGTI">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -102,10 +58,10 @@
                                             <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="noS-TC-Zj1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saQ-pp-Vh6">
-                                        <rect key="frame" x="50" y="431" width="275" height="60"/>
+                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saQ-pp-Vh6">
+                                        <rect key="frame" x="50" y="447" width="275" height="64"/>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.61176470589999998" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <state key="normal" title="REGISTRUOTIS">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -119,13 +75,48 @@
                                             <segue destination="0xI-Yj-fUR" kind="show" id="N6F-wi-y2c"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="Pax-77-GQ9">
+                                        <rect key="frame" x="50" y="198" width="275" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="wBu-nr-ZHb"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <textInputTraits key="textInputTraits" textContentType="username"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" name="ColorAccent"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="cTH-jv-n3q">
+                                        <rect key="frame" x="50" y="307" width="275" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="l9g-w8-Nak"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" name="ColorAccent"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Rcx-OS-Dhb" firstAttribute="top" secondItem="cTH-jv-n3q" secondAttribute="bottom" constant="36" id="0VQ-tn-k78"/>
+                                    <constraint firstItem="Rcx-OS-Dhb" firstAttribute="top" secondItem="cTH-jv-n3q" secondAttribute="bottom" constant="20" id="0VQ-tn-k78"/>
                                     <constraint firstItem="Pax-77-GQ9" firstAttribute="centerX" secondItem="4Bv-Gf-ttF" secondAttribute="centerX" id="1mP-AU-MhN"/>
-                                    <constraint firstItem="2z6-Uv-ZhN" firstAttribute="top" secondItem="Pax-77-GQ9" secondAttribute="bottom" constant="21" id="9Rt-PX-Y4G"/>
-                                    <constraint firstItem="saQ-pp-Vh6" firstAttribute="top" secondItem="Rcx-OS-Dhb" secondAttribute="bottom" constant="8" id="BBo-in-rDz"/>
+                                    <constraint firstItem="saQ-pp-Vh6" firstAttribute="top" secondItem="Rcx-OS-Dhb" secondAttribute="bottom" constant="10" id="BBo-in-rDz"/>
                                     <constraint firstItem="saQ-pp-Vh6" firstAttribute="leading" secondItem="4Bv-Gf-ttF" secondAttribute="leading" constant="50" id="C0V-6h-gKi"/>
                                     <constraint firstItem="cTH-jv-n3q" firstAttribute="leading" secondItem="4Bv-Gf-ttF" secondAttribute="leading" constant="50" id="Dxz-jd-HwS"/>
                                     <constraint firstItem="SK7-H2-VfU" firstAttribute="top" secondItem="fow-5g-oHs" secondAttribute="bottom" constant="22" id="GbI-NG-DjI"/>
@@ -133,11 +124,9 @@
                                     <constraint firstAttribute="trailing" secondItem="saQ-pp-Vh6" secondAttribute="trailing" constant="50" id="PVx-XE-3xH"/>
                                     <constraint firstItem="cTH-jv-n3q" firstAttribute="centerX" secondItem="4Bv-Gf-ttF" secondAttribute="centerX" id="RbJ-7e-JxP"/>
                                     <constraint firstAttribute="trailing" secondItem="cTH-jv-n3q" secondAttribute="trailing" constant="50" id="UAY-TQ-RCv"/>
-                                    <constraint firstAttribute="bottom" secondItem="saQ-pp-Vh6" secondAttribute="bottom" constant="20" id="V0z-qv-t99"/>
-                                    <constraint firstItem="fow-5g-oHs" firstAttribute="top" secondItem="4Bv-Gf-ttF" secondAttribute="top" constant="20" id="eup-08-TzT"/>
+                                    <constraint firstAttribute="bottom" secondItem="saQ-pp-Vh6" secondAttribute="bottom" id="V0z-qv-t99"/>
+                                    <constraint firstItem="fow-5g-oHs" firstAttribute="top" secondItem="4Bv-Gf-ttF" secondAttribute="top" constant="10" id="eup-08-TzT"/>
                                     <constraint firstItem="Pax-77-GQ9" firstAttribute="top" secondItem="SK7-H2-VfU" secondAttribute="bottom" constant="8" id="hmo-sL-5TP"/>
-                                    <constraint firstItem="cTH-jv-n3q" firstAttribute="top" secondItem="2z6-Uv-ZhN" secondAttribute="bottom" constant="8" id="lfh-b9-E2Y"/>
-                                    <constraint firstItem="2z6-Uv-ZhN" firstAttribute="centerX" secondItem="4Bv-Gf-ttF" secondAttribute="centerX" id="lih-dG-bAk"/>
                                     <constraint firstItem="Pax-77-GQ9" firstAttribute="leading" secondItem="4Bv-Gf-ttF" secondAttribute="leading" constant="50" id="qe7-4O-GAI"/>
                                     <constraint firstAttribute="trailing" secondItem="Pax-77-GQ9" secondAttribute="trailing" constant="50" id="qp5-qx-xnc"/>
                                     <constraint firstItem="saQ-pp-Vh6" firstAttribute="centerX" secondItem="4Bv-Gf-ttF" secondAttribute="centerX" id="s3X-Vw-YyP"/>
@@ -148,16 +137,6 @@
                                     <constraint firstAttribute="height" constant="511" id="xDf-Rd-4ga"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjr-Cc-01P">
-                                <rect key="frame" x="0.0" y="592" width="375" height="75"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="Kra-SL-kho"/>
-                                </constraints>
-                                <string key="text">ELVIS - elektroninių leidinių valdymo informacinė sistema, skirta centralizuotai kaupti, tvarkyti ir teikti skaitytojams garsinius ir kitus skaitmeninio formato leidinius</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1w-W2-Abo" userLabel="StatusBar">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
                                 <color key="backgroundColor" name="Toolbar"/>
@@ -165,29 +144,42 @@
                                     <constraint firstAttribute="height" constant="20" id="71p-Z1-qk8"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLAPTAŽODIS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="2z6-Uv-ZhN">
+                                <rect key="frame" x="106.5" y="347" width="162" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="eTD-Mi-QXs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="2z6-Uv-ZhN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Oc-eN-h0u"/>
                             <constraint firstItem="a1w-W2-Abo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9mm-h0-GVv"/>
                             <constraint firstItem="4Bv-Gf-ttF" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="AHH-cE-7xB"/>
                             <constraint firstAttribute="trailing" secondItem="a1w-W2-Abo" secondAttribute="trailing" id="TPO-yl-ClA"/>
+                            <constraint firstItem="cTH-jv-n3q" firstAttribute="top" secondItem="2z6-Uv-ZhN" secondAttribute="bottom" constant="8" id="WL0-4a-H3h"/>
                             <constraint firstItem="4Bv-Gf-ttF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WVz-J5-xCx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4Bv-Gf-ttF" secondAttribute="trailing" id="Wvi-bk-IRH"/>
-                            <constraint firstItem="vjr-Cc-01P" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="b2W-4g-YQ9"/>
                             <constraint firstItem="a1w-W2-Abo" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="fFq-DZ-QH8"/>
-                            <constraint firstItem="vjr-Cc-01P" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="z4S-YS-fCu"/>
-                            <constraint firstItem="vjr-Cc-01P" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="zSy-2s-5kZ"/>
+                            <constraint firstItem="2z6-Uv-ZhN" firstAttribute="top" secondItem="Pax-77-GQ9" secondAttribute="bottom" constant="21" id="zT1-dB-ipx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="Rcx-OS-Dhb" id="hZn-jr-pld"/>
                         <outlet property="password" destination="cTH-jv-n3q" id="PsW-Lo-aRd"/>
+                        <outlet property="registerButton" destination="saQ-pp-Vh6" id="H1z-Pl-PAg"/>
+                        <outlet property="tv_password" destination="2z6-Uv-ZhN" id="lhi-SS-I2s"/>
+                        <outlet property="tv_username" destination="SK7-H2-VfU" id="0d7-Ce-NYI"/>
                         <outlet property="username" destination="Pax-77-GQ9" id="nem-wP-dgb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-713" y="28"/>
+            <point key="canvasLocation" x="-714.39999999999998" y="27.436281859070466"/>
         </scene>
         <!--Registration Controller-->
         <scene sceneID="YuI-3P-YhT">
@@ -210,7 +202,7 @@
                                         <rect key="frame" x="8" y="3" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="ArrowBack"/>
+                                        <state key="normal" backgroundImage="GoBackButton"/>
                                         <connections>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="B8e-A1-woK"/>
                                             <action selector="back:" destination="0xI-Yj-fUR" eventType="touchUpInside" id="Lfh-s9-w5p"/>
@@ -253,7 +245,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="7De-O5-dDv">
-                                <rect key="frame" x="10" y="80" width="355" height="410"/>
+                                <rect key="frame" x="10" y="100" width="355" height="410"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4h0-G0-87N" customClass="UIButtonDefault" customModule="Elvis" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="58"/>
@@ -261,8 +253,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="58" id="Qaz-i8-hS8"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <state key="normal" title="P. SKAITYTI LEIDINIAI">
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <state key="normal" title="SKAITYTI LEIDINIAI">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
@@ -278,7 +270,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="58" id="1Qa-kQ-Ong"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <state key="normal" title="LEIDINIŲ PAIEŠKA">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -298,7 +290,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="58" id="Nk0-uO-ZsY"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <state key="normal" title="NAUJAUSI LEIDINIAI">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -318,7 +310,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="58" id="cfB-Fv-kwk"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <state key="normal" title="ŽINUTĖS">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -335,7 +327,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="58" id="paV-e0-Ton"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <state key="normal" title="ATSISIUNTIMAI">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -352,25 +344,25 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n2W-Fh-Zvx" userLabel="Toolbar" customClass="UITopBar" customModule="Elvis" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m5x-Wf-PH5" userLabel="ToolbarBack" customClass="UIImageButton" customModule="Elvis">
-                                        <rect key="frame" x="10" y="7.5" width="25" height="25"/>
+                                        <rect key="frame" x="10" y="7.5" width="45" height="45"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="10H-LC-lY5"/>
-                                            <constraint firstAttribute="height" constant="25" id="vaO-30-zsi"/>
+                                            <constraint firstAttribute="width" constant="45" id="10H-LC-lY5"/>
+                                            <constraint firstAttribute="height" constant="45" id="vaO-30-zsi"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="ArrowBack"/>
+                                        <state key="normal" backgroundImage="GoBackButton"/>
                                         <connections>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="SeY-NX-zVf"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z88-xn-N3K" userLabel="Contrast" customClass="UIImageButton" customModule="Elvis">
-                                        <rect key="frame" x="340" y="7.5" width="25" height="25"/>
+                                        <rect key="frame" x="320" y="7.5" width="45" height="45"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="31K-5c-IqP"/>
-                                            <constraint firstAttribute="width" constant="25" id="QPk-5g-yrf"/>
+                                            <constraint firstAttribute="height" constant="45" id="31K-5c-IqP"/>
+                                            <constraint firstAttribute="width" constant="45" id="QPk-5g-yrf"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="Contrast"/>
@@ -379,7 +371,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pagrindinis" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vgD-oc-4cU" customClass="UITopLabel" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="139.5" y="8" width="96" height="24"/>
+                                        <rect key="frame" x="139.5" y="18" width="96" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -387,7 +379,7 @@
                                 </subviews>
                                 <color key="backgroundColor" name="Toolbar"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="IG9-eh-W4n"/>
+                                    <constraint firstAttribute="height" constant="60" id="IG9-eh-W4n"/>
                                     <constraint firstItem="vgD-oc-4cU" firstAttribute="centerX" secondItem="n2W-Fh-Zvx" secondAttribute="centerX" id="LiQ-pU-CpU"/>
                                     <constraint firstAttribute="trailing" secondItem="z88-xn-N3K" secondAttribute="trailing" constant="10" id="Qbc-Eq-f7k"/>
                                     <constraint firstItem="vgD-oc-4cU" firstAttribute="centerY" secondItem="n2W-Fh-Zvx" secondAttribute="centerY" id="R5j-VF-3UQ"/>
@@ -418,6 +410,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Djl-OB-lPH"/>
                     </view>
+                    <connections>
+                        <outlet property="downloadsBtn" destination="Wsu-kI-wQj" id="a8E-Nq-tbN"/>
+                        <outlet property="listenHistoryBtn" destination="4h0-G0-87N" id="GnY-ud-aBU"/>
+                        <outlet property="messagesBtn" destination="BIA-hr-Hs9" id="RMm-6M-lpQ"/>
+                        <outlet property="newestPublicationsBtn" destination="3pC-2w-b0g" id="6bL-yg-s3T"/>
+                        <outlet property="searchBooksBtn" destination="KPx-WJ-I3V" id="PxN-TL-Bq5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HR8-wv-CHX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -432,26 +431,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6F-fv-Dv1" userLabel="Toolbar" customClass="UITopBar" customModule="Elvis" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PaH-nl-xaD" userLabel="ToolbarBack">
-                                        <rect key="frame" x="10" y="7.5" width="25" height="25"/>
+                                        <rect key="frame" x="10" y="8" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="fy7-6W-NYU"/>
-                                            <constraint firstAttribute="width" constant="25" id="wHR-Rk-h65"/>
+                                            <constraint firstAttribute="height" constant="44" id="fy7-6W-NYU"/>
+                                            <constraint firstAttribute="width" constant="44" id="wHR-Rk-h65"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="ArrowBack"/>
+                                        <state key="normal" backgroundImage="GoBackButton"/>
                                         <connections>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="OO3-bq-0e0"/>
                                             <action selector="back:" destination="MM3-Un-QQz" eventType="touchUpInside" id="yet-hK-Lvx"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFu-rx-7GL" userLabel="Contrast">
-                                        <rect key="frame" x="340" y="7.5" width="25" height="25"/>
+                                        <rect key="frame" x="321" y="8" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="S0A-Lz-ABX"/>
-                                            <constraint firstAttribute="height" constant="25" id="lsd-jQ-DaX"/>
+                                            <constraint firstAttribute="width" constant="44" id="S0A-Lz-ABX"/>
+                                            <constraint firstAttribute="height" constant="44" id="lsd-jQ-DaX"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="Contrast"/>
@@ -460,7 +459,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leidinių paieška" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYl-di-Lxb" customClass="UITopLabel" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="118" y="8" width="139.5" height="24"/>
+                                        <rect key="frame" x="118" y="18" width="139.5" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -469,7 +468,7 @@
                                 <color key="backgroundColor" name="Toolbar"/>
                                 <constraints>
                                     <constraint firstItem="PaH-nl-xaD" firstAttribute="centerY" secondItem="M6F-fv-Dv1" secondAttribute="centerY" id="1TL-Qy-p9m"/>
-                                    <constraint firstAttribute="height" constant="40" id="95M-2a-aOb"/>
+                                    <constraint firstAttribute="height" constant="60" id="95M-2a-aOb"/>
                                     <constraint firstAttribute="trailing" secondItem="lFu-rx-7GL" secondAttribute="trailing" constant="10" id="CWI-HK-33T"/>
                                     <constraint firstItem="lFu-rx-7GL" firstAttribute="centerY" secondItem="M6F-fv-Dv1" secondAttribute="centerY" id="XvH-VP-vcE"/>
                                     <constraint firstItem="YYl-di-Lxb" firstAttribute="centerY" secondItem="M6F-fv-Dv1" secondAttribute="centerY" id="i4J-4k-9Ad"/>
@@ -484,8 +483,8 @@
                                     <constraint firstAttribute="height" constant="20" id="TV8-pE-4Jc"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="G1r-e8-tUv">
-                                <rect key="frame" x="0.0" y="80" width="375" height="496"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="G1r-e8-tUv">
+                                <rect key="frame" x="0.0" y="100" width="375" height="490"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BET KOKS ŽODIS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnE-fe-ukq" customClass="UILabelPrimary" customModule="Elvis" customModuleProvider="target">
                                         <rect key="frame" x="91" y="0.0" width="193" height="30"/>
@@ -494,9 +493,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YpA-C5-Uq7" customClass="UITextFieldPrimary" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="50" y="52" width="275" height="30"/>
+                                        <rect key="frame" x="50" y="45" width="275" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="aDO-Y6-AGr"/>
+                                            <constraint firstAttribute="height" constant="50" id="aDO-Y6-AGr"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -511,15 +510,15 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ANTRAŠTĖ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lzg-22-8UF" customClass="UILabelPrimary" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="125" y="104" width="125" height="30"/>
+                                        <rect key="frame" x="125" y="110" width="125" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fBD-bV-L83" customClass="UITextFieldPrimary" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="50" y="156" width="275" height="40"/>
+                                        <rect key="frame" x="50" y="155" width="275" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="Tuy-Kp-gsW"/>
+                                            <constraint firstAttribute="height" constant="50" id="Tuy-Kp-gsW"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -534,15 +533,15 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ASMENVARDIS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2XW-28-rm9" customClass="UILabelPrimary" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="103" y="218" width="169" height="30"/>
+                                        <rect key="frame" x="103" y="220" width="169" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xaR-uT-QLH" customClass="UITextFieldPrimary" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="50" y="270" width="275" height="40"/>
+                                        <rect key="frame" x="50" y="265" width="275" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="vea-y3-ZbC"/>
+                                            <constraint firstAttribute="height" constant="50" id="vea-y3-ZbC"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -557,15 +556,15 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DIKTORIUS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4WE-6P-SPn" customClass="UILabelPrimary" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="124.5" y="332" width="126" height="30"/>
+                                        <rect key="frame" x="124.5" y="330" width="126" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="djZ-ZG-HKZ" customClass="UITextFieldPrimary" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="50" y="384" width="275" height="40"/>
+                                        <rect key="frame" x="50" y="375" width="275" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="rms-jC-6QR"/>
+                                            <constraint firstAttribute="height" constant="50" id="rms-jC-6QR"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -580,7 +579,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aF6-uj-lQ7">
-                                        <rect key="frame" x="50" y="446" width="275" height="50"/>
+                                        <rect key="frame" x="50" y="440" width="275" height="50"/>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.61176470589999998" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="aJN-uk-jvi"/>
@@ -633,6 +632,11 @@
                         <viewLayoutGuide key="safeArea" id="JBM-Jo-d0d"/>
                     </view>
                     <connections>
+                        <outlet property="btnSeachBooks" destination="aF6-uj-lQ7" id="2QO-AO-Z6B"/>
+                        <outlet property="lblAnouncingPerson" destination="2XW-28-rm9" id="ftl-EE-4uR"/>
+                        <outlet property="lblAnyword" destination="jnE-fe-ukq" id="EQE-Ce-kpN"/>
+                        <outlet property="lblDictor" destination="4WE-6P-SPn" id="EVt-EZ-TqB"/>
+                        <outlet property="lblTitle" destination="Lzg-22-8UF" id="bOu-Fe-8On"/>
                         <outlet property="tv_announcingPerson" destination="djZ-ZG-HKZ" id="vJX-zm-orU"/>
                         <outlet property="tv_anyWord" destination="YpA-C5-Uq7" id="EUd-y7-T2f"/>
                         <outlet property="tv_name" destination="xaR-uT-QLH" id="qz0-C7-cYB"/>
@@ -652,16 +656,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLa-WY-72O" userLabel="Toolbar" customClass="UITopBar" customModule="Elvis" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QzZ-rw-DUj" userLabel="ToolbarBack">
-                                        <rect key="frame" x="10" y="7.5" width="25" height="25"/>
+                                        <rect key="frame" x="10" y="8" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="LlP-b3-Cul"/>
-                                            <constraint firstAttribute="width" constant="25" id="Ne3-oa-2eb"/>
+                                            <constraint firstAttribute="height" constant="44" id="LlP-b3-Cul"/>
+                                            <constraint firstAttribute="width" constant="44" id="Ne3-oa-2eb"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="ArrowBack"/>
+                                        <state key="normal" backgroundImage="GoBackButton"/>
                                         <connections>
                                             <action selector="back:" destination="d1L-CD-3CS" eventType="touchUpInside" id="KFh-V8-fay"/>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="Rq4-k4-j7h"/>
@@ -669,10 +673,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUQ-bG-xTn" userLabel="Contrast">
-                                        <rect key="frame" x="340" y="7.5" width="25" height="25"/>
+                                        <rect key="frame" x="321" y="8" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="HIy-yG-5GJ"/>
-                                            <constraint firstAttribute="width" constant="25" id="r4G-O2-A6u"/>
+                                            <constraint firstAttribute="height" constant="44" id="HIy-yG-5GJ"/>
+                                            <constraint firstAttribute="width" constant="44" id="r4G-O2-A6u"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="Contrast"/>
@@ -681,7 +685,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paieškos rezultatai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufn-FT-Jya" customClass="UITopLabel" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="107" y="8" width="161" height="24"/>
+                                        <rect key="frame" x="107" y="18" width="161" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -690,7 +694,7 @@
                                 <color key="backgroundColor" name="Toolbar"/>
                                 <constraints>
                                     <constraint firstItem="ufn-FT-Jya" firstAttribute="centerX" secondItem="QLa-WY-72O" secondAttribute="centerX" id="5Tz-KR-9pp"/>
-                                    <constraint firstAttribute="height" constant="40" id="Irk-bh-tha"/>
+                                    <constraint firstAttribute="height" constant="60" id="Irk-bh-tha"/>
                                     <constraint firstItem="CUQ-bG-xTn" firstAttribute="centerY" secondItem="QLa-WY-72O" secondAttribute="centerY" id="ZmZ-uG-Vwf"/>
                                     <constraint firstItem="QzZ-rw-DUj" firstAttribute="centerY" secondItem="QLa-WY-72O" secondAttribute="centerY" id="e2N-lW-ZXq"/>
                                     <constraint firstItem="QzZ-rw-DUj" firstAttribute="leading" secondItem="QLa-WY-72O" secondAttribute="leading" constant="10" id="hJD-at-IpC"/>
@@ -705,16 +709,16 @@
                                     <constraint firstAttribute="height" constant="20" id="2Ch-be-sOT"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="220" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UyU-Vh-62u" customClass="UITableViewBackground" customModule="Elvis" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="250" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UyU-Vh-62u" customClass="UITableViewBackground" customModule="Elvis" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="30" minY="0.0" maxX="30" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioBookCell" rowHeight="220" id="T23-tv-tgt" customClass="AudioBookCell" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="220"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioBookCell" rowHeight="240" id="T23-tv-tgt" customClass="AudioBookCell" customModule="Elvis" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="240"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T23-tv-tgt" id="GnU-YV-apj">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="220"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mažasis princas:pasaka" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5P-Ne-Q3z" customClass="UILabelPrimary" customModule="Elvis" customModuleProvider="target">
@@ -742,13 +746,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="47d-FK-dim">
-                                                    <rect key="frame" x="15" y="121" width="130" height="35"/>
+                                                    <rect key="frame" x="15" y="121" width="130" height="50"/>
                                                     <color key="backgroundColor" name="ColorAccent"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="4CS-sq-bmU"/>
+                                                        <constraint firstAttribute="height" constant="50" id="4CS-sq-bmU"/>
                                                         <constraint firstAttribute="width" constant="130" id="6ds-8s-eET"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <state key="normal" title="KLAUSYTIS">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -757,12 +761,13 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPx-GL-39X" customClass="UIButtonSecondary" customModule="Elvis" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="163" width="130" height="35"/>
+                                                    <rect key="frame" x="15" y="178" width="130" height="50"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="GHa-54-7vq"/>
+                                                        <constraint firstAttribute="height" constant="50" id="GHa-54-7vq"/>
                                                         <constraint firstAttribute="width" constant="130" id="h60-o7-R9C"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <state key="normal" title="SIŲSTIS">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -771,14 +776,14 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qV0-ZL-Hol">
-                                                    <rect key="frame" x="160" y="121" width="200" height="35"/>
+                                                    <rect key="frame" x="160" y="121" width="200" height="50"/>
                                                     <color key="backgroundColor" name="ColorAccent"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="3OR-Ie-g7c"/>
-                                                        <constraint firstAttribute="height" constant="35" id="Igg-uE-HSG"/>
+                                                        <constraint firstAttribute="height" constant="50" id="Igg-uE-HSG"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <state key="normal" title="KLAUSYTIS PAGREITINTĄ">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <state key="normal" title="KLAUSYTI PAGREITINTĄ">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
@@ -786,12 +791,13 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FiH-up-qPd" customClass="UIButtonSecondary" customModule="Elvis" customModuleProvider="target">
-                                                    <rect key="frame" x="160" y="163" width="200" height="35"/>
+                                                    <rect key="frame" x="160" y="178" width="200" height="50"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="bfX-BM-zAF"/>
-                                                        <constraint firstAttribute="height" constant="35" id="uGF-ll-t2v"/>
+                                                        <constraint firstAttribute="height" constant="50" id="uGF-ll-t2v"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <state key="normal" title="SIŲSTIS PAGREITINTĄ">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -888,16 +894,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TYe-A0-KLz" userLabel="Toolbar" customClass="UITopBar" customModule="Elvis" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzi-g0-DZp" userLabel="ToolbarBack">
-                                        <rect key="frame" x="10" y="7.5" width="25" height="25"/>
+                                        <rect key="frame" x="10" y="8" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="DMD-xJ-1cG"/>
-                                            <constraint firstAttribute="width" constant="25" id="dYh-sI-vdo"/>
+                                            <constraint firstAttribute="height" constant="44" id="DMD-xJ-1cG"/>
+                                            <constraint firstAttribute="width" constant="44" id="dYh-sI-vdo"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="ArrowBack"/>
+                                        <state key="normal" backgroundImage="GoBackButton"/>
                                         <connections>
                                             <action selector="back:" destination="MM3-Un-QQz" eventType="touchUpInside" id="6BZ-Li-8fg"/>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="aBP-qw-ljj"/>
@@ -905,10 +911,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dq-Xs-07T" userLabel="Contrast">
-                                        <rect key="frame" x="340" y="7.5" width="25" height="25"/>
+                                        <rect key="frame" x="321" y="8" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="KqZ-aH-hHH"/>
-                                            <constraint firstAttribute="height" constant="25" id="auV-qi-tTm"/>
+                                            <constraint firstAttribute="width" constant="44" id="KqZ-aH-hHH"/>
+                                            <constraint firstAttribute="height" constant="44" id="auV-qi-tTm"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="Contrast"/>
@@ -917,7 +923,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grotuvas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SzW-Rc-uuB" customClass="UITopLabel" customModule="Elvis" customModuleProvider="target">
-                                        <rect key="frame" x="148" y="8" width="79" height="24"/>
+                                        <rect key="frame" x="148" y="18" width="79" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -925,7 +931,7 @@
                                 </subviews>
                                 <color key="backgroundColor" name="Toolbar"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="44Q-h6-8TX"/>
+                                    <constraint firstAttribute="height" constant="60" id="44Q-h6-8TX"/>
                                     <constraint firstItem="SzW-Rc-uuB" firstAttribute="centerY" secondItem="TYe-A0-KLz" secondAttribute="centerY" id="7SM-lx-tPh"/>
                                     <constraint firstItem="hzi-g0-DZp" firstAttribute="centerY" secondItem="TYe-A0-KLz" secondAttribute="centerY" id="Mex-hl-YYB"/>
                                     <constraint firstItem="hzi-g0-DZp" firstAttribute="leading" secondItem="TYe-A0-KLz" secondAttribute="leading" constant="10" id="RLg-Xo-azz"/>
@@ -935,13 +941,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Voro namai: romanas" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADg-Kn-XMd" customClass="UILabelPrimary" customModule="Elvis" customModuleProvider="target">
-                                <rect key="frame" x="16" y="88" width="343" height="30"/>
+                                <rect key="frame" x="16" y="108" width="343" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TsC-9A-zvH">
-                                <rect key="frame" x="36.5" y="268" width="302" height="54"/>
+                                <rect key="frame" x="36.5" y="288" width="302" height="54"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45o-Ie-Ywt">
                                         <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
@@ -1012,7 +1018,7 @@
                                 </subviews>
                             </stackView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="SKIRSNIS: 1" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rr4-Fa-M2S" customClass="UITextFieldPrimary" customModule="Elvis" customModuleProvider="target">
-                                <rect key="frame" x="20" y="147" width="335" height="34"/>
+                                <rect key="frame" x="20" y="167" width="335" height="34"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -1023,10 +1029,10 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="Bph-Sn-Qjj">
-                                <rect key="frame" x="20" y="230" width="341" height="31"/>
+                                <rect key="frame" x="20" y="250" width="341" height="31"/>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txH-vt-hlL" customClass="UILabelPrimary" customModule="Elvis" customModuleProvider="target">
-                                <rect key="frame" x="305.5" y="192" width="53.5" height="30"/>
+                                <rect key="frame" x="305.5" y="212" width="53.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1088,11 +1094,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ArrowBack" width="750" height="750"/>
         <image name="BackForward" width="150" height="150"/>
         <image name="Contrast" width="368" height="368"/>
         <image name="ElvisIcon" width="512" height="512"/>
         <image name="Fastforward" width="150" height="150"/>
+        <image name="GoBackButton" width="750" height="750"/>
         <image name="Play" width="150" height="150"/>
         <image name="SkipForward" width="150" height="150"/>
         <image name="SkipPrevious" width="150" height="150"/>

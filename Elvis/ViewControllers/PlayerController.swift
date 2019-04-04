@@ -39,7 +39,8 @@ class PlayerController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.hideKeyboardWhenTappedAround()
+        applyAccesibility()
         chapters = createChapters(book: book)
         sessionID = Utils.readFromSharedPreferences(key: "sessionID") as! String
         
@@ -224,7 +225,7 @@ class PlayerController: UIViewController {
         toolBar.barTintColor = .orange
         toolBar.tintColor = .white
         
-        let doneButton = UIBarButtonItem(title: "Baigti", style: .plain, target: self, action: #selector(PlayerController.dismissKeyboard))
+        let doneButton = UIBarButtonItem(title: "Baigti", style: .plain, target: self, action: #selector(PlayerController.dismissPicker))
         
         toolBar.setItems([doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -245,7 +246,7 @@ class PlayerController: UIViewController {
     }
     
     //Triggers when you dismiss the selector
-    @objc func dismissKeyboard() {
+    @objc func dismissPicker() {
         progressSlider.setValue(0, animated: true)
         tv_time.text = "0:00"
         if timer != nil {
@@ -281,6 +282,7 @@ class PlayerController: UIViewController {
             let value = progressSlider.value
             progressSlider.setValue(value+1, animated: true)
             tv_time.text = timeLabelSetter(seconds: Int(value))
+            tv_time.accessibilityValue = tv_time.text
         }
     }
     
@@ -288,15 +290,6 @@ class PlayerController: UIViewController {
 
     
 }
-
-
-
-
-
-
-
-
-
 
 
 //Chapter picker view: SLIGHTLY IMPORTANT
@@ -341,6 +334,31 @@ extension PlayerController: UIPickerViewDelegate, UIPickerViewDataSource {
         
         label.text = chapters[row]
         
+        label.isAccessibilityElement = true
         return label
+    }
+}
+
+
+extension PlayerController{
+    func applyAccesibility(){
+      
+        tv_bookTitle.isAccessibilityElement = true
+        tv_bookTitle.accessibilityLabel = "Book name"
+        tv_bookTitle.accessibilityValue = book.Title
+        
+        chapterTextField.isAccessibilityElement = true
+        chapterTextField.accessibilityTraits = UIAccessibilityTraits.button
+        chapterTextField.accessibilityLabel = "Select book chapter"
+        chapterTextField.accessibilityValue = "Chapter selector apears at the bottom"
+        
+        tv_time.isAccessibilityElement = true
+        tv_time.accessibilityLabel = "Time"
+        tv_time.accessibilityValue = tv_time.text
+        
+        progressSlider.isAccessibilityElement = true
+        progressSlider.accessibilityLabel = "Time slider"
+        progressSlider.accessibilityValue = "Change current time"
+        
     }
 }

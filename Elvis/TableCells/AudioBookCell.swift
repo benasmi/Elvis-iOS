@@ -40,11 +40,11 @@ class AudioBookCell: UICell {
     @IBAction func download(_ sender: Any) {
         if(doesLocalVersionExist(IDsToCheck: book.FileNormalIDS)){
             //Erasing audio
-            SVProgressHUD.show(withStatus: "Knyga istrinama...")
+            SVProgressHUD.show(withStatus: "Knyga ištrinama...")
             SVProgressHUD.setDefaultMaskType(.black)
             bothExist = self.bothExist(audioBook: self.book)
             DatabaseUtils.eraseBooks(audioBookIDs: book!.FileNormalIDS, listener: {
-                self.downloadBtn.setTitle("Siusti", for: [])
+                self.downloadBtn.setTitle("SIŲSTIS", for: [])
                 if(!self.bothExist){
                     DatabaseUtils.deleteBookInfo(audioBook: self.book)
                     self.delegate.removeBook(at: self.indexPath)
@@ -52,16 +52,16 @@ class AudioBookCell: UICell {
                 SVProgressHUD.dismiss()
             })
         }else{
-            SVProgressHUD.show(withStatus: "Knyga siunciama (0/" + String(book.FileNormalIDS.count) + ")")
+            SVProgressHUD.show(withStatus: "Knyga siunčiama (0/" + String(book.FileNormalIDS.count) + ")")
             SVProgressHUD.setDefaultMaskType(.black)
             //Downloading audio
             
             DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: false, updateListener: { (chaptersDownloaded, totalChapters) in
                     
-                SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Knyga siunciama (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
+                SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Knyga siunčiama (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
                 
                 if(chaptersDownloaded == totalChapters){
-                    self.downloadBtn.setTitle("Istrinti", for: [])
+                    self.downloadBtn.setTitle("IŠTRINTI", for: [])
                     SVProgressHUD.dismiss()
                 }
 
@@ -76,11 +76,11 @@ class AudioBookCell: UICell {
     @IBAction func downloadFast(_ sender: Any) {
         if(doesLocalVersionExist(IDsToCheck: book.FileFastIDS)){
             //Erasing audio
-            SVProgressHUD.show(withStatus: "Knyga istrinama...")
+            SVProgressHUD.show(withStatus: "Knyga ištrinama...")
             SVProgressHUD.setDefaultMaskType(.black)
             bothExist = self.bothExist(audioBook: self.book)
             DatabaseUtils.eraseBooks(audioBookIDs: book.FileFastIDS, listener: {
-                self.downloadFastBtn.setTitle("Siusti", for: [])
+                self.downloadFastBtn.setTitle("SIŲSTIS PAGREITINTĄ", for: [])
                 if(!self.bothExist){
                     DatabaseUtils.deleteBookInfo(audioBook: self.book)
                     self.delegate.removeBook(at: self.indexPath)
@@ -89,15 +89,15 @@ class AudioBookCell: UICell {
             })
         }else{
             
-            SVProgressHUD.show(withStatus: "Knyga siunciama (0/" + String(book.FileFastIDS.count) + ")")
+            SVProgressHUD.show(withStatus: "Knyga siunčiama (0/" + String(book.FileFastIDS.count) + ")")
             SVProgressHUD.setDefaultMaskType(.black)
             //Downloading audio
             
             DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: true, updateListener: { (chaptersDownloaded, totalChapters) in
                 
-                SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Knyga siunciama (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
+                SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Knyga siunčiama (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
                 if(chaptersDownloaded == totalChapters){
-                    self.downloadFastBtn.setTitle("Istrinti", for: [])
+                    self.downloadFastBtn.setTitle("IŠTRINTI PAGREITINTĄ", for: [])
                     SVProgressHUD.dismiss()
                 }
             })
@@ -133,8 +133,8 @@ class AudioBookCell: UICell {
         bookAnouncer.text = "Diktorius: " + audioBook.SpeakerFirstName  + ", " + audioBook.SpeakerLastName
         years.text = audioBook.ReleaseDate
         
-        self.downloadBtn.setTitle(doesLocalVersionExist(IDsToCheck: book.FileNormalIDS) ? "Istrinti" : "Siustis", for: [])
-        self.downloadFastBtn.setTitle(doesLocalVersionExist(IDsToCheck: book.FileFastIDS) ? "Istrinti" : "Siustis", for: [])
+        self.downloadBtn.setTitle(doesLocalVersionExist(IDsToCheck: book.FileNormalIDS) ? "IŠTRINTI" : "SIŲSTIS", for: [])
+        self.downloadFastBtn.setTitle(doesLocalVersionExist(IDsToCheck: book.FileFastIDS) ? "IŠTRINTI PAGREITINTĄ" : "SIŲSTIS PAGREITINTĄ", for: [])
     }
     
     

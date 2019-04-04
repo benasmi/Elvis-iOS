@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0123C5BA22484270006DEFF1 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123C5B922484270006DEFF1 /* RegistrationController.swift */; };
 		0123C5BD224A5F6F006DEFF1 /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123C5BC224A5F6F006DEFF1 /* PlayerController.swift */; };
+		0139452F22560EC70026ABEB /* ViewControllersExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139452E22560EC70026ABEB /* ViewControllersExtension.swift */; };
+		01394531225610720026ABEB /* DoneButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01394530225610720026ABEB /* DoneButtonExtensions.swift */; };
 		0141B5CA22451D9400915C48 /* BookSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5C922451D9400915C48 /* BookSearchController.swift */; };
 		0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5CB22452F8F00915C48 /* AudioBook.swift */; };
 		0141B5CE2245322200915C48 /* AudioBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0141B5CD2245322200915C48 /* AudioBookCell.swift */; };
@@ -50,6 +52,8 @@
 /* Begin PBXFileReference section */
 		0123C5B922484270006DEFF1 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		0123C5BC224A5F6F006DEFF1 /* PlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
+		0139452E22560EC70026ABEB /* ViewControllersExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllersExtension.swift; sourceTree = "<group>"; };
+		01394530225610720026ABEB /* DoneButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonExtensions.swift; sourceTree = "<group>"; };
 		0141B5C922451D9400915C48 /* BookSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchController.swift; sourceTree = "<group>"; };
 		0141B5CB22452F8F00915C48 /* AudioBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBook.swift; sourceTree = "<group>"; };
 		0141B5CD2245322200915C48 /* AudioBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBookCell.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				01A82A0C2243964300D89105 /* DesignableView.swift */,
+				0139452E22560EC70026ABEB /* ViewControllersExtension.swift */,
+				01394530225610720026ABEB /* DoneButtonExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -434,12 +440,14 @@
 			files = (
 				01A829E122438F0B00D89105 /* ViewController.swift in Sources */,
 				0141B5D02245378400915C48 /* SearchedBooksController.swift in Sources */,
+				01394531225610720026ABEB /* DoneButtonExtensions.swift in Sources */,
 				0123C5BD224A5F6F006DEFF1 /* PlayerController.swift in Sources */,
 				01AE1855224669A70009C89D /* Utils.swift in Sources */,
 				01A829DF22438F0B00D89105 /* AppDelegate.swift in Sources */,
 				0141B5CE2245322200915C48 /* AudioBookCell.swift in Sources */,
 				01A52EE82245057E002982CF /* MainScreenController.swift in Sources */,
 				0123C5BA22484270006DEFF1 /* RegistrationController.swift in Sources */,
+				0139452F22560EC70026ABEB /* ViewControllersExtension.swift in Sources */,
 				01AE185822466B8E0009C89D /* DatabaseUtils.swift in Sources */,
 				0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */,
 				01563558224D017200E159E7 /* AudioBookIDS.swift in Sources */,
