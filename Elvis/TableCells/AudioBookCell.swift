@@ -12,12 +12,19 @@ import SVProgressHUD
 import RealmSwift
 
 
-class AudioBookCell: UICell {
+class AudioBookCell: UITableViewCell {
     
     @IBOutlet weak var bookTitle: UILabel!
     @IBOutlet weak var bookAuthor: UILabel!
     @IBOutlet weak var bookAnouncer: UILabel!
     @IBOutlet weak var years: UILabel!
+    
+    @IBOutlet weak var listenBtn: UIButton!
+    @IBOutlet weak var listenFastBtn: UIButton!
+    
+    @IBOutlet weak var downloadBtn: UIButton!
+    @IBOutlet weak var downloadFastBtn: UIButton!
+    
     var delegate: SearchedBooksController!
     var indexPath: IndexPath!
     
@@ -27,6 +34,43 @@ class AudioBookCell: UICell {
     var viewController: UIViewController!
     var bothExist : Bool = false //Two legends cannot co:exist muahahhahahhahhahahahhahhahahahhahahhahahahahahahhahahhaahhahahahahhahahahhahahahhahh
     
+    func enableNightMode(){
+        bookTitle.textColor = UIColor.white
+        bookAuthor.textColor = UIColor.white
+        bookAnouncer.textColor = UIColor.white
+        
+        listenBtn.setTitleColor(UIColor.black, for: .normal)
+        listenFastBtn.setTitleColor(UIColor.black, for: .normal)
+        
+        downloadBtn.backgroundColor = UIColor.white
+        downloadFastBtn.backgroundColor = UIColor.white
+        
+        downloadBtn.setTitleColor(UIColor.black, for: .normal)
+        downloadFastBtn.setTitleColor(UIColor.black, for: .normal)
+        
+        
+        self.contentView.backgroundColor = UIColor.black
+        
+    }
+    func disableNightMode(){
+        
+        bookTitle.textColor = UIColor.black
+        bookAuthor.textColor = UIColor.black
+        bookAnouncer.textColor = UIColor.black
+        
+        listenBtn.setTitleColor(UIColor.white, for: .normal)
+        listenFastBtn.setTitleColor(UIColor.white, for: .normal)
+        
+        downloadBtn.backgroundColor = UIColor.black
+        downloadFastBtn.backgroundColor = UIColor.black
+        
+        downloadBtn.setTitleColor(UIColor.white, for: .normal)
+        downloadFastBtn.setTitleColor(UIColor.white, for: .normal)
+        
+        
+        self.contentView.backgroundColor = UIColor.white
+        
+    }
     
     @IBAction func listen(_ sender: Any) {
         goToListenController(fast: false)
@@ -35,8 +79,7 @@ class AudioBookCell: UICell {
     @IBAction func listenFast(_ sender: Any) {
         goToListenController(fast: true)
     }
-    @IBOutlet weak var downloadBtn: UIButton!
-    
+   
     @IBAction func download(_ sender: Any) {
         if(doesLocalVersionExist(IDsToCheck: book.FileNormalIDS)){
             //Erasing audio
@@ -70,8 +113,6 @@ class AudioBookCell: UICell {
         }
     }
     
-    
-    @IBOutlet weak var downloadFastBtn: UIButton!
     
     @IBAction func downloadFast(_ sender: Any) {
         if(doesLocalVersionExist(IDsToCheck: book.FileFastIDS)){

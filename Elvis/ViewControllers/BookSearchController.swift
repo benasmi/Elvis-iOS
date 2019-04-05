@@ -9,19 +9,46 @@
 import UIKit
 import SVProgressHUD
 
-class BookSearchController: UIViewController {
+class BookSearchController: BaseViewController {
 
     @IBOutlet weak var tv_anyWord: UITextField!
     @IBOutlet weak var tv_announcingPerson: UITextField!
     @IBOutlet weak var tv_name: UITextField!
     @IBOutlet weak var tv_title: UITextField!
     
-    @IBOutlet weak var lblAnyword: UILabelPrimary!
-    @IBOutlet weak var lblTitle: UILabelPrimary!
-    @IBOutlet weak var lblAnouncingPerson: UILabelPrimary!
-    @IBOutlet weak var lblDictor: UILabelPrimary!
+    @IBOutlet weak var lblAnyword: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblAnouncingPerson: UILabel!
+    @IBOutlet weak var lblDictor: UILabel!
     
     @IBOutlet weak var btnSeachBooks: UIButton!
+    
+    override func disableDarkMode(){
+        tv_anyWord.textColor = UIColor.black
+        tv_announcingPerson.textColor = UIColor.black
+        tv_name.textColor = UIColor.black
+        tv_title.textColor = UIColor.black
+        
+        lblAnyword.textColor = UIColor.black
+        lblTitle.textColor = UIColor.black
+        lblAnouncingPerson.textColor = UIColor.black
+        lblDictor.textColor = UIColor.black
+        
+        self.view.backgroundColor = UIColor.white
+    }
+    override func enableDarkMode(){
+        tv_anyWord.textColor = UIColor.white
+        tv_announcingPerson.textColor = UIColor.white
+        tv_name.textColor = UIColor.white
+        tv_title.textColor = UIColor.white
+        
+        lblAnyword.textColor = UIColor.white
+        lblTitle.textColor = UIColor.white
+        lblAnouncingPerson.textColor = UIColor.white
+        lblDictor.textColor = UIColor.white
+
+        self.view.backgroundColor = UIColor.black
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +58,7 @@ class BookSearchController: UIViewController {
     }
 
     @IBAction func changeContrast(_ sender: Any) {
-        Theme.toggleTheme(viewController: self)
+        toggleMode()
     }
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

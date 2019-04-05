@@ -11,7 +11,7 @@ import AVKit
 import AVFoundation
 
 
-class PlayerController: UIViewController {
+class PlayerController: BaseViewController {
 
     var player:AVPlayer?
     var playerItem:AVPlayerItem?
@@ -28,13 +28,20 @@ class PlayerController: UIViewController {
     var isFast: Bool = false;
     
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var skipBack: UIButton!
+    @IBOutlet weak var fastBackwards: UIButton!
+    @IBOutlet weak var fastForwards: UIButton!
+    @IBOutlet weak var skipForward: UIButton!
+    
+    
     @IBOutlet weak var progressSlider: UISlider!
     @IBOutlet weak var tv_bookTitle: UILabel!
     @IBOutlet weak var tv_time: UILabel!
     @IBOutlet weak var chapterTextField: UITextField!
     
+    
     @IBAction func changeContrast(_ sender: Any) {
-        Theme.toggleTheme(viewController: self)
+        toggleMode()
     }
     
     override func viewDidLoad() {
@@ -49,6 +56,7 @@ class PlayerController: UIViewController {
         tv_bookTitle.text = book.Title
         createDayPicker()
     }
+
     
     @IBAction func play(_ sender: Any) {
         
@@ -285,8 +293,41 @@ class PlayerController: UIViewController {
             tv_time.accessibilityValue = tv_time.text
         }
     }
+ 
     
-    
+    override func enableDarkMode(){
+        tv_bookTitle.textColor = UIColor.white
+        tv_time.textColor = UIColor.white
+        chapterTextField.backgroundColor = UIColor.clear
+        chapterTextField.textColor = UIColor.white
+        chapterTextField.borderWidth = 3
+        chapterTextField.borderColor = UIColor.white
+        
+        playButton.tintColor = UIColor.white
+        skipBack.tintColor = UIColor.white
+        fastBackwards.tintColor = UIColor.white
+        fastForwards.tintColor = UIColor.white
+        skipForward.tintColor = UIColor.white
+        
+        self.view.backgroundColor = UIColor.black
+        
+    }
+    override func disableDarkMode(){
+        tv_bookTitle.textColor = UIColor.black
+        tv_time.textColor = UIColor.black
+        chapterTextField.backgroundColor = UIColor.clear
+        chapterTextField.borderWidth = 3
+        chapterTextField.borderColor = UIColor.black
+        chapterTextField.textColor = UIColor.black
+        
+        playButton.tintColor = UIColor.black
+        skipBack.tintColor = UIColor.black
+        fastBackwards.tintColor = UIColor.black
+        fastForwards.tintColor = UIColor.black
+        skipForward.tintColor = UIColor.black
+        
+        self.view.backgroundColor = UIColor.white
+    }
 
     
 }
@@ -337,6 +378,8 @@ extension PlayerController: UIPickerViewDelegate, UIPickerViewDataSource {
         label.isAccessibilityElement = true
         return label
     }
+    
+   
 }
 
 

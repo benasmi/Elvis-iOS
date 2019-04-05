@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+class ThemeSwitchable: UIViewController{
+    
+}
+
 class UITopBar: UIView{
     
 }

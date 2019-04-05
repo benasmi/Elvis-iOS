@@ -192,9 +192,12 @@ class DatabaseUtils{
                     let FileFastIDS = List<String>()
                     let FileNormalIDS = List<String>()
                     
-                    for x in 0...audioIDS.FileNormal.count-1{
-                        FileFastIDS.append(audioIDS.FileFast[x])
-                        FileNormalIDS.append(audioIDS.FileNormal[x])
+                    for x in audioIDS.FileNormal{
+                        FileNormalIDS.append(x)
+                    }
+                   
+                    for y in audioIDS.FileFast{
+                        FileFastIDS.append(y)
                     }
                     
                     books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIdsNormal: FileNormalIDS, fileIdsFast: FileFastIDS))
@@ -208,6 +211,13 @@ class DatabaseUtils{
             }
         }
     }
+    
+    
+    //["123", "124", "125", "126", "127"] File IDs
+    //["1", "2", "1", "3", "2", "3"] File Position
+    //["0", "0", "1", "0", "1", "1"] File is fast
+    
+    
     
     static func PositionIDSCorrectly(fileCount: Int, fileIDS: [String],filePosition: [String]) -> AudioBookIDS{
         let totalCount: Int = fileCount

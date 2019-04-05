@@ -9,22 +9,53 @@
 import UIKit
 
 
-class SearchedBooksController: UIViewController {
+class SearchedBooksController: BaseViewController {
 
+    var isNightModeEnabled = false
+    var noDataLabel: UILabel?
     var books : [AudioBook] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround() 
     }
     @IBAction func changeContrast(_ sender: Any) {
-        Theme.toggleTheme(viewController: self)
+        toggleMode()
     }
     
     @IBAction func back(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var tableView: UITableView!
+    
+    override func enableDarkMode(){
+        isNightModeEnabled = true
+        
+        let cells = self.tableView.visibleCells as! Array<AudioBookCell>
+        for cell in cells {
+            cell.enableNightMode()
+        }
+        self.noDataLabel?.textColor = UIColor.white
+        self.tableView.backgroundColor = UIColor.black
+        self.view.backgroundColor = UIColor.black
+        
+        
+    }
+    override func disableDarkMode(){
+        isNightModeEnabled = false
+        
+        let cells = self.tableView.visibleCells as! Array<AudioBookCell>
+        for cell in cells {
+            cell.disableNightMode()
+        }
+        
+        self.noDataLabel?.textColor = UIColor.black
+        self.tableView.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor.white
+    }
+    
 }
+
+
 
 
 extension SearchedBooksController: UITableViewDelegate, UITableViewDataSource{
@@ -39,15 +70,16 @@ extension SearchedBooksController: UITableViewDelegate, UITableViewDataSource{
         cell.setUpCell(audioBook: audioBookCurrent, viewController: self, session: Utils.readFromSharedPreferences(key: "sessionID") as! String)
         cell.delegate = self
         cell.indexPath = indexPath
+        isNightModeEnabled ? cell.enableNightMode() : cell.disableNightMode()
         return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if(books.count == 0){
-            let noDataLabel: UILabelPrimary  = UILabelPrimary(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-            noDataLabel.text          = "Knygu nerasta"
-            noDataLabel.textColor     = UIColor.black
-            noDataLabel.textAlignment = .center
+            noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel!.text          = "Knygu nerasta"
+            noDataLabel!.textColor     = (Utils.readFromSharedPreferences(key: "isDarkModeEnabled") as! Bool) ? UIColor.white : UIColor.black
+            noDataLabel!.textAlignment = .center
             tableView.backgroundView  = noDataLabel
             tableView.separatorStyle  = .none
         }else{

@@ -10,28 +10,25 @@ import SVProgressHUD
 import RealmSwift
 
 
-class MainScreenController: UIViewController {
+class MainScreenController: BaseViewController {
     
     let preferences = UserDefaults.standard
     
-
-    
-    @IBOutlet weak var listenHistoryBtn: UIButtonDefault!
-    @IBOutlet weak var searchBooksBtn: UIButtonDefault!
-    @IBOutlet weak var newestPublicationsBtn: UIButtonDefault!
-    @IBOutlet weak var messagesBtn: UIButtonDefault!
-    @IBOutlet weak var downloadsBtn: UIButtonDefault!
+    @IBOutlet weak var listenHistoryBtn: UIButton!
+    @IBOutlet weak var searchBooksBtn: UIButton!
+    @IBOutlet weak var newestPublicationsBtn: UIButton!
+    @IBOutlet weak var messagesBtn: UIButton!
+    @IBOutlet weak var downloadsBtn: UIButton!
     
     
     @IBAction func changeTheme(_ sender: Any) {
-        Theme.toggleTheme(viewController: self)
+        toggleMode()
     }
     
     override func viewDidLoad() {
         applyAccesibility()
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() 
-        
+        self.hideKeyboardWhenTappedAround()
     }
     
     @IBAction func back(_ sender: Any) {
@@ -54,6 +51,7 @@ class MainScreenController: UIViewController {
         self.present(newViewController, animated: true, completion: nil)
         print(books.count)
     }
+    
     
     func onFinishListener(_ books : [AudioBook]){
         SVProgressHUD.dismiss()
@@ -96,6 +94,45 @@ class MainScreenController: UIViewController {
         viewController.present(dialogMessage, animated: true, completion: nil)
     }
     
+    override func enableDarkMode(){
+        searchBooksBtn.backgroundColor = UIColor.clear
+        searchBooksBtn.setTitleColor(.white, for: .normal)
+        
+        listenHistoryBtn.backgroundColor = UIColor.clear
+        listenHistoryBtn.setTitleColor(.white, for: .normal)
+        
+        newestPublicationsBtn.backgroundColor = UIColor.clear
+        newestPublicationsBtn.setTitleColor(.white, for: .normal)
+        
+        messagesBtn.backgroundColor = UIColor.clear
+        messagesBtn.setTitleColor(.white, for: .normal)
+        
+        downloadsBtn.backgroundColor = UIColor.clear
+        downloadsBtn.setTitleColor(.white, for: .normal)
+        
+        self.view.backgroundColor = UIColor.black
+        
+    }
+    override func disableDarkMode(){
+        searchBooksBtn.backgroundColor = UIColor.clear
+        searchBooksBtn.setTitleColor(.black, for: .normal)
+        
+        listenHistoryBtn.backgroundColor = UIColor.clear
+        listenHistoryBtn.setTitleColor(.black, for: .normal)
+        
+        newestPublicationsBtn.backgroundColor = UIColor.clear
+        newestPublicationsBtn.setTitleColor(.black, for: .normal)
+        
+        messagesBtn.backgroundColor = UIColor.clear
+        messagesBtn.setTitleColor(.black, for: .normal)
+        
+        downloadsBtn.backgroundColor = UIColor.clear
+        downloadsBtn.setTitleColor(.black, for: .normal)
+        
+        self.view.backgroundColor = UIColor.white
+    }
+    
+    
 }
 
 extension MainScreenController{
@@ -125,5 +162,6 @@ extension MainScreenController{
         
         
     }
+
     
 }
