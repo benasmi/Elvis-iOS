@@ -29,6 +29,8 @@
 		01A82A0D2243964300D89105 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A82A0C2243964300D89105 /* DesignableView.swift */; };
 		01AE1855224669A70009C89D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE1854224669A70009C89D /* Utils.swift */; };
 		01AE185822466B8E0009C89D /* DatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE185722466B8E0009C89D /* DatabaseUtils.swift */; };
+		01D4013922590D0C00C6CD48 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4013822590D0C00C6CD48 /* MessagesViewController.swift */; };
+		01D4013B22591FF200C6CD48 /* MessageToAdministratorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */; };
 		353FD1A3803F5F5EF7D4299D /* Pods_Elvis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +80,8 @@
 		01A82A0C2243964300D89105 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		01AE1854224669A70009C89D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		01AE185722466B8E0009C89D /* DatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUtils.swift; sourceTree = "<group>"; };
+		01D4013822590D0C00C6CD48 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageToAdministratorsViewController.swift; sourceTree = "<group>"; };
 		D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Elvis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFD4F585C2A488F07335CF37 /* Pods-Elvis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.debug.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.debug.xcconfig"; sourceTree = "<group>"; };
 		E5338918A7A70243F52EB220 /* Pods-Elvis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.release.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.release.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +129,8 @@
 				01A52EE72245057E002982CF /* MainScreenController.swift */,
 				01A829E022438F0B00D89105 /* ViewController.swift */,
 				0123C5BC224A5F6F006DEFF1 /* PlayerController.swift */,
+				01D4013822590D0C00C6CD48 /* MessagesViewController.swift */,
+				01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -438,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01D4013B22591FF200C6CD48 /* MessageToAdministratorsViewController.swift in Sources */,
 				01A829E122438F0B00D89105 /* ViewController.swift in Sources */,
 				0141B5D02245378400915C48 /* SearchedBooksController.swift in Sources */,
 				01394531225610720026ABEB /* DoneButtonExtensions.swift in Sources */,
@@ -450,6 +457,7 @@
 				0123C5BA22484270006DEFF1 /* RegistrationController.swift in Sources */,
 				0139452F22560EC70026ABEB /* ViewControllersExtension.swift in Sources */,
 				0146C22922578FD200526040 /* NotificationsExtension.swift in Sources */,
+				01D4013922590D0C00C6CD48 /* MessagesViewController.swift in Sources */,
 				01AE185822466B8E0009C89D /* DatabaseUtils.swift in Sources */,
 				0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */,
 				01563558224D017200E159E7 /* AudioBookIDS.swift in Sources */,

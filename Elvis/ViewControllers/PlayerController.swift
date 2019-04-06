@@ -271,8 +271,7 @@ class PlayerController: BaseViewController {
         view.endEditing(true)
     }
     
-    @objc func playbackSliderValueChanged(_ playbackSlider:UISlider)
-    {
+    @objc func playbackSliderValueChanged(_ playbackSlider:UISlider){
         
         if(player == nil){
             return

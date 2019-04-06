@@ -53,6 +53,11 @@ class MainScreenController: BaseViewController {
         print(books.count)
     }
     
+    @IBAction func showMessages(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "Messages") as! MessagesViewController
+        self.present(newViewController, animated: true, completion: nil)
+    }
     
     func onFinishListener(_ books : [AudioBook]){
         SVProgressHUD.dismiss()
