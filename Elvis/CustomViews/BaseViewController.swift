@@ -22,12 +22,13 @@ class BaseViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let isDarkModeEnabled = Utils.readFromSharedPreferences(key: "isDarkModeEnabled") as! Bool
+        let isDarkModeEnabled = Utils.readFromSharedPreferences(key: "isDarkModeEnabled") as? Bool ?? false
+        
         isDarkModeEnabled ? enableDarkMode() : disableDarkMode()
     }
     
     open func toggleMode(){
-        let isDarkModeEnabled = !(Utils.readFromSharedPreferences(key: "isDarkModeEnabled") as! Bool)
+        let isDarkModeEnabled = !(Utils.readFromSharedPreferences(key: "isDarkModeEnabled") as? Bool ?? false)
         NotificationCenter.default.post(name: isDarkModeEnabled ? .darkModeEnabled : .darkModeDisabled, object: nil)
         Utils.writeToSharedPreferences(key: "isDarkModeEnabled", value: isDarkModeEnabled)
     }

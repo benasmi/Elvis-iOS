@@ -99,8 +99,14 @@ class AudioBookCell: UITableViewCell {
             SVProgressHUD.setDefaultMaskType(.black)
             //Downloading audio
             
-            DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: false, updateListener: { (chaptersDownloaded, totalChapters) in
-                    
+            DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: false, updateListener: { (chaptersDownloaded, totalChapters, success) in
+                
+                guard success else{
+                    SVProgressHUD.dismiss()
+                    SVProgressHUD.showInfo(withStatus: "An unexpected error has occured")
+                    return
+                }
+                
                 SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Knyga siunčiama (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
                 
                 if(chaptersDownloaded == totalChapters){
@@ -134,7 +140,13 @@ class AudioBookCell: UITableViewCell {
             SVProgressHUD.setDefaultMaskType(.black)
             //Downloading audio
             
-            DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: true, updateListener: { (chaptersDownloaded, totalChapters) in
+            DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: true, updateListener: { (chaptersDownloaded, totalChapters, success) in
+                
+                guard success else{
+                    SVProgressHUD.dismiss()
+                    SVProgressHUD.showInfo(withStatus: "An unexpected error has occured")
+                    return
+                }
                 
                 SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Knyga siunčiama (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
                 if(chaptersDownloaded == totalChapters){

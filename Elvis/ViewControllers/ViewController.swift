@@ -34,21 +34,35 @@ class ViewController: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
-        if(!Utils.connectedToNetwork()){
-            Utils.alertMessage(message: "Nėra interneto ryšio", viewController: self)
+//        if(!Utils.connectedToNetwork()){
+//            Utils.alertMessage(message: "Nėra interneto ryšio", viewController: self)
+//            return
+//        }
+        
+        guard let username = username.text else{
+            SVProgressHUD.showInfo(withStatus: "Vartotojo vardo laukelis yra privalomas!")
+            return
+        }
+        guard let password = password.text else{
+            SVProgressHUD.showInfo(withStatus: "Slaptažodžio laukelis yra privalomas!")
             return
         }
 
         SVProgressHUD.show(withStatus: "Jungiamasi...")
         SVProgressHUD.setDefaultMaskType(.black)
-        DatabaseUtils.Login(username: username.text as! String, password: password.text as! String, onFinishLoginListener: onFinishLoginListener)
+        DatabaseUtils.Login(username: username, password: password, onFinishLoginListener: onFinishLoginListener)
         
     }
     
-    func onFinishLoginListener(_ success: Bool){
+    func onFinishLoginListener(_ success: Bool, _ error: LoginError?){
         SVProgressHUD.dismiss()
-        if(!success){
-            Utils.alertMessage(message: "Neteisingas slaptažodis arba vartotojo vardas!", viewController: self)
+        guard error == nil else{
+            switch error! {
+            case LoginError.NetworkError:
+                Utils.alertMessage(message: "Nėra interneto ryšio", viewController: self)
+            case LoginError.InvalidCredentials:
+                Utils.alertMessage(message: "Neteisingas slaptažodis arba vartotojo vardas!", viewController: self)
+            }
             return
         }
        moveToMainScreen()

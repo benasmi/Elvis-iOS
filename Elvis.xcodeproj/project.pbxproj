@@ -141,8 +141,8 @@
 		0141B5D3224537D500915C48 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				01A82A0C2243964300D89105 /* DesignableView.swift */,
 				0139452E22560EC70026ABEB /* ViewControllersExtension.swift */,
+				01A82A0C2243964300D89105 /* DesignableView.swift */,
 				01394530225610720026ABEB /* DoneButtonExtensions.swift */,
 				0146C22822578FD200526040 /* NotificationsExtension.swift */,
 			);

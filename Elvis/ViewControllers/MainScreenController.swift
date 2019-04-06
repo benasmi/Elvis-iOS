@@ -29,6 +29,7 @@ class MainScreenController: BaseViewController {
         applyAccesibility()
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        //Utils.writeToSharedPreferences(key: "sessionID", value: "DummySessionID")
     }
     
     @IBAction func back(_ sender: Any) {

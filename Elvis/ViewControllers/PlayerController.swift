@@ -274,8 +274,14 @@ class PlayerController: BaseViewController {
     @objc func playbackSliderValueChanged(_ playbackSlider:UISlider)
     {
         
+        if(player == nil){
+            return
+        }
+        
         let seconds : Int64 = Int64(playbackSlider.value)
         let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
+        
+        
         
         player!.seek(to: targetTime)
         
