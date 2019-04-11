@@ -18,6 +18,9 @@
 		0146C22922578FD200526040 /* NotificationsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146C22822578FD200526040 /* NotificationsExtension.swift */; };
 		0146C22B2257946D00526040 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146C22A2257946D00526040 /* BaseViewController.swift */; };
 		01563558224D017200E159E7 /* AudioBookIDS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01563557224D017200E159E7 /* AudioBookIDS.swift */; };
+		01566EC6225DC7AF00F381B8 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01566EC5225DC7AF00F381B8 /* NewsViewController.swift */; };
+		01566EC8225DC81000F381B8 /* NewsItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01566EC7225DC81000F381B8 /* NewsItemCell.swift */; };
+		01566ECA225DCE9000F381B8 /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01566EC9225DCE9000F381B8 /* NewsItemViewController.swift */; };
 		01A52EE82245057E002982CF /* MainScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A52EE72245057E002982CF /* MainScreenController.swift */; };
 		01A829DF22438F0B00D89105 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829DE22438F0B00D89105 /* AppDelegate.swift */; };
 		01A829E122438F0B00D89105 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A829E022438F0B00D89105 /* ViewController.swift */; };
@@ -29,6 +32,10 @@
 		01A82A0D2243964300D89105 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A82A0C2243964300D89105 /* DesignableView.swift */; };
 		01AE1855224669A70009C89D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE1854224669A70009C89D /* Utils.swift */; };
 		01AE185822466B8E0009C89D /* DatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE185722466B8E0009C89D /* DatabaseUtils.swift */; };
+		01BDB698225A55DE00887E6E /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDB697225A55DE00887E6E /* MessageCell.swift */; };
+		01BDB69A225CD2F800887E6E /* MessagesReceivedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDB699225CD2F800887E6E /* MessagesReceivedViewController.swift */; };
+		01BDB69C225CD39600887E6E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDB69B225CD39600887E6E /* Message.swift */; };
+		01BDB69E225D0A4900887E6E /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDB69D225D0A4900887E6E /* NewsItem.swift */; };
 		01D4013922590D0C00C6CD48 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4013822590D0C00C6CD48 /* MessagesViewController.swift */; };
 		01D4013B22591FF200C6CD48 /* MessageToAdministratorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */; };
 		353FD1A3803F5F5EF7D4299D /* Pods_Elvis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */; };
@@ -63,6 +70,9 @@
 		0146C22822578FD200526040 /* NotificationsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsExtension.swift; sourceTree = "<group>"; };
 		0146C22A2257946D00526040 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		01563557224D017200E159E7 /* AudioBookIDS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBookIDS.swift; sourceTree = "<group>"; };
+		01566EC5225DC7AF00F381B8 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		01566EC7225DC81000F381B8 /* NewsItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemCell.swift; sourceTree = "<group>"; };
+		01566EC9225DCE9000F381B8 /* NewsItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
 		01A52EE72245057E002982CF /* MainScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenController.swift; sourceTree = "<group>"; };
 		01A829DB22438F0B00D89105 /* Elvis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elvis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A829DE22438F0B00D89105 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +90,10 @@
 		01A82A0C2243964300D89105 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		01AE1854224669A70009C89D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		01AE185722466B8E0009C89D /* DatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUtils.swift; sourceTree = "<group>"; };
+		01BDB697225A55DE00887E6E /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		01BDB699225CD2F800887E6E /* MessagesReceivedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesReceivedViewController.swift; sourceTree = "<group>"; };
+		01BDB69B225CD39600887E6E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		01BDB69D225D0A4900887E6E /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
 		01D4013822590D0C00C6CD48 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageToAdministratorsViewController.swift; sourceTree = "<group>"; };
 		D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Elvis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +145,9 @@
 				0123C5BC224A5F6F006DEFF1 /* PlayerController.swift */,
 				01D4013822590D0C00C6CD48 /* MessagesViewController.swift */,
 				01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */,
+				01BDB699225CD2F800887E6E /* MessagesReceivedViewController.swift */,
+				01566EC5225DC7AF00F381B8 /* NewsViewController.swift */,
+				01566EC9225DCE9000F381B8 /* NewsItemViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -140,6 +157,8 @@
 			children = (
 				0141B5CB22452F8F00915C48 /* AudioBook.swift */,
 				01563557224D017200E159E7 /* AudioBookIDS.swift */,
+				01BDB69B225CD39600887E6E /* Message.swift */,
+				01BDB69D225D0A4900887E6E /* NewsItem.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -159,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				0141B5CD2245322200915C48 /* AudioBookCell.swift */,
+				01BDB697225A55DE00887E6E /* MessageCell.swift */,
+				01566EC7225DC81000F381B8 /* NewsItemCell.swift */,
 			);
 			path = TableCells;
 			sourceTree = "<group>";
@@ -445,8 +466,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				01D4013B22591FF200C6CD48 /* MessageToAdministratorsViewController.swift in Sources */,
+				01BDB698225A55DE00887E6E /* MessageCell.swift in Sources */,
 				01A829E122438F0B00D89105 /* ViewController.swift in Sources */,
 				0141B5D02245378400915C48 /* SearchedBooksController.swift in Sources */,
+				01566ECA225DCE9000F381B8 /* NewsItemViewController.swift in Sources */,
 				01394531225610720026ABEB /* DoneButtonExtensions.swift in Sources */,
 				0123C5BD224A5F6F006DEFF1 /* PlayerController.swift in Sources */,
 				0146C22B2257946D00526040 /* BaseViewController.swift in Sources */,
@@ -456,13 +479,18 @@
 				01A52EE82245057E002982CF /* MainScreenController.swift in Sources */,
 				0123C5BA22484270006DEFF1 /* RegistrationController.swift in Sources */,
 				0139452F22560EC70026ABEB /* ViewControllersExtension.swift in Sources */,
+				01BDB69A225CD2F800887E6E /* MessagesReceivedViewController.swift in Sources */,
+				01BDB69E225D0A4900887E6E /* NewsItem.swift in Sources */,
+				01566EC6225DC7AF00F381B8 /* NewsViewController.swift in Sources */,
 				0146C22922578FD200526040 /* NotificationsExtension.swift in Sources */,
 				01D4013922590D0C00C6CD48 /* MessagesViewController.swift in Sources */,
 				01AE185822466B8E0009C89D /* DatabaseUtils.swift in Sources */,
+				01BDB69C225CD39600887E6E /* Message.swift in Sources */,
 				0141B5CC22452F8F00915C48 /* AudioBook.swift in Sources */,
 				01563558224D017200E159E7 /* AudioBookIDS.swift in Sources */,
 				0141B5CA22451D9400915C48 /* BookSearchController.swift in Sources */,
 				01A82A0D2243964300D89105 /* DesignableView.swift in Sources */,
+				01566EC8225DC81000F381B8 /* NewsItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

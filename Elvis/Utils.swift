@@ -12,6 +12,8 @@ import Alamofire
 
 class Utils{
     
+    static let DateFormat = "yyyy-MM-dd HH:mm:ss"
+    
     static func connectedToNetwork() -> Bool{
         return (NetworkReachabilityManager()?.isReachable)!
     }
@@ -30,7 +32,23 @@ class Utils{
     }
     
     static func readFromSharedPreferences(key: String) -> Any{
-        return UserDefaults.standard.object(forKey: key) as! Any
+        return UserDefaults.standard.object(forKey: key)!
+    }
+    
+    static func getDateFromString(date: String) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = Utils.DateFormat
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        return dateFormatter.date(from:date)!
+    }
+    
+    static func getAttributedString(string: String) -> NSAttributedString?{
+        let data = string.data(using: String.Encoding.unicode)!
+        let attrStr = try? NSAttributedString(
+            data: data,
+            options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
+            documentAttributes: nil)
+        return attrStr
     }
     
     static func hexStringToUIColor (hex:String) -> UIColor {

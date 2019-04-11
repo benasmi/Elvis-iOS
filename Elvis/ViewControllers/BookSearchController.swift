@@ -66,10 +66,10 @@ class BookSearchController: BaseViewController {
     
     @IBAction func searchBooks(_ sender: Any) {
         let haveDisabilities = Utils.readFromSharedPreferences(key: "haveDisabilities") as! String
-        let anyWord = tv_anyWord.text as! String
-        let announcingPerson = tv_announcingPerson.text as! String
-        let name = tv_name.text as! String
-        let title = tv_title.text as! String
+        let anyWord = tv_anyWord.text!
+        let announcingPerson = tv_announcingPerson.text!
+        let name = tv_name.text!
+        let title = tv_title.text!
         
         SVProgressHUD.show(withStatus: "Logging in...")
         SVProgressHUD.setDefaultMaskType(.black)

@@ -14,10 +14,12 @@ class SearchedBooksController: BaseViewController {
     var isNightModeEnabled = false
     var noDataLabel: UILabel?
     var books : [AudioBook] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround() 
     }
+    
     @IBAction func changeContrast(_ sender: Any) {
         toggleMode()
     }

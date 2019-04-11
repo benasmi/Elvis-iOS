@@ -11,8 +11,8 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
-let BaseURL: String = "http://elvis.labiblioteka.lt/app/";
 let taskID : Int = 0;
+
 
 public enum LoginError{
     case NetworkError
@@ -22,14 +22,57 @@ public enum LoginError{
 
 class DatabaseUtils{
     
+    static let BaseURL = "http://elvis.labiblioteka.lt/app/"
+    static let LoginUrl = BaseURL + "login.php"
+    static let SendMessageUrl = BaseURL + "messageSend.php"
+    static let GetMessagesUrl = BaseURL + "messagesReceived.php"
+    static let GetNewsUrl = BaseURL + "news.php"
+    
+    static func fetchNews(onFinishListener: @escaping (Bool, [NewsItem]?) -> Void){
+        
+        let json : Parameters = [
+            "ss": "sds"
+        ]
+        
+        AF.request(GetNewsUrl, method: .post, parameters: json, encoding: URLEncoding.httpBody, headers:nil).responseJSON{
+            response in
+            
+            guard response.error == nil, response.result.value != nil else{
+                print("error: " + response.error!.localizedDescription)
+                onFinishListener(false, nil)
+                return
+            }
+            
+            let jsonArr = JSON(response.result.value!)
+            
+            var newsItems: [NewsItem] = []
+            
+            for (_, subJson) in jsonArr {
+                let description = Utils.getAttributedString(string: subJson["Description"].string!)!
+                let name = subJson["Name"].string!
+                print(name)
+                let ID = subJson["ID"].string!
+                let isActive = subJson["IsActive"].string!
+                let activationDateFrom = subJson["ActivationDateFrom"].string!
+                let activationDateTo = subJson["ActivationDateTo"].string!
+                
+                newsItems.append(NewsItem(ID: ID, name: name, description: description, isActive: isActive, activationDateFrom: activationDateFrom, activationDateTo: activationDateTo))
+            }
+            onFinishListener(true, newsItems)
+        }
+        
+    }
+    
+    
+    
     static func Login(username: String, password: String, onFinishLoginListener:@escaping (_ success: Bool, _ error: LoginError?) -> Void ){
         
-        let url = "http://elvis.labiblioteka.lt/app/login.php"
+        
         let json : Parameters = [
             "UserName": username,
             "Password": password
         ]
-        AF.request(url, method: .post, parameters: json, encoding: URLEncoding.httpBody, headers:nil).responseJSON{
+        AF.request(LoginUrl, method: .post, parameters: json, encoding: URLEncoding.httpBody, headers:nil).responseJSON{
             response in
             
             guard response.error == nil else{
@@ -40,13 +83,81 @@ class DatabaseUtils{
             if let JSON = response.result.value as? NSDictionary{
                 print(JSON)
                 let disabilities = JSON["HaveDisabilities"] as! String
-                GetCookie(username: username, password: password, disabilities: disabilities, onFinishLoginListener: {(success, sessionIDNew) in
+                let userID = JSON["ID"] as! String
+                GetCookie(username: username, password: password, disabilities: disabilities, userID: userID, onFinishLoginListener: {(success, sessionIDNew) in
                     onFinishLoginListener(success, nil)
                 })
             }else{
                 onFinishLoginListener(false, LoginError.InvalidCredentials)
             }
         }
+    }
+    
+    static func sendMessageToAdmins(topic: String, body: String, onFinishListener: @escaping (Bool) -> Void){
+        let userID = Utils.readFromSharedPreferences(key: "userID")
+        
+        let json : Parameters = [
+            "ID": userID,
+            "Subject": topic,
+            "Content": body
+        ]
+        
+        AF.request(SendMessageUrl, method: .post, parameters: json, encoding: URLEncoding.httpBody, headers:nil).responseString{ response in
+            
+            guard response.error == nil else{
+                onFinishListener(false)
+                return
+            }
+            
+            
+            onFinishListener(true)
+        }
+    }
+    
+    static func getMessages(onFinishListener: @escaping (Bool, [Message]?) -> Void){
+        
+        let userID = Utils.readFromSharedPreferences(key: "userID")
+        let json : Parameters = [
+            "userID": userID
+        ]
+        
+        AF.request(GetMessagesUrl, method: .post, parameters: json, encoding: URLEncoding.httpBody, headers:nil).responseJSON{ response in
+            
+            guard response.error == nil else{
+                onFinishListener(false, nil)
+                return
+            }
+            
+            guard let responseVal = response.result.value else{
+                onFinishListener(false, nil)
+                return
+            }
+            
+            let jsonArr = JSON(responseVal)
+            
+            var messages: [Message] = []
+            
+            for (_, subJson) in jsonArr {
+                
+                let content = subJson["Content"].string!
+                let date = Utils.getDateFromString(date: subJson["SendingDate"].string!)
+                let subject = subJson["Subject"].string!
+                let linkedPublicationID = subJson["LinkedPublicationID"].int
+                let parentMessageID = subJson["ParentMessageID"].int
+                let messageID = subJson["ID"].string!
+                
+                let message: Message = Message(content: content, subject: subject, parentMessageID: parentMessageID, date: date, LinkedPublicationID: linkedPublicationID, messageID: messageID)
+                
+                messages.append(message)
+            }
+            
+            onFinishListener(true, messages)
+            
+            
+            
+        }
+        
+        
     }
     
     static func downloadBooks(sessionID: String, audioBook: AudioBook, downloadFast: Bool, updateListener: @escaping (Int, Int, Bool)->Void ){
@@ -97,8 +208,9 @@ class DatabaseUtils{
                             //...and retrieve a new SessionID
                             let username = Utils.readFromSharedPreferences(key: "username") as! String
                             let password = Utils.readFromSharedPreferences(key: "password") as! String
+                            let userID = Utils.readFromSharedPreferences(key: "userID") as! String
                             let disabilities = Utils.readFromSharedPreferences(key: "haveDisabilities") as! String
-                            GetCookie(username: username, password: password, disabilities: disabilities, onFinishLoginListener: { (success, sessionIDNew) in
+                            GetCookie(username: username, password: password, disabilities: disabilities, userID: userID, onFinishLoginListener: { (success, sessionIDNew) in
                                 
                                 //Downloading books with the new sessionID
                                 guard success, let sessionIDNew = sessionIDNew else{
@@ -142,7 +254,6 @@ class DatabaseUtils{
             //Starting the first task
             tasks.first?.resume()
         }
-        
     }
     
     public static func getDownloadedBooks() -> Results<AudioBook> {
@@ -202,7 +313,7 @@ class DatabaseUtils{
         
     }
     
-    static func GetCookie(username: String, password: String, disabilities: String, onFinishLoginListener:@escaping (_ success: Bool, _ sessionID: String?) -> Void){
+    static func GetCookie(username: String, password: String, disabilities: String, userID: String,onFinishLoginListener:@escaping (_ success: Bool, _ sessionID: String?) -> Void){
         let url = "http://elvis.labiblioteka.lt/home/loginpassword/login"
         let json : Parameters = [
             "Records[0][UserName]": username,
@@ -221,6 +332,7 @@ class DatabaseUtils{
                     print(cookie.name + " - " + cookie.value)
                     Utils.writeToSharedPreferences(key: "username", value: username)
                     Utils.writeToSharedPreferences(key: "password", value: password)
+                    Utils.writeToSharedPreferences(key: "userID", value: userID)
                     Utils.writeToSharedPreferences(key: "haveDisabilities", value: disabilities)
                     Utils.writeToSharedPreferences(key: "sessionID", value: cookie.value)
                     onFinishLoginListener(true, cookie.value)
