@@ -74,6 +74,7 @@ class AudioBookCell: UITableViewCell {
     
     @IBAction func listen(_ sender: Any) {
         goToListenController(fast: false)
+        //DatabaseUtils.addToRecentsList(book: book)
     }
     
     @IBAction func listenFast(_ sender: Any) {

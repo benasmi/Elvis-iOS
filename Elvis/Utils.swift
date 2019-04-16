@@ -32,7 +32,7 @@ class Utils{
     }
     
     static func readFromSharedPreferences(key: String) -> Any{
-        return UserDefaults.standard.object(forKey: key)!
+        return UserDefaults.standard.object(forKey: key)
     }
     
     static func getDateFromString(date: String) -> Date{

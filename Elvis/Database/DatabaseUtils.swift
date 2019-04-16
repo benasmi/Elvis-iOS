@@ -28,6 +28,37 @@ class DatabaseUtils{
     static let GetMessagesUrl = BaseURL + "messagesReceived.php"
     static let GetNewsUrl = BaseURL + "news.php"
     
+    private static func getListenHistoryRealm() -> Realm{
+        let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        
+        let destinationUrl = documentsDirectoryURL.appendingPathComponent("listeningHistory" + ".realm")
+        
+        print(documentsDirectoryURL.absoluteString)
+        
+        let realm = try! Realm(fileURL: destinationUrl)
+        return realm
+    }
+    
+    static func addToRecentsList(book: AudioBook){
+        
+        DispatchQueue.main.async {
+            
+            let realm = getListenHistoryRealm()
+            
+            try! realm.write {
+                let duplicates = realm.objects(AudioBook.self).filter("Title == %@", book.Title)
+                
+                if(duplicates.count != 0){
+                    print("duplicate(s) found")
+                    
+                    
+                }
+                realm.add(book)
+            }
+            
+        }
+    }
+    
     static func fetchNews(onFinishListener: @escaping (Bool, [NewsItem]?) -> Void){
         
         let json : Parameters = [

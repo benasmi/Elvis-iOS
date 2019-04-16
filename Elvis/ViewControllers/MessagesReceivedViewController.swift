@@ -9,10 +9,40 @@
 import Foundation
 import UIKit
 
-class MessagesReceivedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class MessagesReceivedViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource{
     
+    var isNightModeEnabled = false;
     @IBOutlet weak var tableView: UITableView!
     var messages: [Message]!
+    
+    
+    override func enableDarkMode(){
+        isNightModeEnabled = true
+        
+        let cells = self.tableView.visibleCells as! Array<MessageCell>
+        for cell in cells {
+            cell.enableNightMode()
+        }
+        self.tableView.backgroundColor = UIColor.black
+        self.view.backgroundColor = UIColor.black
+        
+        
+    }
+    @IBAction func changeTheme(_ sender: Any) {
+        toggleMode()
+    }
+    override func disableDarkMode(){
+        isNightModeEnabled = false
+        
+        let cells = self.tableView.visibleCells as! Array<MessageCell>
+        for cell in cells {
+            cell.disableNightMode()
+        }
+        
+        self.tableView.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor.white
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +59,7 @@ class MessagesReceivedViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as! MessageCell
         cell.setUpCell(message: messages[indexPath.row])
+        isNightModeEnabled ? cell.enableNightMode() : cell.disableNightMode()
         return cell
     }
     

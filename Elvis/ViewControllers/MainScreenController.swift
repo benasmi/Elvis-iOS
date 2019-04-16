@@ -23,6 +23,7 @@ class MainScreenController: BaseViewController {
     
     @IBAction func changeTheme(_ sender: Any) {
         toggleMode()
+        
     }
     
     override func viewDidLoad() {

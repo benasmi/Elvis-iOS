@@ -1,13 +1,18 @@
 import SVProgressHUD
 import UIKit
 import Foundation
-class MessageToAdministratorsViewController: UIViewController{
+class MessageToAdministratorsViewController: BaseViewController{
     
     
     @IBOutlet weak var messageTopicField: UITextField!
     @IBOutlet weak var messageBodyField: UITextView!
+    @IBOutlet weak var messageThemeLabel: UILabel!
+    @IBOutlet weak var messageTextLabel: UILabel!
+    @IBOutlet weak var sendMsgButton: UIButton!
     
-    
+    @IBAction func changeTheme(_ sender: Any) {
+        toggleMode()
+    }
     
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -28,8 +33,33 @@ class MessageToAdministratorsViewController: UIViewController{
     
     override func viewDidLoad() {
         self.hideKeyboardWhenTappedAround()
-
         super.viewDidLoad()
+    }
+    
+    override func disableDarkMode(){
+        messageTopicField.textColor = UIColor.black
+        messageTopicField.backgroundColor = UIColor.clear
+        
+        messageBodyField.textColor = UIColor.black
+        messageBodyField.backgroundColor = UIColor.clear
+        
+        messageThemeLabel.textColor = UIColor.black
+        messageThemeLabel.textColor = UIColor.black
+        
+        self.view.backgroundColor = UIColor.white
+    }
+    override func enableDarkMode(){
+        messageTopicField.textColor = UIColor.white
+        messageTopicField.backgroundColor = UIColor.clear
+        
+        messageBodyField.textColor = UIColor.white
+        messageBodyField.backgroundColor = UIColor.clear
+        
+        messageThemeLabel.textColor = UIColor.white
+        messageThemeLabel.textColor = UIColor.white
+        
+        
+        self.view.backgroundColor = UIColor.black
     }
     
 }

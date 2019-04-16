@@ -21,5 +21,21 @@ class NewsItemCell: UITableViewCell{
         newsItemName.text = newsItem.name
     }
     
+    func enableNightMode(){
+        newsItemName.textColor = UIColor.white
+        
+        
+        self.contentView.backgroundColor = UIColor.black
+        
+    }
+    func disableNightMode(){
+        
+        newsItemName.textColor = UIColor.black
+        
+        
+        self.contentView.backgroundColor = UIColor.white
+        
+    }
+    
     
 }

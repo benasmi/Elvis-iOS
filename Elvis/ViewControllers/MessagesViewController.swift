@@ -9,12 +9,15 @@
 import UIKit
 import Foundation
 import SVProgressHUD
-class MessagesViewController: UIViewController{
+class MessagesViewController: BaseViewController{
     
     @IBOutlet weak var messageToAdministrationBtn: UIButton!
     @IBOutlet weak var messagesReceivedBtn: UIButton!
     @IBOutlet weak var newsBtn: UIButton!
     
+    @IBAction func changeTheme(_ sender: Any) {
+        toggleMode()
+    }
     @IBAction func messagesReceived(_ sender: Any) {
         
         SVProgressHUD.show(withStatus: "Siunčiamos gautos žinutės")
@@ -66,6 +69,32 @@ class MessagesViewController: UIViewController{
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "MessageToAdministrators") as! MessageToAdministratorsViewController
         self.present(newViewController, animated: true, completion: nil)
+    }
+
+    
+    override func enableDarkMode(){
+        messageToAdministrationBtn.backgroundColor = UIColor.clear
+        
+        messagesReceivedBtn.backgroundColor = UIColor.clear
+        messagesReceivedBtn.setTitleColor(.white, for: .normal)
+        
+        newsBtn.backgroundColor = UIColor.clear
+        newsBtn.setTitleColor(.white, for: .normal)
+        
+        self.view.backgroundColor = UIColor.black
+        
+    }
+    override func disableDarkMode(){
+        messageToAdministrationBtn.backgroundColor = UIColor.clear
+        
+     
+        messagesReceivedBtn.backgroundColor = UIColor.clear
+        messagesReceivedBtn.setTitleColor(.black, for: .normal)
+        
+        newsBtn.backgroundColor = UIColor.clear
+        newsBtn.setTitleColor(.black, for: .normal)
+        
+        self.view.backgroundColor = UIColor.white
     }
     
 }

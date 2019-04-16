@@ -26,4 +26,21 @@ class MessageCell: UITableViewCell{
         messageTopic.text = "Tema: " + self.message.subject
     }
     
+    func enableNightMode(){
+        messageTopic.textColor = UIColor.white
+        messageBody.textColor = UIColor.white
+      
+        
+        self.contentView.backgroundColor = UIColor.black
+        
+    }
+    func disableNightMode(){
+        
+        messageTopic.textColor = UIColor.black
+        messageBody.textColor = UIColor.black
+        
+        self.contentView.backgroundColor = UIColor.white
+        
+    }
+    
 }

@@ -22,9 +22,12 @@ class BaseViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let isDarkModeEnabled = Utils.readFromSharedPreferences(key: "isDarkModeEnabled") as? Bool ?? false
+        var isDarkModeEnabled = Utils.readFromSharedPreferences(key: "isDarkModeEnabled") as? Bool
+        if(isDarkModeEnabled == nil){
+            isDarkModeEnabled = false
+        }
         
-        isDarkModeEnabled ? enableDarkMode() : disableDarkMode()
+        isDarkModeEnabled! ? enableDarkMode() : disableDarkMode()
     }
     
     open func toggleMode(){
