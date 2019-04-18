@@ -9,6 +9,7 @@
 import UIKit
 import AVKit
 import AVFoundation
+import SVProgressHUD
 
 
 class PlayerController: BaseViewController {
@@ -50,7 +51,6 @@ class PlayerController: BaseViewController {
         applyAccesibility()
         chapters = createChapters(book: book)
         sessionID = Utils.readFromSharedPreferences(key: "sessionID") as! String
-        
         progressSlider.addTarget(self, action: #selector(PlayerController.playbackSliderValueChanged(_:)), for: .valueChanged)
         
         tv_bookTitle.text = book.Title
@@ -61,22 +61,8 @@ class PlayerController: BaseViewController {
     @IBAction func play(_ sender: Any) {
         
         if(player==nil){
-            let finalUrl: URL!
-            let chapter = isFast ? book.FileFastIDS[selectedChapterIndex] : book.FileNormalIDS[selectedChapterIndex]
-            if(isLocal){
-                let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                finalUrl = documentsDirectoryURL.appendingPathComponent(chapter + ".mp3")
-            }else{
-                let url1 = "http://elvis.labiblioteka.lt/publications/getmediafile/" + chapter
-                let url2 = "/" + chapter + ".mp3?session_id=" + sessionID!
-                finalUrl = URL(string: (url1 + url2))
-            }
-            
-             playAudioBook(url: finalUrl)
-            playButton.setImage(UIImage(named: "Pause"), for: .normal)
-            print(finalUrl)
-
-             return
+            playAudioBook(url: createUrl())
+            return
         }
         if(player?.rate == 0){
             player?.play()
@@ -178,6 +164,20 @@ class PlayerController: BaseViewController {
         
     }
     
+    func createUrl() -> URL{
+        let finalUrl: URL!
+        let chapter = isFast ? book.FileFastIDS[selectedChapterIndex] : book.FileNormalIDS[selectedChapterIndex]
+        if(isLocal){
+            let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            finalUrl = documentsDirectoryURL.appendingPathComponent(chapter + ".mp3")
+        }else{
+            let url1 = "http://elvis.labiblioteka.lt/publications/getmediafile/" + chapter
+            let url2 = "/" + chapter + ".mp3?session_id=" + sessionID!
+            finalUrl = URL(string: (url1 + url2))
+        }
+        return finalUrl
+    }
+    
     @IBAction func back(_ sender: Any) {
     
         if timer != nil {
@@ -194,6 +194,30 @@ class PlayerController: BaseViewController {
         let playerItem:AVPlayerItem = AVPlayerItem(url: url)
         
         let seconds : Float64 = CMTimeGetSeconds(playerItem.asset.duration)
+        if(seconds.isNaN){
+            SVProgressHUD.show(withStatus: "Bandoma prisijungti prie serverio!..")
+            SVProgressHUD.setDefaultMaskType(.black)
+            let username = Utils.readFromSharedPreferences(key: "username") as! String
+            let password = Utils.readFromSharedPreferences(key: "password") as! String
+            let userID = Utils.readFromSharedPreferences(key: "userID") as! String
+            let disabilities = Utils.readFromSharedPreferences(key: "haveDisabilities") as! String
+            DatabaseUtils.GetCookie(username: username, password: password, disabilities: disabilities, userID: userID, onFinishLoginListener: { (success, sessionIDNew) in
+                
+                //Downloading books with the new sessionID
+                guard success, let sessionIDNew = sessionIDNew else{
+                    //Due to unknown reason the cookie was unable to be retrieved (perhaps the user has changed their password)
+                    return
+                }
+                
+                self.sessionID = sessionIDNew
+                Utils.writeToSharedPreferences(key: "sessionID", value: sessionIDNew)
+                SVProgressHUD.dismiss()
+                self.playAudioBook(url: self.createUrl())
+            })
+            
+            return
+        }
+        
         progressSlider.minimumValue = 0
         progressSlider.maximumValue = Float(seconds)
         progressSlider.isContinuous = true
@@ -201,6 +225,7 @@ class PlayerController: BaseViewController {
         
         timer =  Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
+        playButton.setImage(UIImage(named: "Pause"), for: .normal)
         player = AVPlayer(playerItem: playerItem)
         player?.play()
         timerRunning = true;
@@ -273,14 +298,8 @@ class PlayerController: BaseViewController {
     
     @objc func playbackSliderValueChanged(_ playbackSlider:UISlider){
         
-        if(player == nil){
-            return
-        }
-        
         let seconds : Int64 = Int64(playbackSlider.value)
         let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
-        
-        
         
         player!.seek(to: targetTime)
         

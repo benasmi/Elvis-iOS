@@ -62,6 +62,7 @@ class MessagesViewController: BaseViewController{
     }
     
     override func viewDidLoad() {
+        applyAccesibility()
         super.viewDidLoad()
     }
     
@@ -75,6 +76,16 @@ class MessagesViewController: BaseViewController{
     override func enableDarkMode(){
         messageToAdministrationBtn.backgroundColor = UIColor.clear
         
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .paragraphStyle: paragraphStyle
+        ]
+        let attributedQuote = NSAttributedString(string: messageToAdministrationBtn.titleLabel!.text!, attributes: attributes)
+        messageToAdministrationBtn.setAttributedTitle(attributedQuote, for: .normal)
+        
+        
         messagesReceivedBtn.backgroundColor = UIColor.clear
         messagesReceivedBtn.setTitleColor(.white, for: .normal)
         
@@ -87,7 +98,15 @@ class MessagesViewController: BaseViewController{
     override func disableDarkMode(){
         messageToAdministrationBtn.backgroundColor = UIColor.clear
         
-     
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.black,
+            .paragraphStyle: paragraphStyle
+        ]
+        let attributedQuote = NSAttributedString(string: messageToAdministrationBtn.titleLabel!.text!, attributes: attributes)
+        messageToAdministrationBtn.setAttributedTitle(attributedQuote, for: .normal)
+        
         messagesReceivedBtn.backgroundColor = UIColor.clear
         messagesReceivedBtn.setTitleColor(.black, for: .normal)
         
@@ -98,3 +117,23 @@ class MessagesViewController: BaseViewController{
     }
     
 }
+
+extension MessagesViewController{
+    func applyAccesibility(){
+    
+     
+        messageToAdministrationBtn.isAccessibilityElement = true
+        messageToAdministrationBtn.accessibilityTraits = UIAccessibilityTraits.button
+        messageToAdministrationBtn.accessibilityLabel = "Click to write messages to administration"
+        
+        messagesReceivedBtn.isAccessibilityElement = true
+        messagesReceivedBtn.accessibilityTraits = UIAccessibilityTraits.button
+        messagesReceivedBtn.accessibilityLabel = "Click to see received messages"
+     
+        newsBtn.isAccessibilityElement = true
+        newsBtn.accessibilityTraits = UIAccessibilityTraits.button
+        newsBtn.accessibilityLabel = "Click to see news"
+        
+    }
+}
+

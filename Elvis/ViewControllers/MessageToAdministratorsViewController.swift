@@ -33,6 +33,7 @@ class MessageToAdministratorsViewController: BaseViewController{
     
     override func viewDidLoad() {
         self.hideKeyboardWhenTappedAround()
+        applyAccesibility()
         super.viewDidLoad()
     }
     
@@ -44,7 +45,7 @@ class MessageToAdministratorsViewController: BaseViewController{
         messageBodyField.backgroundColor = UIColor.clear
         
         messageThemeLabel.textColor = UIColor.black
-        messageThemeLabel.textColor = UIColor.black
+        messageTextLabel.textColor = UIColor.black
         
         self.view.backgroundColor = UIColor.white
     }
@@ -56,10 +57,41 @@ class MessageToAdministratorsViewController: BaseViewController{
         messageBodyField.backgroundColor = UIColor.clear
         
         messageThemeLabel.textColor = UIColor.white
-        messageThemeLabel.textColor = UIColor.white
+        messageTextLabel.textColor = UIColor.white
         
         
         self.view.backgroundColor = UIColor.black
     }
     
 }
+
+extension MessageToAdministratorsViewController{
+    func applyAccesibility(){
+        
+        messageTextLabel.isAccessibilityElement = false;
+        messageThemeLabel.isAccessibilityElement = false;
+        
+        messageTopicField.font = UIFont.preferredFont(forTextStyle: .body)
+        messageTopicField.adjustsFontForContentSizeCategory = true
+        messageTopicField.isAccessibilityElement = true
+        messageTopicField.accessibilityTraits = UIAccessibilityTraits.none
+        messageTopicField.accessibilityLabel = "Message topic"
+        messageTopicField.accessibilityValue = "Click to write topic"
+        
+        messageBodyField.font = UIFont.preferredFont(forTextStyle: .body)
+        messageBodyField.adjustsFontForContentSizeCategory = true
+        messageBodyField.isAccessibilityElement = true
+        messageBodyField.accessibilityTraits = UIAccessibilityTraits.none
+        messageBodyField.accessibilityLabel = "Message content"
+        messageBodyField.accessibilityValue = "Click to write message"
+        
+        sendMsgButton.isAccessibilityElement = true
+        sendMsgButton.accessibilityTraits = UIAccessibilityTraits.button
+        sendMsgButton.accessibilityLabel = "Click to send message"
+        
+    }
+}
+
+
+
+
