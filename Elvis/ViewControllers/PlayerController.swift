@@ -312,6 +312,10 @@ class PlayerController: BaseViewController {
     @objc func timerAction(){
         if(timerRunning){
             let value = progressSlider.value
+            if(value == progressSlider.maximumValue){
+                skipForward.sendActions(for: .touchUpInside)
+                return;
+            }
             progressSlider.setValue(value+1, animated: true)
             tv_time.text = timeLabelSetter(seconds: Int(value))
             tv_time.accessibilityValue = tv_time.text
