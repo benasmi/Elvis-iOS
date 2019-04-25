@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.0.0-beta.3)
+  - DropDown (2.3.2)
   - Realm (3.14.0):
     - Realm/Headers (= 3.14.0)
   - Realm/Headers (3.14.0)
@@ -10,6 +11,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.3)
+  - DropDown (= 2.3.2)
   - RealmSwift
   - SVProgressHUD
   - SwiftyJSON (~> 4.0)
@@ -17,6 +19,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - DropDown
     - Realm
     - RealmSwift
     - SVProgressHUD
@@ -24,11 +27,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 50d6fa7e8cbe7f84559e86ab641ffd029db655f8
+  DropDown: 7f87abecc28f9b4edad810fe1211c5c018c257e5
   Realm: 221b25919bb5a010a3c597d707f8df3492dcd93a
   RealmSwift: 28f22dfa6a27b9a778cfb09471558b6afcf1022c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 554c5486f2b2200d4e42f29d51697ee9101f3bd8
+PODFILE CHECKSUM: 9ddbb81b438b3d1b873003aef2fa3f9dfa82c01b
 
 COCOAPODS: 1.6.1
