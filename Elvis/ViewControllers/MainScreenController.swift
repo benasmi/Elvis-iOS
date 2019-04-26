@@ -26,6 +26,15 @@ class MainScreenController: BaseViewController {
         
     }
     
+    @IBAction func recentBooks(_ sender: Any) {
+        let books: [AudioBook] = Array(DatabaseUtils.getRecentBooks())
+        //passing data and going to new view controller
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "SearchedBooks") as! SearchedBooksController
+        newViewController.books = books
+        self.present(newViewController, animated: true, completion: nil)
+        print(books.count)
+    }
     override func viewDidLoad() {
         applyAccesibility()
         super.viewDidLoad()

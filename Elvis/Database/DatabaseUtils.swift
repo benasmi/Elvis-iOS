@@ -40,23 +40,31 @@ class DatabaseUtils{
     }
     
     static func addToRecentsList(book: AudioBook){
-        
         DispatchQueue.main.async {
-            
             let realm = getListenHistoryRealm()
-            
             try! realm.write {
-                let duplicates = realm.objects(AudioBook.self).filter("Title == %@", book.Title)
+                    //If book exists -> updates - otherwise -> adds a new book
+                    book.created = Date()
+                    realm.add(book, update: true)
                 
-                if(duplicates.count != 0){
-                    print("duplicate(s) found")
-                    
-                    
-                }
-                realm.add(book)
+                    //Checking if there are more than 10 books -> If yes -> Delete 11th book
+                    let results: Results<AudioBook> = getRecentBooks()
+                
+                    if(results.count>10){
+                        //Deleting 11th book
+                        realm.delete(results[10])
+                    }
+                
             }
-            
         }
+    }
+    
+    public static func getRecentBooks() -> Results<AudioBook> {
+        
+        let realm = getListenHistoryRealm()
+        let results: Results<AudioBook> = realm.objects(AudioBook.self).sorted(byKeyPath: "created", ascending: false)
+        return results
+        
     }
     
     static func fetchNews(onFinishListener: @escaping (Bool, [NewsItem]?) -> Void){

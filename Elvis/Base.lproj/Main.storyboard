@@ -644,6 +644,9 @@
                                                 <color key="value" name="ColorAccent"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="recentBooks:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="2PJ-6d-fje"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KPx-WJ-I3V">
                                         <rect key="frame" x="0.0" y="120" width="355" height="70"/>
