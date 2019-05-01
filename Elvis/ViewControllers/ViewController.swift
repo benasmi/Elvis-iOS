@@ -59,9 +59,9 @@ class ViewController: UIViewController {
         guard error == nil else{
             switch error! {
             case LoginError.NetworkError:
-                Utils.alertMessage(message: "Nėra interneto ryšio", viewController: self)
+                Utils.alertMessage(message: "Nėra interneto ryšio", title: "Klaida", buttonTitle: "Bandyti dar kartą!", viewController: self)
             case LoginError.InvalidCredentials:
-                Utils.alertMessage(message: "Neteisingas slaptažodis arba vartotojo vardas!", viewController: self)
+                Utils.alertMessage(message: "Neteisingas slaptažodis arba vartotojo vardas!", title: "Klaida", buttonTitle: "Bandyti dar kartą!", viewController: self)
             }
             return
         }
@@ -78,22 +78,9 @@ class ViewController: UIViewController {
 }
 
 extension ViewController{
-    /*
-     difficultyLabel.isAccessibilityElement = true //1
-     difficultyLabel.accessibilityTraits = UIAccessibilityTraitNone //2
-     difficultyLabel.accessibilityLabel = "Difficulty Level" //3
-     */
-    
+
     func applyAccesibility(){
-        //tv_username.font = UIFont.preferredFont(forTextStyle: .body)
-        //tv_username.adjustsFontForContentSizeCategory = true
-        //tv_username.isAccessibilityElement = false;
-     
-        
-        //tv_password.font = UIFont.preferredFont(forTextStyle: .body)
-        //tv_password.adjustsFontForContentSizeCategory = true
-        //tv_password.isAccessibilityElement = false;
-     
+      
         username.font = UIFont.preferredFont(forTextStyle: .body)
         username.adjustsFontForContentSizeCategory = true
         username.isAccessibilityElement = true

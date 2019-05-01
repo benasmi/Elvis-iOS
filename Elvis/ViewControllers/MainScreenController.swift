@@ -72,7 +72,7 @@ class MainScreenController: BaseViewController {
     func onFinishListener(_ books : [AudioBook]){
         SVProgressHUD.dismiss()
         if(books.isEmpty){
-            Utils.alertMessage(message: "Nerasta naujų knygų", viewController: self)
+            Utils.alertMessage(message: "Nerasta naujų knygų", title: "Klaida", buttonTitle: "Bandyti dar kartą!", viewController: self)
             return
         }
         

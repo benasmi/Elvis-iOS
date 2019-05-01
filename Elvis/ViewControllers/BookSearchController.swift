@@ -81,7 +81,7 @@ class BookSearchController: BaseViewController {
     func onFinishListener(_ books: [AudioBook]){
         SVProgressHUD.dismiss()
         if(books.isEmpty){
-            Utils.alertMessage(message: "Tokių knygų nerasta!", viewController: self)
+            Utils.alertMessage(message: "Tokių knygų nerasta!", title: "Klaida", buttonTitle: "Bandyti dar kartą!",viewController: self)
             return
         }
         

@@ -58,6 +58,9 @@ class MessagesReceivedViewController: BaseViewController, UITableViewDelegate, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as! MessageCell
+        cell.isAccessibilityElement = true
+        cell.accessibilityLabel = "Subject:" + messages[indexPath.row].subject
+        cell.accessibilityValue = "Content:" + messages[indexPath.row].content
         cell.setUpCell(message: messages[indexPath.row])
         isNightModeEnabled ? cell.enableNightMode() : cell.disableNightMode()
         return cell

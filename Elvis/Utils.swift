@@ -18,9 +18,9 @@ class Utils{
         return (NetworkReachabilityManager()?.isReachable)!
     }
     
-    static func alertMessage(message:String, viewController: UIViewController){
-        let alert = UIAlertController(title: "Klaida!", message: message, preferredStyle: UIAlertController.Style.alert);
-        let okButton = UIAlertAction(title:"Bandyti dar kartą!", style: UIAlertAction.Style.default, handler:nil);
+    static func alertMessage(message:String, title:String, buttonTitle: String, viewController: UIViewController){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert);
+        let okButton = UIAlertAction(title:buttonTitle, style: UIAlertAction.Style.default, handler:nil);
         alert.addAction(okButton);
         viewController.present(alert, animated: true, completion: nil);
     }
