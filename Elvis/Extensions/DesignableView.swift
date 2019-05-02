@@ -13,8 +13,11 @@ class DesignableLabel: UILabel {
 }
 
 
+//This class is an extension for UIView.
+//It lets us to add borders and change border's properties in the Designer Window.
 
 extension UIView {
+    
     
     
     @IBInspectable
