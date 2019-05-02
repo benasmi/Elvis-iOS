@@ -38,6 +38,7 @@
 		01BDB69E225D0A4900887E6E /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDB69D225D0A4900887E6E /* NewsItem.swift */; };
 		01D4013922590D0C00C6CD48 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4013822590D0C00C6CD48 /* MessagesViewController.swift */; };
 		01D4013B22591FF200C6CD48 /* MessageToAdministratorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */; };
+		2AD036C92274D23700C7AE34 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD036C82274D23700C7AE34 /* StringExtension.swift */; };
 		353FD1A3803F5F5EF7D4299D /* Pods_Elvis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +97,7 @@
 		01BDB69D225D0A4900887E6E /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
 		01D4013822590D0C00C6CD48 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageToAdministratorsViewController.swift; sourceTree = "<group>"; };
+		2AD036C82274D23700C7AE34 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Elvis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFD4F585C2A488F07335CF37 /* Pods-Elvis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.debug.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.debug.xcconfig"; sourceTree = "<group>"; };
 		E5338918A7A70243F52EB220 /* Pods-Elvis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.release.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				01A82A0C2243964300D89105 /* DesignableView.swift */,
 				01394530225610720026ABEB /* DoneButtonExtensions.swift */,
 				0146C22822578FD200526040 /* NotificationsExtension.swift */,
+				2AD036C82274D23700C7AE34 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				01A829E122438F0B00D89105 /* ViewController.swift in Sources */,
 				0141B5D02245378400915C48 /* SearchedBooksController.swift in Sources */,
 				01566ECA225DCE9000F381B8 /* NewsItemViewController.swift in Sources */,
+				2AD036C92274D23700C7AE34 /* StringExtension.swift in Sources */,
 				01394531225610720026ABEB /* DoneButtonExtensions.swift in Sources */,
 				0123C5BD224A5F6F006DEFF1 /* PlayerController.swift in Sources */,
 				0146C22B2257946D00526040 /* BaseViewController.swift in Sources */,

@@ -18,15 +18,20 @@ public enum LoginError{
     case NetworkError
     case InvalidCredentials
 }
-
+public enum UniqueIDRequestError{
+    case InvalidConnection
+    case UnexpectedServerResponse
+}
 
 class DatabaseUtils{
     
-    static let BaseURL = "http://elvis.labiblioteka.lt/app/"
-    static let LoginUrl = BaseURL + "login.php"
-    static let SendMessageUrl = BaseURL + "messageSend.php"
-    static let GetMessagesUrl = BaseURL + "messagesReceived.php"
-    static let GetNewsUrl = BaseURL + "news.php"
+    static let BaseUrl = "http://elvis.labiblioteka.lt/"
+    static let BaseApiUrl = BaseUrl + "app/"
+    static let LoginUrl = BaseApiUrl + "login.php"
+    static let SendMessageUrl = BaseApiUrl + "messageSend.php"
+    static let GetMessagesUrl = BaseApiUrl + "messagesReceived.php"
+    static let RegistrationUrl = BaseUrl + "registration/password"
+    static let GetNewsUrl = BaseApiUrl + "news.php"
     
     private static func getListenHistoryRealm() -> Realm{
         let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -57,6 +62,232 @@ class DatabaseUtils{
             }
             
         }
+    }
+    
+    static func getTimestampAndID(listener: @escaping (_ timestamp: String?, _ uniqueID: String?, _ sessionID: String? , _ error: UniqueIDRequestError?) -> Void){
+        
+        //Sending GET request to the registration page without any params
+        AF.request(RegistrationUrl, method: .get, parameters: .none, encoding: URLEncoding.httpBody, headers:nil).responseString{
+            response in
+            
+            guard response.error == nil, response.result.value != nil else{
+                //This error is most likely due to connection issues.
+                listener(nil, nil, nil, UniqueIDRequestError.InvalidConnection)
+                return
+            }
+            
+            let result = response.result.value!
+            
+            //The regex code that finds timestamp value in the html page
+            let timestampRegex = """
+            name=\\"timestamp\\" value=\\"(.*?)"
+            """
+            
+            //The regex code that finds unique ID in the html page
+            let uniqueIDRegex = """
+            (?<=ID]\" value=\").{40}
+            """
+            
+            //Performing the actual search with the regex code
+            let uniqueIDSearchResults = result.matchingStrings(regex: uniqueIDRegex)
+            let timestampSearchResults = result.matchingStrings(regex: timestampRegex)
+            
+            guard uniqueIDSearchResults.count != 0, timestampSearchResults.count != 0 else{
+                //Returning an error if timestamp could not be found. If this happens, it is likely that the server has been altered
+                listener(nil, nil, nil, UniqueIDRequestError.UnexpectedServerResponse)
+                return
+            }
+            
+            guard uniqueIDSearchResults[0].count != 0, timestampSearchResults[0].count != 0 else{
+                //Returning an error if unique ID could not be found. If this happens, it is likely that the server has been altered
+                listener(nil, nil, nil, UniqueIDRequestError.UnexpectedServerResponse)
+                return
+            }
+            
+            //Getting the actual values from the regex search
+            let uniqueID = uniqueIDSearchResults[0][0]
+            let timestamp = timestampSearchResults[0][1]
+            
+            var sessionID: String? = nil
+            
+            //Attempting to retrieve session ID
+            for cookie in HTTPCookieStorage.shared.cookies! {
+                if(cookie.name=="PHPSESSID"){
+                    sessionID = cookie.value
+                    break
+                }
+            }
+            
+            guard sessionID != nil else{
+                //If the session ID could not be retrieved, it is likely that the server has been altered. returning an error.
+                listener(nil, nil, nil, UniqueIDRequestError.UnexpectedServerResponse)
+                return
+            }
+            
+            //If all goes well, returning the values with error being nil
+            listener(timestamp, uniqueID, sessionID, nil)
+            
+        }
+        
+    }
+    
+    enum Gender: String{
+        case Moteris = "Female"
+        case Vyras = "Male"
+    }
+    
+    enum RegistrationError{
+        case OutdatedClient
+        case InvalidConnection
+        case InvalidInput(details: String)
+    }
+    
+    static func register(firstName: String!, lastName: String!, personalCode: String!, birthday: Date!, education: Int!, emailAddress: String!, mobilePhoneNumber: String!, muncipality: Int!, leagueDescription: String!, username: String!, password: String!, repeatedPassword: String!, gender: Gender!, status: Int!, haveDisabilities: Bool!, isLabUser: Bool!, photoID: UIImage, photoDisabilityDocument: UIImage, acceptConditions: Bool, acceptCommentConditions: Bool, _ listener : @escaping (_ error: RegistrationError?) -> Void){
+        
+        //Getting timestamp, unique ID and session ID, since it will be used later
+        getTimestampAndID(listener: {
+            timestamp, uniqueID, sessionID, error in
+            
+            guard error == nil, let timestamp = timestamp, let uniqueID = uniqueID, let sessionID = sessionID else{
+                
+                switch error! {
+                    
+                case UniqueIDRequestError.UnexpectedServerResponse:
+                    //This may occur if the server side was altered, and our client is incapable of receiving unique ID, session ID or timestamp
+                    listener(RegistrationError.OutdatedClient)
+                    return
+                case UniqueIDRequestError.InvalidConnection:
+                    //This error will most likely occur due to connectivity issues
+                    listener(RegistrationError.InvalidConnection)
+                    return
+                }
+            }
+            
+            //Creating the necessary headers to emulate a browser
+            let headers: HTTPHeaders = [
+                "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+                "accept-encoding":"gzip, deflate",
+                "accept-language":"lt,en-US;q=0.9,en;q=0.8,ru;q=0.7,pl;q=0.6",
+                "cache-control":"max-age=0",
+                "content-length":"2117",
+                "content-type":"multipart/form-data; boundary=----WebKitFormBoundaryuiQAABOqpG8HW2oy; charset=utf-8",
+                "cookie":"frint-endcontrast=contrastNormal; frint-endfont=12; PHPSESSID=\(sessionID)",
+                "dnt":"1",
+                "host":"elvis.labiblioteka.lt",
+                "origin":"http://elvis.labiblioteka.lt",
+                "proxy-connection":"keep-alive",
+                "referer":"http://elvis.labiblioteka.lt/registration/password",
+                "upgrade-insecure-requests":"1",
+                "user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36"
+                
+            ]
+            
+            //These are used to compute the month, year and day from date object
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: birthday)
+            
+            //Array, containing all the data (except for images)
+            let data: [String: String] = [
+                "timestamp": timestamp,
+                "Records[0][UniqueID]": uniqueID,
+                "Records[0][FirstName]": firstName,
+                "Records[0][LastName]":lastName,
+                "Records[0][PersonalCode]": personalCode,
+                "Records[0][BirthdayYear]": String(components.year!),
+                "Records[0][BirthdayMonth]": String(components.month!),
+                "Records[0][BirthdayDay]": String(components.day!),
+                "Records[0][EducationID]": String(education),
+                "Records[0][EmailAddress]": emailAddress,
+                "Records[0][MobilePhoneNumber]": mobilePhoneNumber,
+                "Records[0][MunicipalityID]": String(muncipality),
+                "Records[0][LeagueDescription]": leagueDescription,
+                "Records[0][UserName]": username,
+                "Records[0][Password]": password,
+                "Records[0][RepeatedPassword]": repeatedPassword,
+                "Records[0][Gender]": gender.rawValue,
+                "Records[0][Status][]": String(status),
+                "Records[0][HaveDisabilities]": haveDisabilities ? "1" : "0",
+                "Records[0][IsLabUser]": isLabUser ? "1" : "0",
+                "Records[0][Conditions]": acceptConditions ? "1" : "0",
+                "Records[0][CommentConditions]": acceptCommentConditions ? "1" : "0",
+                "Action[Registration]": "Registruotis"
+            ]
+
+            //Array, containing image data
+            let arrImage: [UIImage] = [
+                photoID,
+                photoDisabilityDocument
+            ]
+            
+            //Performing the multipart reuqest task using AlamoFire
+            AF.upload(multipartFormData: { (multipartFormData) in
+                
+                //Appending all the body fields as multipart entities
+                for (key, value) in data {
+                    multipartFormData.append((value).data(using: String.Encoding.utf8)!, withName: key)
+                }
+                
+                //Appending all the image fields as multipart entities
+                for (index, img) in arrImage.enumerated() {
+                    guard let imgData = img.jpegData(compressionQuality: 1) else { return }
+                    multipartFormData.append(imgData, withName: "files[]", fileName: "upload\(index)" + ".jpeg", mimeType: "image/jpeg")
+                }
+                
+                
+            },usingThreshold: UInt64.init(),
+              to: RegistrationUrl,
+              method: .post,
+              headers: headers).responseString(encoding: String.Encoding.utf8){ response in
+                
+                guard response.error == nil, let result = response.result.value else{
+                    //This error is most likely caused by connectivity issues.
+                    listener(RegistrationError.InvalidConnection)
+                    return
+                }
+                
+                //The regex code that finds the success message in the page
+                let successMessageRegex =
+                """
+                Prašymas suteikti prieigą sėkmingai gautas. Patvirtinimą gausite el. paštu
+                """
+                
+                //Performing the actual search with the regex code
+                let successMessageSearchResult = result.matchingStrings(regex: successMessageRegex)
+                
+                if(successMessageSearchResult.count > 0){
+                    //Success message was found, the registration is successful
+                    listener(nil)
+                    return
+                }else{
+                    //The regex code that finds the error message in the page
+                    let errorMessageRegex = "alert\\(\\'([\\s\\S]*?)\\'\\)"
+                    
+                    //Performing the regex search
+                    let errorMessageSearchResult = result.matchingStrings(regex: errorMessageRegex)
+                    
+                    //If no regex result groups were found
+                    guard errorMessageSearchResult.count > 0 else{
+                        //Unexpected response from server: neither success nor error message exists.
+                        listener(RegistrationError.OutdatedClient)
+                        return
+                    }
+                    
+                    //If no regex result string in the first group was found
+                    guard errorMessageSearchResult[0].count > 1 else{
+                        //Unexpected response from server: neither success nor error message exists.
+                        listener(RegistrationError.OutdatedClient)
+                        return
+                    }
+                    
+                    //Getting the final error message, and subtracting the '\n' from the end
+                    let errorMessage = String(errorMessageSearchResult[0][1].dropLast().dropLast())
+                    
+                    //Reporting the error to the final listener
+                    listener(RegistrationError.InvalidInput(details: errorMessage))
+                }
+            }
+            
+        })
     }
     
     static func fetchNews(onFinishListener: @escaping (Bool, [NewsItem]?) -> Void){
@@ -380,7 +611,7 @@ class DatabaseUtils{
     static func NewestBooks(haveDisabilities:String, onFinishListener: @escaping (_ books : [AudioBook]) -> Void){
         
         var books: [AudioBook] = []
-        let url = BaseURL + "newestPublications.php";
+        let url = BaseApiUrl + "newestPublications.php";
         let json : Parameters = ["HaveDisabilities": haveDisabilities]
         
         AF.request(url, method: .post, parameters: json, encoding: URLEncoding.httpBody, headers:nil).responseJSON{
@@ -469,7 +700,7 @@ class DatabaseUtils{
         
         var books: [AudioBook] = []
         
-        let url = BaseURL + "search.php";
+        let url = BaseApiUrl + "search.php";
         let json : Parameters = [
             "HaveDisabilities": haveDisabilities,
             "title": title,
