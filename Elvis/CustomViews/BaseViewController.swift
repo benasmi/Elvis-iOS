@@ -15,6 +15,7 @@ class BaseViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Adding observers for app to catch theme toggling
         NotificationCenter.default.addObserver(self, selector: #selector(darkModeEnabled(_:)), name: .darkModeEnabled, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(darkModeDisabled(_:)), name: .darkModeDisabled, object: nil)
     }
@@ -22,6 +23,7 @@ class BaseViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        //Checking from sharedPreferences if it's dark or day mode
         var isDarkModeEnabled = Utils.readFromSharedPreferences(key: "isDarkModeEnabled") as? Bool
         if(isDarkModeEnabled == nil){
             isDarkModeEnabled = false
@@ -31,8 +33,10 @@ class BaseViewController: UIViewController{
     }
     
     open func toggleMode(){
+        //Checking current active theme mode
         let isDarkModeEnabled = !(Utils.readFromSharedPreferences(key: "isDarkModeEnabled") as? Bool ?? false)
         NotificationCenter.default.post(name: isDarkModeEnabled ? .darkModeEnabled : .darkModeDisabled, object: nil)
+        //Toggling to another theme mode
         Utils.writeToSharedPreferences(key: "isDarkModeEnabled", value: isDarkModeEnabled)
     }
     
