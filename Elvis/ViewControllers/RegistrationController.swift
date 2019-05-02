@@ -176,7 +176,11 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     func prepareEducationDropDown(){
         educationDropDown = DropDown()
         educationDropDown.anchorView = labelSelectorEducation
-        educationDropDown.dataSource = ["PRADINIS", "PAGRINDINIS", "VIDURINIS", "AUKŠTASIS", "AUKŠTESNYSIS", "PROFESINIS"]
+        
+        let dataSource = Utils.getPlist(withName: "educationList")!
+
+        
+        educationDropDown.dataSource = dataSource
         
         // Action triggered on selection
         educationDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
@@ -188,7 +192,10 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     func prepareStatusDropDown(){
         statusDropDown = DropDown()
         statusDropDown.anchorView = labelSelectorStatus
-        statusDropDown.dataSource = ["MOKSLEIVIS", "STUDENTAS", "DIRBANTYSIS", "BEDARBIS", "PENSININKAS", "KITAS"]
+        
+        let dataSource = Utils.getPlist(withName: "statusList")!
+        
+        statusDropDown.dataSource = dataSource
         
         // Action triggered on selection
         statusDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
@@ -200,7 +207,10 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
     func prepareAddressDropDown(){
         addressDropDown = DropDown()
         addressDropDown.anchorView = labelSelectorAddress
-        addressDropDown.dataSource = ["KAUNAS", "VILNIUS", "ŠILALĖ"]
+        
+        let dataSource = Utils.getPlist(withName: "addressList")!
+
+        addressDropDown.dataSource = dataSource
         
         // Action triggered on selection
         addressDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
@@ -315,7 +325,6 @@ class RegistrationController: UIViewController, UIImagePickerControllerDelegate,
         let testImg = UIImage(data: data!)!
         
         SVProgressHUD.show(withStatus: "Registruojama...")
-        
         
         DatabaseUtils.register(
             firstName: firstName,

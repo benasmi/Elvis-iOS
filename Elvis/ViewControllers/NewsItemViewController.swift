@@ -14,8 +14,10 @@ class NewsItemViewController: BaseViewController{
     @IBAction func changeTheme(_ sender: Any) {
         toggleMode()
     }
+    
     @IBOutlet weak var newsItemView: UITextView!
     var newsItem: NewsItem!
+    
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -25,11 +27,16 @@ class NewsItemViewController: BaseViewController{
     
     override func disableDarkMode(){
         newsItemView.textColor = UIColor.black
+        
+      
+        
         self.view.backgroundColor = UIColor.white
     }
     override func enableDarkMode(){
         newsItemView.textColor = UIColor.white
 
+        
+    
         self.view.backgroundColor = UIColor.black
     }
     

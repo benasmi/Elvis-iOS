@@ -38,6 +38,10 @@
 		01BDB69E225D0A4900887E6E /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDB69D225D0A4900887E6E /* NewsItem.swift */; };
 		01D4013922590D0C00C6CD48 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4013822590D0C00C6CD48 /* MessagesViewController.swift */; };
 		01D4013B22591FF200C6CD48 /* MessageToAdministratorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */; };
+		2AAB159F227B2FF100FF044D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01A829EA22438F0D00D89105 /* Info.plist */; };
+		2AAB15A3227B328B00FF044D /* statusList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB15A2227B328B00FF044D /* statusList.plist */; };
+		2AAB15A6227B337500FF044D /* educationList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB15A5227B337400FF044D /* educationList.plist */; };
+		2AAB15AA227B368000FF044D /* addressList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB15A9227B368000FF044D /* addressList.plist */; };
 		2AD036C92274D23700C7AE34 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD036C82274D23700C7AE34 /* StringExtension.swift */; };
 		353FD1A3803F5F5EF7D4299D /* Pods_Elvis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */; };
 /* End PBXBuildFile section */
@@ -97,6 +101,9 @@
 		01BDB69D225D0A4900887E6E /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
 		01D4013822590D0C00C6CD48 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageToAdministratorsViewController.swift; sourceTree = "<group>"; };
+		2AAB15A2227B328B00FF044D /* statusList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = statusList.plist; sourceTree = "<group>"; };
+		2AAB15A5227B337400FF044D /* educationList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = educationList.plist; sourceTree = "<group>"; };
+		2AAB15A9227B368000FF044D /* addressList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = addressList.plist; path = ../../../Downloads/addressList.plist; sourceTree = "<group>"; };
 		2AD036C82274D23700C7AE34 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Elvis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFD4F585C2A488F07335CF37 /* Pods-Elvis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.debug.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.debug.xcconfig"; sourceTree = "<group>"; };
@@ -129,13 +136,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0123C5BB224843C2006DEFF1 /* PLists */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PLists;
-			sourceTree = "<group>";
-		};
 		0141B5D12245379000915C48 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,8 +212,9 @@
 		01A829DD22438F0B00D89105 /* Elvis */ = {
 			isa = PBXGroup;
 			children = (
+				2AAB15A9227B368000FF044D /* addressList.plist */,
+				2AAB15A2227B328B00FF044D /* statusList.plist */,
 				2A2B4E6E2254013B009EDBC9 /* CustomViews */,
-				0123C5BB224843C2006DEFF1 /* PLists */,
 				01AE185622466B700009C89D /* Database */,
 				0141B5D4224537E500915C48 /* TableCells */,
 				0141B5D3224537D500915C48 /* Extensions */,
@@ -225,6 +226,7 @@
 				01A829E722438F0D00D89105 /* LaunchScreen.storyboard */,
 				01A829EA22438F0D00D89105 /* Info.plist */,
 				01AE1854224669A70009C89D /* Utils.swift */,
+				2AAB15A5227B337400FF044D /* educationList.plist */,
 			);
 			path = Elvis;
 			sourceTree = "<group>";
@@ -387,7 +389,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				01A829E922438F0D00D89105 /* LaunchScreen.storyboard in Resources */,
+				2AAB15A6227B337500FF044D /* educationList.plist in Resources */,
+				2AAB15AA227B368000FF044D /* addressList.plist in Resources */,
 				01A829E622438F0D00D89105 /* Assets.xcassets in Resources */,
+				2AAB159F227B2FF100FF044D /* Info.plist in Resources */,
+				2AAB15A3227B328B00FF044D /* statusList.plist in Resources */,
 				01A829E422438F0B00D89105 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

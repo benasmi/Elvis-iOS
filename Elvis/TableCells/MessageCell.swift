@@ -19,7 +19,7 @@ class MessageCell: UITableViewCell{
     
     func setUpCell(message: Message){
         self.message = message
-        
+        //applyAccesibility(message: message)
         self.selectionStyle = .none
 
         messageBody.text = self.message.content
@@ -44,3 +44,5 @@ class MessageCell: UITableViewCell{
     }
     
 }
+
+

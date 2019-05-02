@@ -12,6 +12,8 @@ import RealmSwift
 
 class AudioBook : Object{
     
+    //Object creation date -> Used in sorting -> Later to display book creation in UX
+    @objc dynamic var created = Date()
     @objc dynamic var ID : String = ""
     @objc dynamic var Title: String = ""
     @objc dynamic var ReleaseDate: String = ""
@@ -26,6 +28,9 @@ class AudioBook : Object{
     var FileNormalIDS = List<String>()
     var FileFastIDS = List<String>()
     
+    override static func primaryKey() -> String? {
+        return "Title"
+    }
     
     convenience init(id: String, title: String, realeaseDate: String, authorID: String, authorFirstName: String, authorLastName: String, speakerId: String, speakerFirstName: String, speakerLastName: String, publicationNumber: Int, fileCount: Int, fileIdsNormal: List<String>, fileIdsFast: List<String>){
         self.init()
@@ -45,6 +50,4 @@ class AudioBook : Object{
         FileFastIDS = fileIdsFast
         
     }
-    
- 
 }

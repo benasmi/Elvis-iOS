@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>Pradinis</string>
+	<string>Nebaigtas pradinis</string>
+	<string>Pagrindinis</string>
+	<string>Nebaigtas pagrindinis</string>
+	<string>Vidurinis</string>
+	<string>Nebaigtas vidurinis</string>
+	<string>Aukštasis</string>
+	<string>Nebaigtas aukštasis</string>
+	<string>Aukštesnysis</string>
+	<string>Nebagtas aukštesnysis</string>
+	<string>Profesinis</string>
+	<string>Nebaigtas profesinis</string>
+</array>
+</plist>

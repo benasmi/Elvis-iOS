@@ -967,6 +967,9 @@
                                                 <color key="value" name="ColorAccent"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="recentBooks:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="2PJ-6d-fje"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KPx-WJ-I3V">
                                         <rect key="frame" x="0.0" y="120" width="355" height="70"/>
@@ -2524,7 +2527,7 @@
     <resources>
         <image name="BackForward" width="150" height="150"/>
         <image name="Contrast" width="368" height="368"/>
-        <image name="ElvisIcon" width="512" height="512"/>
+        <image name="ElvisIcon" width="156" height="73"/>
         <image name="Fastforward" width="150" height="150"/>
         <image name="GoBackButton" width="750" height="750"/>
         <image name="Play" width="150" height="150"/>

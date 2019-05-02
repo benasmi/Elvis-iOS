@@ -19,17 +19,42 @@ class MessageToAdministratorsViewController: BaseViewController{
     }
     
     @IBAction func sendMessage(_ sender: Any) {
-        SVProgressHUD.show(withStatus: "Siunčiama žinutė administratoriams")
-        SVProgressHUD.setDefaultMaskType(.black)
         
-        DatabaseUtils.sendMessageToAdmins(topic: messageTopicField.text!, body: messageBodyField.text!, onFinishListener: {
-            success in
-            SVProgressHUD.dismiss()
-            if(!success){
-                SVProgressHUD.showInfo(withStatus: "Siunčiant žinutę įvyko klaida")
-            }
-        })
+        //Checking if fields are not empty
+        if(messageTopicField.text!.isEmpty || messageBodyField.text!.isEmpty){
+             Utils.alertMessage(message: "Ne visi laukeliai užpildyti", title: "Klaida!", buttonTitle: "Bandyti dar kartą!", viewController: self)
+            return
+        }
+        
+        //Creating a prompt dialog box
+        let alert = UIAlertController(title: "Ar tikrai norite išsiųsti žinutę?", message: "Pasirinkite TAIP arba NE", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "TAIP", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            SVProgressHUD.show(withStatus: "Siunčiama žinutė administratoriams")
+            SVProgressHUD.setDefaultMaskType(.black)
+            
+            DatabaseUtils.sendMessageToAdmins(topic: self.messageTopicField.text!, body: self.messageBodyField.text!, onFinishListener: {
+                success in
+                SVProgressHUD.dismiss()
+                if(!success){
+                    Utils.alertMessage(message: "Siunčiant žinutę įvyko klaida", title: "Klaida!", buttonTitle: "Bandyti dar kartą!",viewController: self)
+                }else{
+                    Utils.alertMessage(message: "Žinutė sėkmingai išsiųsta", title: "", buttonTitle: "Gerai!", viewController: self)
+                }
+            })
+            print ("YES")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "NE", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            print("NO")
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
+
+
     
     override func viewDidLoad() {
         self.hideKeyboardWhenTappedAround()
