@@ -41,7 +41,6 @@
 		2AAB159F227B2FF100FF044D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01A829EA22438F0D00D89105 /* Info.plist */; };
 		2AAB15A3227B328B00FF044D /* statusList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB15A2227B328B00FF044D /* statusList.plist */; };
 		2AAB15A6227B337500FF044D /* educationList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB15A5227B337400FF044D /* educationList.plist */; };
-		2AAB15AA227B368000FF044D /* addressList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB15A9227B368000FF044D /* addressList.plist */; };
 		2AD036C92274D23700C7AE34 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD036C82274D23700C7AE34 /* StringExtension.swift */; };
 		353FD1A3803F5F5EF7D4299D /* Pods_Elvis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */; };
 /* End PBXBuildFile section */
@@ -103,7 +102,6 @@
 		01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageToAdministratorsViewController.swift; sourceTree = "<group>"; };
 		2AAB15A2227B328B00FF044D /* statusList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = statusList.plist; sourceTree = "<group>"; };
 		2AAB15A5227B337400FF044D /* educationList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = educationList.plist; sourceTree = "<group>"; };
-		2AAB15A9227B368000FF044D /* addressList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = addressList.plist; path = ../../../Downloads/addressList.plist; sourceTree = "<group>"; };
 		2AD036C82274D23700C7AE34 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		D43FB4BAE076FB8CAE276349 /* Pods_Elvis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Elvis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFD4F585C2A488F07335CF37 /* Pods-Elvis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Elvis.debug.xcconfig"; path = "Target Support Files/Pods-Elvis/Pods-Elvis.debug.xcconfig"; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 		01A829DD22438F0B00D89105 /* Elvis */ = {
 			isa = PBXGroup;
 			children = (
-				2AAB15A9227B368000FF044D /* addressList.plist */,
 				2AAB15A2227B328B00FF044D /* statusList.plist */,
 				2A2B4E6E2254013B009EDBC9 /* CustomViews */,
 				01AE185622466B700009C89D /* Database */,
@@ -390,7 +387,6 @@
 			files = (
 				01A829E922438F0D00D89105 /* LaunchScreen.storyboard in Resources */,
 				2AAB15A6227B337500FF044D /* educationList.plist in Resources */,
-				2AAB15AA227B368000FF044D /* addressList.plist in Resources */,
 				01A829E622438F0D00D89105 /* Assets.xcassets in Resources */,
 				2AAB159F227B2FF100FF044D /* Info.plist in Resources */,
 				2AAB15A3227B328B00FF044D /* statusList.plist in Resources */,
