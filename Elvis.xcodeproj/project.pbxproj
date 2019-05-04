@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010BAF2D227DB061000D829C /* addressList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 010BAF2C227DB061000D829C /* addressList.plist */; };
 		0123C5BA22484270006DEFF1 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123C5B922484270006DEFF1 /* RegistrationController.swift */; };
 		0123C5BD224A5F6F006DEFF1 /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123C5BC224A5F6F006DEFF1 /* PlayerController.swift */; };
 		0139452F22560EC70026ABEB /* ViewControllersExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139452E22560EC70026ABEB /* ViewControllersExtension.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		010BAF2C227DB061000D829C /* addressList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = addressList.plist; path = ../../../addressList.plist; sourceTree = "<group>"; };
 		0123C5B922484270006DEFF1 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		0123C5BC224A5F6F006DEFF1 /* PlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
 		0139452E22560EC70026ABEB /* ViewControllersExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllersExtension.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				2AAB15A2227B328B00FF044D /* statusList.plist */,
+				010BAF2C227DB061000D829C /* addressList.plist */,
 				2A2B4E6E2254013B009EDBC9 /* CustomViews */,
 				01AE185622466B700009C89D /* Database */,
 				0141B5D4224537E500915C48 /* TableCells */,
@@ -387,6 +390,7 @@
 			files = (
 				01A829E922438F0D00D89105 /* LaunchScreen.storyboard in Resources */,
 				2AAB15A6227B337500FF044D /* educationList.plist in Resources */,
+				010BAF2D227DB061000D829C /* addressList.plist in Resources */,
 				01A829E622438F0D00D89105 /* Assets.xcassets in Resources */,
 				2AAB159F227B2FF100FF044D /* Info.plist in Resources */,
 				2AAB15A3227B328B00FF044D /* statusList.plist in Resources */,

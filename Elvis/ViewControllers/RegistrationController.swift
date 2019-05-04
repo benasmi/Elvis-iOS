@@ -14,7 +14,6 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var labelLabUser: UILabel!
     @IBOutlet weak var labelHaveDisabilities: UILabel!
     
-    
     @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var labelSurname: UILabel!
     @IBOutlet weak var labelPersonalCode: UILabel!
@@ -61,10 +60,13 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
     private var genderDropDown: DropDown!
     
     private var pictureTaken: UIImage?
+    
     private var idPhoto: UIImage?
     private var disabilityDocumentPhoto: UIImage?
+    
     private var imagePicker: UIImagePickerController!
     
+    private var takingIDPhoto: Bool = false
     private var labCheckbox: Bool = false
     private var disabilityCheckBox: Bool = false
     
@@ -104,6 +106,16 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         prepareAddressDropDown()
         prepareGenderDropDown()
         applyAccesibility()
+        
+        
+        btnDocumentsPhoto.titleLabel?.numberOfLines = 1
+        btnDocumentsPhoto.titleLabel?.adjustsFontSizeToFitWidth = true
+        btnDocumentsPhoto.titleLabel?.lineBreakMode = NSLineBreakMode.byClipping
+        
+        btnDisabDocumentPhoto.titleLabel?.numberOfLines = 1
+        btnDisabDocumentPhoto.titleLabel?.adjustsFontSizeToFitWidth = true
+        btnDisabDocumentPhoto.titleLabel?.lineBreakMode = NSLineBreakMode.byClipping
+        
         let educationTap = UITapGestureRecognizer(target: self, action: #selector(RegistrationController.educationTapListener(sender:)))
         labelSelectorEducation.isUserInteractionEnabled = true
         labelSelectorEducation.addGestureRecognizer(educationTap)
@@ -156,6 +168,7 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func takeIDPhoto(_ sender: Any) {
+        takingIDPhoto = true
         imagePicker =  UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .camera
@@ -163,12 +176,30 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        imagePicker.dismiss(animated: true, completion: nil)
-        pictureTaken = info[.originalImage] as? UIImage
+    func setPhotos(image: UIImage, isID: Bool){
+        if(isID){
+            idPhoto = image
+            btnDocumentsPhoto.accessibilityLabel = "ID photo is taken. Do you want to take it again?"
+            btnDocumentsPhoto.titleLabel?.text = "DARYTI NAUJĄ NUOTRAUKĄ"
+        }else{
+            btnDisabDocumentPhoto.titleLabel?.text = "DARYTI NAUJĄ NUOTRAUKĄ"
+            btnDisabDocumentPhoto.accessibilityLabel = "ID photo is taken. Do you want to take it again?"
+            disabilityDocumentPhoto = image
+        }
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            imagePicker.dismiss(animated: true, completion: nil)
+            pictureTaken = info[.originalImage] as? UIImage
+            setPhotos(image: pictureTaken!, isID: takingIDPhoto)
+    }
     @IBAction func takeDisabilityDocumentPhoto(_ sender: Any) {
+        takingIDPhoto = false
+        imagePicker =  UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .camera
+        
+        present(imagePicker, animated: true, completion: nil)
     }
     
     @objc func dateChanged(datePicker: UIDatePicker){
@@ -229,7 +260,8 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         addressDropDown = DropDown()
         addressDropDown.anchorView = labelSelectorAddress
         
-        let dataSource = ["SILALE", "KAUNAS"]
+        let dataSource =  Utils.getPlist(withName: "addressList")!
+
         
         addressDropDown.dataSource = dataSource
         
@@ -359,11 +391,6 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         let muncipality = addressDropDown.indexPathForSelectedRow!.row+1
         let gender = genderDropDown.indexPathForSelectedRow!.row == 0 ? DatabaseUtils.Gender.Vyras : DatabaseUtils.Gender.Moteris
         
-        let url = URL(string: "http://haieng.com/wp-content/uploads/2017/10/test-image-500x500.jpg")
-        let data = try? Data(contentsOf: url!)
-        let testImg = UIImage(data: data!)!
-        
-     
         //Creating a prompt dialog box
         let alert = UIAlertController(title: "Registruodamiesi sutinkate su Elvis taisyklėmis", message: "Taisykles rasite čia:\n http://elvis.labiblioteka.lt/registration/conditions \n http://elvis.labiblioteka.lt/registration/CommentsConditions", preferredStyle: UIAlertController.Style.alert)
         
@@ -390,8 +417,8 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
              status: status,
              haveDisabilities: self.disabilityCheckBox,
              isLabUser: self.labCheckbox,
-             photoID: testImg,
-             photoDisabilityDocument: testImg,
+             photoID: self.idPhoto!,
+             photoDisabilityDocument: self.disabilityDocumentPhoto!,
              acceptConditions: true,
              acceptCommentConditions: true){
              (error) in
@@ -412,10 +439,21 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
              return
              }
              }
-           
-             self.dismiss(animated: true, completion: nil)
+              
+                
+                //Creating a prompt dialog box
+                let successAlert = UIAlertController(title: "Registracija sėkminga!", message: "Laukite patvirtinimo paštu", preferredStyle: UIAlertController.Style.alert)
+                
+                successAlert.addAction(UIAlertAction(title: "Gerai", style: UIAlertAction.Style.default, handler: { (action) in
+                    
+                        self.dismiss(animated: true, completion: nil)
+                    
+                }))
+                self.present(successAlert, animated: true, completion: nil)
             
-                Utils.alertMessage(message: "Laukite patvirtininmo paštu", title: "Registracija sėkminga!", buttonTitle: "Gerai", viewController: self)
+            
+            
+               
              }
             
             print ("YES")
@@ -544,71 +582,71 @@ extension RegistrationController{
         labelDisabDocumentPhoto.isAccessibilityElement = false
         
         textFieldName.isAccessibilityElement = true
-        textFieldName.accessibilityLabel = "Name"
+        textFieldName.accessibilityLabel = "Name:" + textFieldName.text!
         textFieldName.accessibilityValue = "Click to write your name"
         textFieldName.accessibilityTraits = .none
         
         textFieldSurname.isAccessibilityElement = true
-        textFieldSurname.accessibilityLabel = "Surname"
+        textFieldSurname.accessibilityLabel = "Surname:" + textFieldSurname.text!
         textFieldSurname.accessibilityValue = "Click to write your surname"
         textFieldSurname.accessibilityTraits = .none
         
         textFieldPersonalCode.isAccessibilityElement = true
-        textFieldPersonalCode.accessibilityLabel = "Personal code"
+        textFieldPersonalCode.accessibilityLabel = "Personal code:" + textFieldPersonalCode.text!
         textFieldPersonalCode.accessibilityValue = "Click to write your personal code"
         textFieldPersonalCode.accessibilityTraits = .none
         
         textFieldMail.isAccessibilityElement = true
-        textFieldMail.accessibilityLabel = "E-Mail"
+        textFieldMail.accessibilityLabel = "E-Mail:" + textFieldMail.text!
         textFieldMail.accessibilityValue = "Click to write your E-mail"
         textFieldMail.accessibilityTraits = .none
         
         textFieldLeagueDescription.isAccessibilityElement = true
-        textFieldLeagueDescription.accessibilityLabel = "Disability description"
+        textFieldLeagueDescription.accessibilityLabel = "Disability description:" + textFieldLeagueDescription.text!
         textFieldLeagueDescription.accessibilityValue = "Click to write your disability description"
         textFieldLeagueDescription.accessibilityTraits = .none
         
         textFieldPassword.isAccessibilityElement = true
-        textFieldPassword.accessibilityLabel = "Password"
+        textFieldPassword.accessibilityLabel = "Password:" + textFieldPassword.text!
         textFieldPassword.accessibilityValue = "Click to write your password"
         
         textFieldPasswordRepeated.isAccessibilityElement = true
-        textFieldPasswordRepeated.accessibilityLabel = "Repeat password"
+        textFieldPasswordRepeated.accessibilityLabel = "Repeat password:" + textFieldPasswordRepeated.text!
         textFieldPasswordRepeated.accessibilityValue = "Click to repeat your password"
         textFieldPasswordRepeated.accessibilityTraits = .none
         
         textFieldUsername.isAccessibilityElement = true
-        textFieldUsername.accessibilityLabel = "Username"
+        textFieldUsername.accessibilityLabel = "Username:" + textFieldUsername.text!
         textFieldUsername.accessibilityValue = "Click to write your username"
         textFieldUsername.accessibilityTraits = .none
         
         textFieldPhoneNumber.isAccessibilityElement = true
-        textFieldPhoneNumber.accessibilityLabel = "Phone number"
+        textFieldPhoneNumber.accessibilityLabel = "Phone number:" + textFieldPhoneNumber.text!
         textFieldPhoneNumber.accessibilityValue = "Click to write your phone number"
         textFieldPhoneNumber.accessibilityTraits = .none
         
         datePickerTextInput.isAccessibilityElement = true
-        datePickerTextInput.accessibilityLabel = "Date selector"
+        datePickerTextInput.accessibilityLabel = "Date selector:" + datePickerTextInput.text!
         datePickerTextInput.accessibilityValue = "Click to select your date "
         datePickerTextInput.accessibilityTraits = .none
         
         labelSelectorEducation.isAccessibilityElement = true
-        labelSelectorEducation.accessibilityLabel = "Education selector"
+        labelSelectorEducation.accessibilityLabel = "Education selector:" + labelSelectorEducation.text!
         labelSelectorEducation.accessibilityValue = "Click to select your education "
         labelSelectorEducation.accessibilityTraits = .none
         
         labelSelectorStatus.isAccessibilityElement = true
-        labelSelectorStatus.accessibilityLabel = "Social status selector"
+        labelSelectorStatus.accessibilityLabel = "Social status selector:" + labelSelectorStatus.text!
         labelSelectorStatus.accessibilityValue = "Click to select your social status "
         labelSelectorStatus.accessibilityTraits = .none
         
         labelSelectorAddress.isAccessibilityElement = true
-        labelSelectorAddress.accessibilityLabel = "Address selector"
+        labelSelectorAddress.accessibilityLabel = "Address selector:" + labelSelectorAddress.text!
         labelSelectorAddress.accessibilityValue = "Click to select your address "
         labelSelectorAddress.accessibilityTraits = .none
         
         labelSelectorGender.isAccessibilityElement = true
-        labelSelectorGender.accessibilityLabel = "Gender selector"
+        labelSelectorGender.accessibilityLabel = "Gender selector:" + labelSelectorGender.text!
         labelSelectorGender.accessibilityValue = "Click to select your gender "
         labelSelectorGender.accessibilityTraits = .none
         
@@ -625,12 +663,12 @@ extension RegistrationController{
         
         
         btnDocumentsPhoto.isAccessibilityElement = true
-        btnDocumentsPhoto.accessibilityLabel = "Identity document photo button"
+        btnDocumentsPhoto.accessibilityLabel = "ID photo is not taken. Do you want to take it?"
         btnDocumentsPhoto.accessibilityValue = "Click to take photo of your identity document"
         btnDocumentsPhoto.accessibilityTraits = .button
         
         btnDisabDocumentPhoto.isAccessibilityElement = true
-        btnDisabDocumentPhoto.accessibilityLabel = "Disability document photo button"
+        btnDisabDocumentPhoto.accessibilityLabel = "Disability document photo is not taken. Do you want to take it?"
         btnDisabDocumentPhoto.accessibilityValue = "Click to take photo of your disability document"
         btnDisabDocumentPhoto.accessibilityTraits = .button
         
