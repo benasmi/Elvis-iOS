@@ -12,7 +12,7 @@ import SwiftyJSON
 import RealmSwift
 
 let taskID : Int = 0;
-
+var tasks: [URLSessionTask] = [] //Storing all URLSession tasks, so they can be cancelled later
 
 public enum LoginError{
     case NetworkError
@@ -24,6 +24,8 @@ public enum UniqueIDRequestError{
 }
 
 class DatabaseUtils{
+    
+   
     
     static let BaseUrl = "http://elvis.labiblioteka.lt/"
     static let BaseApiUrl = BaseUrl + "app/"
@@ -431,13 +433,30 @@ class DatabaseUtils{
         
     }
     
+    
+    static func cancelDownloadingBooks(finishListener: @escaping () -> Void){
+        
+        //Canceling all download tasks
+        for x in 0...tasks.count - 1 {
+            print("Removing tasks")
+            tasks[x].suspend()
+            tasks[x].cancel()
+            
+        }
+        tasks = []
+        
+        finishListener()
+        
+        
+    }
+    
+    
     static func downloadBooks(sessionID: String, audioBook: AudioBook, downloadFast: Bool, updateListener: @escaping (Int, Int, Bool)->Void ){
         
         //In case a previus download of this book was interrupted, removing the leftover files
         eraseBooks(audioBookIDs: downloadFast ? audioBook.FileFastIDS : audioBook.FileNormalIDS) {
             
             var chaptersDownloaded = 0 //The number of chapers. Used to display progress
-            var tasks: [URLSessionTask] = [] //Storing all URLSession tasks, so they can be cancelled later
             
             //Looping either through fast file id's or through normal file id's based on parameters
             for id in downloadFast ? (audioBook.FileFastIDS) : audioBook.FileNormalIDS{
@@ -568,9 +587,11 @@ class DatabaseUtils{
     }
     
     static func eraseBooks(audioBookIDs: List<String>, listener: @escaping ()->Void ){
+        
         let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         
         for id in audioBookIDs{
+            print("Erasing leftOver: " + id)
             let destinationUrl = documentsDirectoryURL.appendingPathComponent(id + ".mp3")
             
             do {

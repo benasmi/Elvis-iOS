@@ -14,6 +14,12 @@ import RealmSwift
 
 class AudioBookCell: UITableViewCell {
     
+    internal var mView: UIView!
+    internal var dialogView: UIView!
+    internal var progressLabel: UILabel!
+    internal var cancelButton: UIButton!
+    internal var progressSlider: UIProgressView!
+    
     @IBOutlet weak var bookTitle: UILabel!
     @IBOutlet weak var bookAuthor: UILabel!
     @IBOutlet weak var bookAnouncer: UILabel!
@@ -70,9 +76,11 @@ class AudioBookCell: UITableViewCell {
             //Downloading book
         }else{
             
-            SVProgressHUD.show(withStatus: "Siunčiamas skirsnis (0/" + String(book.FileNormalIDS.count) + ")")
-            
-            SVProgressHUD.setDefaultMaskType(.black)
+            createProgressDialog()
+            setProgressValue(percentage: 0, text: "Siunčiamas skirsnis (0/" + String(book.FileNormalIDS.count) + ")")
+           
+            //SVProgressHUD.show(withStatus: "Siunčiamas skirsnis (0/" + String(book.FileNormalIDS.count) + ")")
+            //SVProgressHUD.setDefaultMaskType(.black)
             //Downloading audio
             
             DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: false, updateListener: { (chaptersDownloaded, totalChapters, success) in
@@ -84,12 +92,14 @@ class AudioBookCell: UITableViewCell {
                     return
                 }
                
+                self.setProgressValue(percentage: Float(chaptersDownloaded)/Float(totalChapters), text: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
                 
-                SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
+                //SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
                 
                 //Downloaded all books
                 if(chaptersDownloaded == totalChapters){
                     self.downloadBtn.setTitle("IŠTRINTI", for: [])
+                    self.closeProgressDialog()
                     SVProgressHUD.dismiss()
                 }
 
@@ -98,6 +108,62 @@ class AudioBookCell: UITableViewCell {
         }
     }
     
+    //Removing progress dialog from superView
+    func closeProgressDialog(){
+        mView.removeFromSuperview()
+    }
+    
+    //Creating progress dialog
+    func createProgressDialog() {
+        let heigth = UIScreen.main.bounds.height
+        let width = UIScreen.main.bounds.width
+        
+        mView = UIView(frame: CGRect(x:0 , y: 0, width: width, height: heigth))
+        mView!.backgroundColor = UIColor.clear
+        
+        dialogView = UIView(frame: CGRect(x:mView.bounds.width/2 - 125  , y: mView.bounds.height/2 - 75, width: 250, height: 150))
+        dialogView.backgroundColor = UIColor.init(named: "Alert")
+        dialogView.alpha = 0.98
+        dialogView.borderColor = UIColor.gray
+        dialogView.borderWidth = 1
+        dialogView.cornerRadius = 5
+        
+        mView.addSubview(dialogView)
+        
+        
+        progressLabel = UILabel(frame: CGRect(x: 0, y: dialogView.bounds.height-150, width: dialogView.bounds.width, height: 30))
+        progressLabel.textAlignment = .center
+        progressLabel.text = "Siunčiamas skirsnis 0/10"
+        
+        progressSlider = UIProgressView(frame: CGRect(x: dialogView.bounds.width/2-100, y: dialogView.bounds.height-100, width: 200, height: 30))
+        progressSlider.transform.scaledBy(x: 1, y: 10)
+        progressSlider.setProgress(0, animated: true)
+        
+        cancelButton = UIButton(frame: CGRect(x: 0, y: dialogView.bounds.height-50, width: dialogView.bounds.width, height: 50))
+        cancelButton.setTitle("Atšaukti siuntimą!", for: .normal)
+        cancelButton.setTitleColor(UIColor.init(named: "AlertBtnColor"), for: .normal)
+        cancelButton.addTarget(self, action: "cancelDownload", for: .touchUpInside)
+        
+        dialogView.addSubview(progressSlider)
+        dialogView.addSubview(cancelButton)
+        dialogView.addSubview(progressLabel)
+        
+        delegate.view.addSubview(mView)
+    }
+    
+    //Updating progres dialog values
+    func setProgressValue(percentage: Float, text: String){
+        progressSlider.setProgress(percentage, animated: true)
+        progressLabel.text = text
+    }
+    
+    //"Cancel" button click
+    @objc func cancelDownload(){
+        DatabaseUtils.cancelDownloadingBooks() {
+            
+            self.closeProgressDialog()
+        }
+    }
     
     @IBAction func downloadFast(_ sender: Any) {
         if(doesLocalVersionExist(IDsToCheck: book.FileFastIDS)){
@@ -115,8 +181,8 @@ class AudioBookCell: UITableViewCell {
             })
         }else{
             
-            SVProgressHUD.show(withStatus: "Siunčiamas skirsnis (0/" + String(book.FileFastIDS.count) + ")")
-            SVProgressHUD.setDefaultMaskType(.black)
+            createProgressDialog()
+            setProgressValue(percentage: 0, text: "Siunčiamas skirsnis (0/" + String(book.FileFastIDS.count) + ")")
             //Downloading audio
             
             DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: true, updateListener: { (chaptersDownloaded, totalChapters, success) in
@@ -127,8 +193,11 @@ class AudioBookCell: UITableViewCell {
                     return
                 }
                 
-                SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
+                 self.setProgressValue(percentage: Float(chaptersDownloaded)/Float(totalChapters), text: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
+                
+               // SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
                 if(chaptersDownloaded == totalChapters){
+                    self.closeProgressDialog()
                     self.downloadFastBtn.setTitle("IŠTRINTI PAGREITINTĄ", for: [])
                     SVProgressHUD.dismiss()
                 }

@@ -30,7 +30,6 @@ static const CGFloat SVProgressHUDVerticalSpacing = 12.0f;
 static const CGFloat SVProgressHUDHorizontalSpacing = 12.0f;
 static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
 
-
 @interface SVProgressHUD ()
 
 @property (nonatomic, strong) NSTimer *graceTimer;
