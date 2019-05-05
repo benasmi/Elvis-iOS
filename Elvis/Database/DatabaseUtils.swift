@@ -528,7 +528,8 @@ class DatabaseUtils{
                             //If no errors occured, the file has been downloaded successfully. Increasing the downloaded chapter count
                             chaptersDownloaded+=1;
                             if(chaptersDownloaded == audioBook.FileFastIDS.count){
-                                saveBookInfo(audioBook: audioBook)
+                                var audioBookNew: AudioBook = audioBook
+                                saveBookInfo(audioBook: audioBookNew)
                             }
                             
                             //Removing the current task from the list and starting another one
@@ -559,11 +560,13 @@ class DatabaseUtils{
         
         print(Realm.Configuration.defaultConfiguration.fileURL!.path)
         DispatchQueue.main.async {
+            
             let realm = try! Realm()
             try! realm.write {
                 if(realm.objects(AudioBook.self).filter("Title == %@", audioBook.Title).count == 0){
                     print("book does not exist")
-                    realm.add(audioBook)
+                    realm.create(AudioBook.self, value: audioBook, update: false)
+                    //realm.add(audioBook)
                 }
             }
             
