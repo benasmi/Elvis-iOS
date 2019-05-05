@@ -169,6 +169,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="backgroundView" destination="4Bv-Gf-ttF" id="EnK-jl-ICP"/>
                         <outlet property="loginButton" destination="Rcx-OS-Dhb" id="hZn-jr-pld"/>
                         <outlet property="password" destination="cTH-jv-n3q" id="PsW-Lo-aRd"/>
                         <outlet property="registerButton" destination="saQ-pp-Vh6" id="H1z-Pl-PAg"/>

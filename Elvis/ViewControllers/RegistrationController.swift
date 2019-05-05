@@ -153,9 +153,11 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         toolBar.setItems([doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         datePicker?.backgroundColor = .orange
+        datePicker?.setValue(UIColor.white, forKey: "textColor")
         
         datePickerTextInput.inputAccessoryView = toolBar
         datePickerTextInput.inputView = datePicker
+        
         
     }
     

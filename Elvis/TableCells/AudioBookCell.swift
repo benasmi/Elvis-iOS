@@ -69,7 +69,9 @@ class AudioBookCell: UITableViewCell {
             
             //Downloading book
         }else{
+            
             SVProgressHUD.show(withStatus: "Siunčiamas skirsnis (0/" + String(book.FileNormalIDS.count) + ")")
+            
             SVProgressHUD.setDefaultMaskType(.black)
             //Downloading audio
             
@@ -81,6 +83,7 @@ class AudioBookCell: UITableViewCell {
                     SVProgressHUD.showInfo(withStatus: "An unexpected error has occured")
                     return
                 }
+               
                 
                 SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
                 

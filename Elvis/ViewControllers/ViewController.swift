@@ -10,9 +10,10 @@ import UIKit
 import Alamofire
 import SVProgressHUD
 
-class ViewController: UIViewController {
+class ViewController: BaseViewController {
     
     let preferences = UserDefaults.standard
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var tv_username: UILabel!
@@ -27,6 +28,36 @@ class ViewController: UIViewController {
       
     }
     
+    override func enableDarkMode(){
+        username.backgroundColor = UIColor.clear
+        username.textColor = UIColor.white
+        
+        password.backgroundColor = UIColor.clear
+        password.textColor = UIColor.white
+        
+        tv_username.textColor = UIColor.white
+        tv_password.textColor = UIColor.white
+        
+        self.view.backgroundColor = UIColor.black
+        self.backgroundView.backgroundColor = UIColor.black
+    }
+    
+    override func disableDarkMode(){
+        username.backgroundColor = UIColor.clear
+        username.textColor = UIColor.black
+        
+        password.backgroundColor = UIColor.clear
+        password.textColor = UIColor.black
+        
+        tv_username.textColor = UIColor.black
+        tv_password.textColor = UIColor.black
+        
+        self.backgroundView.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor.white
+    }
+    
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         if (preferences.object(forKey: "username") != nil) {
             moveToMainScreen()
@@ -34,10 +65,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
-//        if(!Utils.connectedToNetwork()){
-//            Utils.alertMessage(message: "Nėra interneto ryšio", viewController: self)
-//            return
-//        }
         
         guard let username = username.text else{
             SVProgressHUD.showInfo(withStatus: "Vartotojo vardo laukelis yra privalomas!")

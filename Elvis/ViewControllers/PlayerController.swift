@@ -49,7 +49,11 @@ class PlayerController: BaseViewController {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         applyAccesibility()
+        
         chapters = createChapters(book: book)
+        
+        progressSlider.isHidden = true
+        
         sessionID = Utils.readFromSharedPreferences(key: "sessionID") as! String
         progressSlider.addTarget(self, action: #selector(PlayerController.playbackSliderValueChanged(_:)), for: .valueChanged)
         
@@ -60,10 +64,16 @@ class PlayerController: BaseViewController {
     
     @IBAction func play(_ sender: Any) {
         
+        progressSlider.isHidden = false
+        
         if(player==nil){
             playAudioBook(url: createUrl())
             return
         }
+        playerToggler()
+    }
+    
+    func playerToggler(){
         if(player?.rate == 0){
             player?.play()
             timerRunning = true;
@@ -298,15 +308,20 @@ class PlayerController: BaseViewController {
     
     @objc func playbackSliderValueChanged(_ playbackSlider:UISlider){
         
+       
+        
         let seconds : Int64 = Int64(playbackSlider.value)
         let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
         
+        
+        if(player?.rate == 0){
+            player?.play()
+            timerRunning = true;
+            playButton.setImage(UIImage(named: "Pause"), for: .normal)
+        }
+        
         player!.seek(to: targetTime)
         
-        if player!.rate == 0
-        {
-            player?.play()
-        }
     }
     
     @objc func timerAction(){
