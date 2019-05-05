@@ -641,7 +641,7 @@ class DatabaseUtils{
     }
     
     
-    static func NewestBooks(haveDisabilities:String, onFinishListener: @escaping (_ books : [AudioBook]) -> Void){
+    static func NewestBooks(haveDisabilities:String, onFinishListener: @escaping ([AudioBook], Bool) -> Void){
         
         var books: [AudioBook] = []
         let url = BaseApiUrl + "newestPublications.php";
@@ -649,11 +649,16 @@ class DatabaseUtils{
         
         AF.request(url, method: .post, parameters: json, encoding: URLEncoding.httpBody, headers:nil).responseJSON{
             response in
-            if((response.result.value) != nil) {
+            
+            //Failure
+            guard response.result.value != nil else{
+                onFinishListener(books, false)
+                return
+            }
                 //Gets json
                 let swiftyJsonVar = JSON(response.result.value!)
                 if(swiftyJsonVar.isEmpty){
-                    onFinishListener(books)
+                    onFinishListener(books, false)
                     return
                 }
                 //Write data to AudioBook object
@@ -688,10 +693,8 @@ class DatabaseUtils{
                     
                     
                 }
-                onFinishListener(books)
-            }else{
-                onFinishListener(books)
-            }
+                onFinishListener(books, true)
+            
         }
     }
     
@@ -728,7 +731,7 @@ class DatabaseUtils{
     
     
     static func SearchBooks(haveDisabilities:String, title: String, name: String, announcingPerson: String, anyWord: String, onFinishListener:
-        @escaping (_ books : [AudioBook]) -> Void){
+        @escaping ([AudioBook], Bool) -> Void){
         
         var books: [AudioBook] = []
         
@@ -742,11 +745,17 @@ class DatabaseUtils{
         
         AF.request(url, method: .post, parameters: json, encoding: URLEncoding.httpBody, headers:nil).responseJSON{
             response in
-            if((response.result.value) != nil) {
+            
+            //Failure
+            guard response.result.value != nil else{
+                onFinishListener(books, false)
+                return
+            }
+            
                 //Gets json
                 let swiftyJsonVar = JSON(response.result.value!)
                 if(swiftyJsonVar.isEmpty){
-                    onFinishListener(books)
+                    onFinishListener(books,false)
                     return
                 }
                 //Write data to AudioBook object
@@ -778,14 +787,12 @@ class DatabaseUtils{
                     
                     books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIdsNormal: FileFastIDS, fileIdsFast: FileNormalIDS))
                 }
-                onFinishListener(books)
-            }else{
-                onFinishListener(books)
+                onFinishListener(books, true)
             }
         }
     }
     
-}
+
 
 
 

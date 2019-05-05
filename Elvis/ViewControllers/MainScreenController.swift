@@ -48,9 +48,30 @@ class MainScreenController: BaseViewController {
     
     @IBAction func newestBooks(_ sender: Any) {
         let disabilities = Utils.readFromSharedPreferences(key: "haveDisabilities") as! String
-        DatabaseUtils.NewestBooks(haveDisabilities: disabilities, onFinishListener: onFinishListener(_:))
         SVProgressHUD.show(withStatus: "Ieškoma naujausių knygų")
         SVProgressHUD.setDefaultMaskType(.black)
+        
+        DatabaseUtils.NewestBooks(haveDisabilities: disabilities, onFinishListener: {
+           (books, success) in
+            
+            SVProgressHUD.dismiss()
+            guard success else{
+                SVProgressHUD.showError(withStatus: "Klaida!")
+                return
+            }
+            
+            if(books.isEmpty){
+                Utils.alertMessage(message: "Nerasta naujų knygų", title: "Klaida", buttonTitle: "Bandyti dar kartą!", viewController: self)
+                return
+            }
+            //passing data and going to new view controller
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "SearchedBooks") as! SearchedBooksController
+            newViewController.books = books
+            self.present(newViewController, animated: true, completion: nil)
+            
+        })
+        
     }
     
     @IBAction func seeDownloads(_ sender: Any) {
@@ -67,21 +88,6 @@ class MainScreenController: BaseViewController {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "Messages") as! MessagesViewController
         self.present(newViewController, animated: true, completion: nil)
-    }
-    
-    func onFinishListener(_ books : [AudioBook]){
-        SVProgressHUD.dismiss()
-        if(books.isEmpty){
-            Utils.alertMessage(message: "Nerasta naujų knygų", title: "Klaida", buttonTitle: "Bandyti dar kartą!", viewController: self)
-            return
-        }
-        
-        //passing data and going to new view controller
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "SearchedBooks") as! SearchedBooksController
-        newViewController.books = books
-        self.present(newViewController, animated: true, completion: nil)
-        
     }
     
     

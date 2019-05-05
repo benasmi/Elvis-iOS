@@ -74,22 +74,24 @@ class BookSearchController: BaseViewController {
         SVProgressHUD.show(withStatus: "Ieškoma knygų...")
         SVProgressHUD.setDefaultMaskType(.black)
         
-        DatabaseUtils.SearchBooks(haveDisabilities: haveDisabilities, title: title, name: name, announcingPerson: announcingPerson, anyWord: anyWord, onFinishListener: onFinishListener(_:))
+        DatabaseUtils.SearchBooks(haveDisabilities: haveDisabilities, title: title, name: name, announcingPerson: announcingPerson, anyWord: anyWord, onFinishListener: {
+            (books, success) in
+            
+            SVProgressHUD.dismiss()
+            
+            guard success, !books.isEmpty else {
+                SVProgressHUD.showError(withStatus: "Klaida!")
+                return
+            }
+         
+            //passing data and going to new view controller
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "SearchedBooks") as! SearchedBooksController
+            newViewController.books = books
+            self.present(newViewController, animated: true, completion: nil)
+            
+        })
    
-    }
-    
-    func onFinishListener(_ books: [AudioBook]){
-        SVProgressHUD.dismiss()
-        if(books.isEmpty){
-            Utils.alertMessage(message: "Tokių knygų nerasta!", title: "Klaida", buttonTitle: "Bandyti dar kartą!",viewController: self)
-            return
-        }
-        
-        //passing data and going to new view controller
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "SearchedBooks") as! SearchedBooksController
-        newViewController.books = books
-        self.present(newViewController, animated: true, completion: nil)
     }
 }
 
