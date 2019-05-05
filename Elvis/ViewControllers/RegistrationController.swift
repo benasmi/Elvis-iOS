@@ -507,8 +507,19 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         textFieldPasswordRepeated.textColor = UIColor.black
         textFieldUsername.textColor = UIColor.black
         textFieldPhoneNumber.textColor = UIColor.black
+        
         labelSelectorGender.backgroundColor = UIColor.clear
         labelSelectorGender.textColor = UIColor.black
+        
+        labelSelectorEducation.backgroundColor = UIColor.clear
+        labelSelectorEducation.textColor = UIColor.black
+        
+        labelSelectorStatus.backgroundColor = UIColor.clear
+        labelSelectorStatus.textColor = UIColor.black
+        
+        labelSelectorAddress.backgroundColor = UIColor.clear
+        labelSelectorAddress.textColor = UIColor.black
+        
         datePickerTextInput.backgroundColor = UIColor.clear
         datePickerTextInput.textColor = UIColor.black
         
@@ -519,6 +530,16 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
     override func enableDarkMode(){
         labelSelectorGender.backgroundColor = UIColor.clear
         labelSelectorGender.textColor = UIColor.white
+        
+        labelSelectorEducation.backgroundColor = UIColor.clear
+        labelSelectorEducation.textColor = UIColor.white
+        
+        labelSelectorStatus.backgroundColor = UIColor.clear
+        labelSelectorStatus.textColor = UIColor.white
+        
+        labelSelectorAddress.backgroundColor = UIColor.clear
+        labelSelectorAddress.textColor = UIColor.white
+        
         labelDocumentPhoto.textColor = UIColor.white
         labelDisabDocumentPhoto.textColor = UIColor.white
         labelLabUser.textColor = UIColor.white
@@ -584,22 +605,22 @@ extension RegistrationController{
         labelDisabDocumentPhoto.isAccessibilityElement = false
         
         textFieldName.isAccessibilityElement = true
-        textFieldName.accessibilityLabel = "Name:" + textFieldName.text!
-        textFieldName.accessibilityValue = "Click to write your name"
+        textFieldName.accessibilityLabel = "Name field"
+        textFieldName.accessibilityValue = "Enter your name"
         textFieldName.accessibilityTraits = .none
         
         textFieldSurname.isAccessibilityElement = true
-        textFieldSurname.accessibilityLabel = "Surname:" + textFieldSurname.text!
-        textFieldSurname.accessibilityValue = "Click to write your surname"
+        textFieldSurname.accessibilityLabel = "Surname field"
+        textFieldSurname.accessibilityValue = "Enter your surname"
         textFieldSurname.accessibilityTraits = .none
         
         textFieldPersonalCode.isAccessibilityElement = true
-        textFieldPersonalCode.accessibilityLabel = "Personal code:" + textFieldPersonalCode.text!
-        textFieldPersonalCode.accessibilityValue = "Click to write your personal code"
+        textFieldPersonalCode.accessibilityLabel = "Personal code field"
+        textFieldPersonalCode.accessibilityValue = "Enter your personal code"
         textFieldPersonalCode.accessibilityTraits = .none
         
         textFieldMail.isAccessibilityElement = true
-        textFieldMail.accessibilityLabel = "E-Mail:" + textFieldMail.text!
+        textFieldMail.accessibilityLabel = "E-Mail field"
         textFieldMail.accessibilityValue = "Click to write your E-mail"
         textFieldMail.accessibilityTraits = .none
         

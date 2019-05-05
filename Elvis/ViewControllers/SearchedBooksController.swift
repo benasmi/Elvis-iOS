@@ -79,7 +79,7 @@ extension SearchedBooksController: UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         if(books.count == 0){
             noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-            noDataLabel!.text          = "Knygu nerasta"
+            noDataLabel!.text          = "Knygų nerasta"
             noDataLabel!.textColor     = isNightModeEnabled ? UIColor.white : UIColor.black
             noDataLabel!.textAlignment = .center
             tableView.backgroundView  = noDataLabel

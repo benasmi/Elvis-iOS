@@ -71,7 +71,7 @@ class BookSearchController: BaseViewController {
         let name = tv_name.text!
         let title = tv_title.text!
         
-        SVProgressHUD.show(withStatus: "Logging in...")
+        SVProgressHUD.show(withStatus: "Ieškoma knygų...")
         SVProgressHUD.setDefaultMaskType(.black)
         
         DatabaseUtils.SearchBooks(haveDisabilities: haveDisabilities, title: title, name: name, announcingPerson: announcingPerson, anyWord: anyWord, onFinishListener: onFinishListener(_:))

@@ -108,6 +108,9 @@ extension ViewController{
 
     func applyAccesibility(){
       
+        tv_username.isAccessibilityElement = false
+        tv_password.isAccessibilityElement = false
+        
         username.font = UIFont.preferredFont(forTextStyle: .body)
         username.adjustsFontForContentSizeCategory = true
         username.isAccessibilityElement = true

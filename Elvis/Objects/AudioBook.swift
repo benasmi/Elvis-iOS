@@ -36,7 +36,7 @@ class AudioBook : Object{
     
     convenience init(id: String, title: String, realeaseDate: String, authorID: String, authorFirstName: String, authorLastName: String, speakerId: String, speakerFirstName: String, speakerLastName: String, publicationNumber: Int, fileCount: Int, fileIdsNormal: List<String>, fileIdsFast: List<String>){
         self.init()
-        
+    
         ID = id
         Title = title
         ReleaseDate = realeaseDate

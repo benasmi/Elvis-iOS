@@ -11,9 +11,15 @@ import UIKit
 import SVProgressHUD
 import RealmSwift
 
-
 class AudioBookCell: UITableViewCell {
     
+    
+    //Buckis drauge :*. Jeigu pamatei šią žinutę tau šiandieną seksis
+    //Štai tau Salomėjos Neries eilėraščio posmelis. Gero codinimo!
+    
+    //Žilvinai, Žilvinėli
+    //Jei tu gyvas − atplauk pieno puta
+    //Jei negyvas − kraujo puta!“
     internal var mView: UIView!
     internal var dialogView: UIView!
     internal var progressLabel: UILabel!
@@ -121,26 +127,26 @@ class AudioBookCell: UITableViewCell {
         mView = UIView(frame: CGRect(x:0 , y: 0, width: width, height: heigth))
         mView!.backgroundColor = UIColor.clear
         
-        dialogView = UIView(frame: CGRect(x:mView.bounds.width/2 - 125  , y: mView.bounds.height/2 - 75, width: 250, height: 150))
+        dialogView = UIView(frame: CGRect(x:mView.bounds.width/2 - 125  , y: mView.bounds.height/2 - 75, width: 250, height: 130))
         dialogView.backgroundColor = UIColor.init(named: "Alert")
         dialogView.alpha = 0.98
         dialogView.borderColor = UIColor.gray
         dialogView.borderWidth = 1
-        dialogView.cornerRadius = 5
+        dialogView.cornerRadius = 7
         
         mView.addSubview(dialogView)
         
         
-        progressLabel = UILabel(frame: CGRect(x: 0, y: dialogView.bounds.height-150, width: dialogView.bounds.width, height: 30))
+        progressLabel = UILabel(frame: CGRect(x: 0, y: dialogView.bounds.height-110, width: dialogView.bounds.width, height: 30))
         progressLabel.textAlignment = .center
         progressLabel.text = "Siunčiamas skirsnis 0/10"
         
-        progressSlider = UIProgressView(frame: CGRect(x: dialogView.bounds.width/2-100, y: dialogView.bounds.height-100, width: 200, height: 30))
-        progressSlider.transform.scaledBy(x: 1, y: 10)
+        progressSlider = UIProgressView(frame: CGRect(x: dialogView.bounds.width/2-100, y: dialogView.bounds.height-60, width: 200, height: 80))
+        progressSlider.transform = CGAffineTransform.init(scaleX: 1, y: 10)
         progressSlider.setProgress(0, animated: true)
         
         cancelButton = UIButton(frame: CGRect(x: 0, y: dialogView.bounds.height-50, width: dialogView.bounds.width, height: 50))
-        cancelButton.setTitle("Atšaukti siuntimą!", for: .normal)
+        cancelButton.setTitle("ATŠAUKTI SIUNTIMĄ", for: .normal)
         cancelButton.setTitleColor(UIColor.init(named: "AlertBtnColor"), for: .normal)
         cancelButton.addTarget(self, action: "cancelDownload", for: .touchUpInside)
         
