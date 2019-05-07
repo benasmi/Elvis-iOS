@@ -83,7 +83,6 @@ class BookSearchController: BaseViewController {
                 SVProgressHUD.showError(withStatus: "Klaida!")
                 return
             }
-         
             //passing data and going to new view controller
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let newViewController = storyBoard.instantiateViewController(withIdentifier: "SearchedBooks") as! SearchedBooksController

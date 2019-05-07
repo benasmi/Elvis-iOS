@@ -528,7 +528,7 @@ class DatabaseUtils{
                             //If no errors occured, the file has been downloaded successfully. Increasing the downloaded chapter count
                             chaptersDownloaded+=1;
                             if(chaptersDownloaded == audioBook.FileFastIDS.count){
-                                var audioBookNew: AudioBook = audioBook
+                                let audioBookNew: AudioBook = audioBook
                                 saveBookInfo(audioBook: audioBookNew)
                             }
                             
@@ -699,7 +699,7 @@ class DatabaseUtils{
     }
     
     
-    static func PositionIDSCorrectly(fileCount: Int, fileIDS: [String],filePosition: [String]) -> AudioBookIDS{
+    static func PositionIDSCorrectly(fileCount: Int, fileIDS: [String], filePosition: [String]) -> AudioBookIDS{
         let totalCount: Int = fileCount
         let actualCount = totalCount/2
         
