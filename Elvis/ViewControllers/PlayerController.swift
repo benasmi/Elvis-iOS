@@ -185,6 +185,7 @@ class PlayerController: BaseViewController {
             let url2 = "/" + chapter + ".mp3?session_id=" + sessionID!
             finalUrl = URL(string: (url1 + url2))
         }
+        
         return finalUrl
     }
     
@@ -215,13 +216,22 @@ class PlayerController: BaseViewController {
                 
                 //Downloading books with the new sessionID
                 guard success, let sessionIDNew = sessionIDNew else{
-                    //Due to unknown reason the cookie was unable to be retrieved (perhaps the user has changed their password)
+                    SVProgressHUD.show(withStatus: "Klaida serveryje!")
                     return
                 }
                 
                 self.sessionID = sessionIDNew
                 Utils.writeToSharedPreferences(key: "sessionID", value: sessionIDNew)
                 SVProgressHUD.dismiss()
+                
+                let checkItem: AVPlayerItem = AVPlayerItem(url: url)
+                let checkSeconds : Float64 = CMTimeGetSeconds(playerItem.asset.duration)
+                guard !checkSeconds.isNaN else{
+                    SVProgressHUD.showError(withStatus: "Klaida su failu serveryje!")
+                    self.dismiss(animated: true, completion: nil)
+                    return
+                }
+                
                 self.playAudioBook(url: self.createUrl())
             })
             
