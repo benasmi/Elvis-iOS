@@ -436,35 +436,35 @@ class DatabaseUtils{
     
     static func cancelDownloadingBooks(finishListener: @escaping () -> Void){
         
-        //Canceling all download tasks
-        for x in 0...tasks.count - 1 {
-            print("Removing tasks")
-            tasks[x].suspend()
-            tasks[x].cancel()
+            //Canceling all download tasks
+            for x in 0...tasks.count - 1 {
+                tasks[x].suspend()
+                tasks[x].cancel()
+                
+            }
+            tasks = []
             
-        }
-        tasks = []
+            finishListener()
+            
         
-        finishListener()
-        
+       
         
     }
     
     
     static func downloadBooks(sessionID: String, audioBook: AudioBook, downloadFast: Bool, updateListener: @escaping (Int, Int, Bool)->Void ){
-        
+                
         //In case a previus download of this book was interrupted, removing the leftover files
         eraseBooks(audioBookIDs: downloadFast ? audioBook.FileFastIDS : audioBook.FileNormalIDS) {
             
             var chaptersDownloaded = 0 //The number of chapers. Used to display progress
-            
+            tasks = []
             //Looping either through fast file id's or through normal file id's based on parameters
             for id in downloadFast ? (audioBook.FileFastIDS) : audioBook.FileNormalIDS{
                 
                 //Attempting to create the url to mp3 file
                 guard let audioUrl = URL(string: getFileDownloadUrl(audioID: id, sessionID: sessionID)) else{
                     updateListener(0, audioBook.FileNormalIDS.count, false)
-                    
                     tasks.first?.cancel()
                     return
                 }
@@ -479,14 +479,16 @@ class DatabaseUtils{
                 tasks.append(
                     URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
                         
+
+                        
                         //Checking for unexpected scenarios
                         guard let location = location, error == nil, response != nil else {
-                            
                             //We do not want to call the listener if the task has been cancelled
                             if(error!.localizedDescription != "cancelled"){
                                 updateListener(chaptersDownloaded, audioBook.FileNormalIDS.count, false)
                                 print(error!.localizedDescription)
                                 tasks.first?.cancel()
+                                
                             }
                             return
                         }
@@ -551,7 +553,7 @@ class DatabaseUtils{
         
         let realm = try! Realm()
         let results: Results<AudioBook> = realm.objects(AudioBook.self)
-        return results
+        return results 
         
     }
     
@@ -565,8 +567,7 @@ class DatabaseUtils{
             try! realm.write {
                 if(realm.objects(AudioBook.self).filter("Title == %@", audioBook.Title).count == 0){
                     print("book does not exist")
-                    realm.create(AudioBook.self, value: audioBook, update: false)
-                    //realm.add(audioBook)
+                    realm.add(audioBook)
                 }
             }
             
@@ -576,7 +577,6 @@ class DatabaseUtils{
     public static func deleteBookInfo(audioBook: AudioBook){
         DispatchQueue.main.async {
             let realm = try! Realm()
-            //let objToRemove = realm.objects(AudioBook.self).filter("ID=%@",audioBook.ID)
             try! realm.write {
                 realm.delete(audioBook)
             }
@@ -594,7 +594,6 @@ class DatabaseUtils{
         let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         
         for id in audioBookIDs{
-            print("Erasing leftOver: " + id)
             let destinationUrl = documentsDirectoryURL.appendingPathComponent(id + ".mp3")
             
             do {
@@ -675,8 +674,8 @@ class DatabaseUtils{
                     let PublicationNumber = swiftyJsonVar[x]["PublicationNumber"].int ?? 0
                     let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
                     let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
-                    let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
                     let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
+                    let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
                     
                     let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition, fileIsFast: FileIsFast)
                     let FileFastIDS = List<String>()
@@ -699,6 +698,7 @@ class DatabaseUtils{
         }
     }
     
+ 
     
     static func PositionIDSCorrectly(fileCount: Int, fileIDS: [String], filePosition: [String], fileIsFast: [String]) -> AudioBookIDS{
         let totalCount: Int = fileCount
@@ -724,6 +724,7 @@ class DatabaseUtils{
         }
         return AudioBookIDS(fileIDs: filesNormal, fileIsFast: filesFast)
     }
+    
     
     
     static func SearchBooks(haveDisabilities:String, title: String, name: String, announcingPerson: String, anyWord: String, onFinishListener:
@@ -767,12 +768,12 @@ class DatabaseUtils{
                     let SpeakerLastName = swiftyJsonVar[x]["SpeakerLastName"].string ?? ""
                     let PublicationNumber = swiftyJsonVar[x]["PublicationNumber"].int ?? 0
                     let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
-                    let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
                     let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
                     let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
                     
-                    let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition, fileIsFast: FileIsFast)
+                    let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
                     
+                    let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition, fileIsFast: FileIsFast)
                     let FileFastIDS = List<String>()
                     let FileNormalIDS = List<String>()
                     

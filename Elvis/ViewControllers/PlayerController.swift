@@ -108,6 +108,11 @@ class PlayerController: BaseViewController {
     @IBAction func fastBackwards(_ sender: Any) {
         
         if(player?.rate != 0){
+            
+            guard let duration = player?.currentItem?.duration else{
+                return
+            }
+            
             let playerCurrentTime = CMTimeGetSeconds((player?.currentTime())!)
             var newTime = playerCurrentTime - seekDuration
         
@@ -130,8 +135,10 @@ class PlayerController: BaseViewController {
             player?.pause()
             player = nil
             player?.rate = 0
-            timer!.invalidate()
-            timer = nil
+            if(timer != nil){
+                timer!.invalidate()
+                timer = nil
+            }
             progressSlider.setValue(0, animated: true)
             tv_time.text = "0:00"
     
@@ -155,8 +162,10 @@ class PlayerController: BaseViewController {
             player?.pause()
             player = nil
             player?.rate = 0
-            timer!.invalidate()
-            timer = nil
+            if(timer != nil){
+                timer!.invalidate()
+                timer = nil
+            }
             progressSlider.setValue(0, animated: true)
             tv_time.text = "0:00"
             
@@ -201,10 +210,12 @@ class PlayerController: BaseViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    
     func playAudioBook(url: URL){
         let playerItem:AVPlayerItem = AVPlayerItem(url: url)
         
         let seconds : Float64 = CMTimeGetSeconds(playerItem.asset.duration)
+        print("Seconds" + String(seconds))
         if(seconds.isNaN){
             SVProgressHUD.show(withStatus: "Bandoma prisijungti prie serverio!..")
             SVProgressHUD.setDefaultMaskType(.black)
@@ -224,8 +235,9 @@ class PlayerController: BaseViewController {
                 Utils.writeToSharedPreferences(key: "sessionID", value: sessionIDNew)
                 SVProgressHUD.dismiss()
                 
+                
                 let checkItem: AVPlayerItem = AVPlayerItem(url: url)
-                let checkSeconds : Float64 = CMTimeGetSeconds(playerItem.asset.duration)
+                let checkSeconds : Float64 = CMTimeGetSeconds(checkItem.asset.duration)
                 guard !checkSeconds.isNaN else{
                     SVProgressHUD.showError(withStatus: "Klaida su failu serveryje!")
                     self.dismiss(animated: true, completion: nil)
@@ -240,6 +252,17 @@ class PlayerController: BaseViewController {
         
         progressSlider.minimumValue = 0
         progressSlider.maximumValue = Float(seconds)
+        
+        //Probably no internet if it passed other checks
+        if(progressSlider.maximumValue == 0){
+            if(player != nil){
+                player?.rate = 0
+            }
+            playButton.setImage(UIImage(named: "Play"), for: .normal)
+            SVProgressHUD.showError(withStatus: "Klaida!")
+            return
+        }
+        
         progressSlider.isContinuous = true
         progressSlider.tintColor = UIColor.orange
         
@@ -306,6 +329,9 @@ class PlayerController: BaseViewController {
             timer!.invalidate()
             timer = nil
         }
+        
+        playAudioBook(url: createUrl())
+        /*
         if(player?.rate != 0){
             playButton.setImage(UIImage(named: "Play"), for: .normal)
             player?.pause()
@@ -313,11 +339,15 @@ class PlayerController: BaseViewController {
             player = nil
         }
         print(selectedChapterIndex)
+ */
         view.endEditing(true)
     }
     
     @objc func playbackSliderValueChanged(_ playbackSlider:UISlider){
         
+        if(player == nil){
+            return
+        }
        
         
         let seconds : Int64 = Int64(playbackSlider.value)

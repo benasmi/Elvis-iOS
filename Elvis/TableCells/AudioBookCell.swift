@@ -93,7 +93,10 @@ class AudioBookCell: UITableViewCell {
                 
                 
                 guard success else{
-                    SVProgressHUD.dismiss()
+                    DispatchQueue.main.async {
+                        self.closeProgressDialog()
+                    }
+                    print("Nera yntiko")
                     SVProgressHUD.showInfo(withStatus: "An unexpected error has occured")
                     return
                 }
@@ -159,14 +162,15 @@ class AudioBookCell: UITableViewCell {
     
     //Updating progres dialog values
     func setProgressValue(percentage: Float, text: String){
-        progressSlider.setProgress(percentage, animated: true)
-        progressLabel.text = text
+        DispatchQueue.main.async {
+            self.progressSlider.setProgress(percentage, animated: true)
+            self.progressLabel.text = text
+        }
     }
     
     //"Cancel" button click
     @objc func cancelDownload(){
         DatabaseUtils.cancelDownloadingBooks() {
-            
             self.closeProgressDialog()
         }
     }
@@ -194,14 +198,14 @@ class AudioBookCell: UITableViewCell {
             DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: true, updateListener: { (chaptersDownloaded, totalChapters, success) in
                 
                 guard success else{
-                    SVProgressHUD.dismiss()
+                    DispatchQueue.main.async {
+                         self.closeProgressDialog()
+                    }
                     SVProgressHUD.showInfo(withStatus: "An unexpected error has occured")
                     return
                 }
                 
                  self.setProgressValue(percentage: Float(chaptersDownloaded)/Float(totalChapters), text: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
-                
-               // SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
                 if(chaptersDownloaded == totalChapters){
                     self.closeProgressDialog()
                     self.downloadFastBtn.setTitle("IŠTRINTI PAGREITINTĄ", for: [])
