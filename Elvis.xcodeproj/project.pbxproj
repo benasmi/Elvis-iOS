@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		010BAF2D227DB061000D829C /* addressList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 010BAF2C227DB061000D829C /* addressList.plist */; };
 		0123C5BA22484270006DEFF1 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123C5B922484270006DEFF1 /* RegistrationController.swift */; };
 		0123C5BD224A5F6F006DEFF1 /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123C5BC224A5F6F006DEFF1 /* PlayerController.swift */; };
 		0139452F22560EC70026ABEB /* ViewControllersExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139452E22560EC70026ABEB /* ViewControllersExtension.swift */; };
@@ -39,6 +38,9 @@
 		01BDB69E225D0A4900887E6E /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDB69D225D0A4900887E6E /* NewsItem.swift */; };
 		01D4013922590D0C00C6CD48 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4013822590D0C00C6CD48 /* MessagesViewController.swift */; };
 		01D4013B22591FF200C6CD48 /* MessageToAdministratorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */; };
+		2A51C404228591B4009F62BA /* addressList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A51C403228591B4009F62BA /* addressList.plist */; };
+		2A51C405228591B4009F62BA /* addressList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A51C403228591B4009F62BA /* addressList.plist */; };
+		2A51C406228591B4009F62BA /* addressList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A51C403228591B4009F62BA /* addressList.plist */; };
 		2AAB159F227B2FF100FF044D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01A829EA22438F0D00D89105 /* Info.plist */; };
 		2AAB15A3227B328B00FF044D /* statusList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB15A2227B328B00FF044D /* statusList.plist */; };
 		2AAB15A6227B337500FF044D /* educationList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB15A5227B337400FF044D /* educationList.plist */; };
@@ -64,7 +66,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		010BAF2C227DB061000D829C /* addressList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = addressList.plist; path = ../../../addressList.plist; sourceTree = "<group>"; };
 		0123C5B922484270006DEFF1 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		0123C5BC224A5F6F006DEFF1 /* PlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
 		0139452E22560EC70026ABEB /* ViewControllersExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllersExtension.swift; sourceTree = "<group>"; };
@@ -102,6 +103,7 @@
 		01BDB69D225D0A4900887E6E /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
 		01D4013822590D0C00C6CD48 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		01D4013A22591FF200C6CD48 /* MessageToAdministratorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageToAdministratorsViewController.swift; sourceTree = "<group>"; };
+		2A51C403228591B4009F62BA /* addressList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressList.plist; sourceTree = "<group>"; };
 		2AAB15A2227B328B00FF044D /* statusList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = statusList.plist; sourceTree = "<group>"; };
 		2AAB15A5227B337400FF044D /* educationList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = educationList.plist; sourceTree = "<group>"; };
 		2AD036C82274D23700C7AE34 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
@@ -213,7 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				2AAB15A2227B328B00FF044D /* statusList.plist */,
-				010BAF2C227DB061000D829C /* addressList.plist */,
+				2A51C403228591B4009F62BA /* addressList.plist */,
 				2A2B4E6E2254013B009EDBC9 /* CustomViews */,
 				01AE185622466B700009C89D /* Database */,
 				0141B5D4224537E500915C48 /* TableCells */,
@@ -389,8 +391,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				01A829E922438F0D00D89105 /* LaunchScreen.storyboard in Resources */,
+				2A51C404228591B4009F62BA /* addressList.plist in Resources */,
 				2AAB15A6227B337500FF044D /* educationList.plist in Resources */,
-				010BAF2D227DB061000D829C /* addressList.plist in Resources */,
 				01A829E622438F0D00D89105 /* Assets.xcassets in Resources */,
 				2AAB159F227B2FF100FF044D /* Info.plist in Resources */,
 				2AAB15A3227B328B00FF044D /* statusList.plist in Resources */,
@@ -402,6 +404,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A51C405228591B4009F62BA /* addressList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +412,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A51C406228591B4009F62BA /* addressList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

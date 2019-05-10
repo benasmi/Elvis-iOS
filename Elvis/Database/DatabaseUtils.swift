@@ -25,7 +25,7 @@ public enum UniqueIDRequestError{
 
 class DatabaseUtils{
     
-   
+    
     
     static let BaseUrl = "http://elvis.labiblioteka.lt/"
     static let BaseApiUrl = BaseUrl + "app/"
@@ -49,24 +49,31 @@ class DatabaseUtils{
     static func addToRecentsList(book: AudioBook){
         DispatchQueue.main.async {
             let realm = getListenHistoryRealm()
-            try! realm.write {
+            
+            let bookCopy = AudioBook(value: book)
+            
+            do  {
+                try realm.write{
                     //If book exists -> updates - otherwise -> adds a new book
-                    book.created = Date()
-                    realm.add(book, update: true)
+                    bookCopy.created = Date()
+                    realm.add(bookCopy, update: true)
+                }
+                //Checking if there are more than 10 books -> If yes -> Delete 11th book
+                let results: Results<AudioBook> = getRecentBooks()
                 
-                    //Checking if there are more than 10 books -> If yes -> Delete 11th book
-                    let results: Results<AudioBook> = getRecentBooks()
-                
-                    if(results.count>10){
+                if(results.count>10){
+                    try realm.write{
                         //Deleting 11th book
                         realm.delete(results[10])
                     }
-                
+                }
+            }catch let error{
+                print(error)
             }
         }
     }
     
-
+    
     static func getTimestampAndID(listener: @escaping (_ timestamp: String?, _ uniqueID: String?, _ sessionID: String? , _ error: UniqueIDRequestError?) -> Void){
         
         //Sending GET request to the registration page without any params
@@ -215,7 +222,7 @@ class DatabaseUtils{
                 "Records[0][CommentConditions]": acceptCommentConditions ? "1" : "0",
                 "Action[Registration]": "Registruotis"
             ]
-
+            
             //Array, containing image data
             let arrImage: [UIImage] = [
                 photoID,
@@ -292,7 +299,7 @@ class DatabaseUtils{
             
         })
     }
-
+    
     public static func getRecentBooks() -> Results<AudioBook> {
         
         let realm = getListenHistoryRealm()
@@ -436,24 +443,24 @@ class DatabaseUtils{
     
     static func cancelDownloadingBooks(finishListener: @escaping () -> Void){
         
-            //Canceling all download tasks
-            for x in 0...tasks.count - 1 {
-                tasks[x].suspend()
-                tasks[x].cancel()
-                
-            }
-            tasks = []
+        //Canceling all download tasks
+        for x in 0...tasks.count - 1 {
+            tasks[x].suspend()
+            tasks[x].cancel()
             
-            finishListener()
-            
+        }
+        tasks = []
         
-       
+        finishListener()
+        
+        
+        
         
     }
     
     
     static func downloadBooks(sessionID: String, audioBook: AudioBook, downloadFast: Bool, updateListener: @escaping (Int, Int, Bool)->Void ){
-                
+        
         //In case a previus download of this book was interrupted, removing the leftover files
         eraseBooks(audioBookIDs: downloadFast ? audioBook.FileFastIDS : audioBook.FileNormalIDS) {
             
@@ -479,7 +486,7 @@ class DatabaseUtils{
                 tasks.append(
                     URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
                         
-
+                        
                         
                         //Checking for unexpected scenarios
                         guard let location = location, error == nil, response != nil else {
@@ -654,51 +661,51 @@ class DatabaseUtils{
                 onFinishListener(books, false)
                 return
             }
-                //Gets json
-                let swiftyJsonVar = JSON(response.result.value!)
-                if(swiftyJsonVar.isEmpty){
-                    onFinishListener(books, false)
-                    return
+            //Gets json
+            let swiftyJsonVar = JSON(response.result.value!)
+            if(swiftyJsonVar.isEmpty){
+                onFinishListener(books, false)
+                return
+            }
+            //Write data to AudioBook object
+            for x in 0..<(swiftyJsonVar.count-1){
+                let ID = swiftyJsonVar[x]["ID"].string ?? ""
+                let Title = swiftyJsonVar[x]["Title"].string ?? ""
+                let ReleaseDate = swiftyJsonVar[x]["ReleaseDate"].string ?? ""
+                let AuthorID = swiftyJsonVar[x]["AuthorID"].string ?? ""
+                let AuthorFirstName = swiftyJsonVar[x]["AuthorFirstName"].string ?? ""
+                let AuthorLastName = swiftyJsonVar[x]["AuthorLastName"].string ?? ""
+                let SpeakerID = swiftyJsonVar[x]["SpeakerID"].string ?? ""
+                let SpeakerFirstName = swiftyJsonVar[x]["SpeakerFirstName"].string ?? ""
+                let SpeakerLastName = swiftyJsonVar[x]["SpeakerLastName"].string ?? ""
+                let PublicationNumber = swiftyJsonVar[x]["PublicationNumber"].int ?? 0
+                let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
+                let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
+                let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
+                let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
+                
+                let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition, fileIsFast: FileIsFast)
+                let FileFastIDS = List<String>()
+                let FileNormalIDS = List<String>()
+                
+                for x in audioIDS.FileNormal{
+                    FileNormalIDS.append(x)
                 }
-                //Write data to AudioBook object
-                for x in 0..<(swiftyJsonVar.count-1){
-                    let ID = swiftyJsonVar[x]["ID"].string ?? ""
-                    let Title = swiftyJsonVar[x]["Title"].string ?? ""
-                    let ReleaseDate = swiftyJsonVar[x]["ReleaseDate"].string ?? ""
-                    let AuthorID = swiftyJsonVar[x]["AuthorID"].string ?? ""
-                    let AuthorFirstName = swiftyJsonVar[x]["AuthorFirstName"].string ?? ""
-                    let AuthorLastName = swiftyJsonVar[x]["AuthorLastName"].string ?? ""
-                    let SpeakerID = swiftyJsonVar[x]["SpeakerID"].string ?? ""
-                    let SpeakerFirstName = swiftyJsonVar[x]["SpeakerFirstName"].string ?? ""
-                    let SpeakerLastName = swiftyJsonVar[x]["SpeakerLastName"].string ?? ""
-                    let PublicationNumber = swiftyJsonVar[x]["PublicationNumber"].int ?? 0
-                    let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
-                    let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
-                    let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
-                    let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
-                    
-                    let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition, fileIsFast: FileIsFast)
-                    let FileFastIDS = List<String>()
-                    let FileNormalIDS = List<String>()
-                    
-                    for x in audioIDS.FileNormal{
-                        FileNormalIDS.append(x)
-                    }
-                    
-                    for y in audioIDS.FileFast{
-                        FileFastIDS.append(y)
-                    }
-                    
-                    books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIdsNormal: FileNormalIDS, fileIdsFast: FileFastIDS))
-                    
-                    
+                
+                for y in audioIDS.FileFast{
+                    FileFastIDS.append(y)
                 }
-                onFinishListener(books, true)
+                
+                books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIdsNormal: FileNormalIDS, fileIdsFast: FileFastIDS))
+                
+                
+            }
+            onFinishListener(books, true)
             
         }
     }
     
- 
+    
     
     static func PositionIDSCorrectly(fileCount: Int, fileIDS: [String], filePosition: [String], fileIsFast: [String]) -> AudioBookIDS{
         let totalCount: Int = fileCount
@@ -749,48 +756,48 @@ class DatabaseUtils{
                 return
             }
             
-                //Gets json
-                let swiftyJsonVar = JSON(response.result.value!)
-                if(swiftyJsonVar.isEmpty){
-                    onFinishListener(books,false)
-                    return
-                }
-                //Write data to AudioBook object
-                for x in 0..<(swiftyJsonVar.count-1){
-                    let ID = swiftyJsonVar[x]["ID"].string ?? ""
-                    let Title = swiftyJsonVar[x]["Title"].string ?? ""
-                    let ReleaseDate = swiftyJsonVar[x]["ReleaseDate"].string ?? ""
-                    let AuthorID = swiftyJsonVar[x]["AuthorID"].string ?? ""
-                    let AuthorFirstName = swiftyJsonVar[x]["AuthorFirstName"].string ?? ""
-                    let AuthorLastName = swiftyJsonVar[x]["AuthorLastName"].string ?? ""
-                    let SpeakerID = swiftyJsonVar[x]["SpeakerID"].string ?? ""
-                    let SpeakerFirstName = swiftyJsonVar[x]["SpeakerFirstName"].string ?? ""
-                    let SpeakerLastName = swiftyJsonVar[x]["SpeakerLastName"].string ?? ""
-                    let PublicationNumber = swiftyJsonVar[x]["PublicationNumber"].int ?? 0
-                    let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
-                    let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
-                    let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
-                    
-                    let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
-                    
-                    let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition, fileIsFast: FileIsFast)
-                    let FileFastIDS = List<String>()
-                    let FileNormalIDS = List<String>()
-                    
-                    for y in audioIDS.FileNormal{
-                        FileNormalIDS.append(y)
-                    }
-                    for y in audioIDS.FileFast{
-                        FileFastIDS.append(y)
-                    }
-                    
-                    books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIdsNormal: FileFastIDS, fileIdsFast: FileNormalIDS))
-                }
-                onFinishListener(books, true)
+            //Gets json
+            let swiftyJsonVar = JSON(response.result.value!)
+            if(swiftyJsonVar.isEmpty){
+                onFinishListener(books,false)
+                return
             }
+            //Write data to AudioBook object
+            for x in 0..<(swiftyJsonVar.count-1){
+                let ID = swiftyJsonVar[x]["ID"].string ?? ""
+                let Title = swiftyJsonVar[x]["Title"].string ?? ""
+                let ReleaseDate = swiftyJsonVar[x]["ReleaseDate"].string ?? ""
+                let AuthorID = swiftyJsonVar[x]["AuthorID"].string ?? ""
+                let AuthorFirstName = swiftyJsonVar[x]["AuthorFirstName"].string ?? ""
+                let AuthorLastName = swiftyJsonVar[x]["AuthorLastName"].string ?? ""
+                let SpeakerID = swiftyJsonVar[x]["SpeakerID"].string ?? ""
+                let SpeakerFirstName = swiftyJsonVar[x]["SpeakerFirstName"].string ?? ""
+                let SpeakerLastName = swiftyJsonVar[x]["SpeakerLastName"].string ?? ""
+                let PublicationNumber = swiftyJsonVar[x]["PublicationNumber"].int ?? 0
+                let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
+                let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
+                let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
+                
+                let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
+                
+                let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition, fileIsFast: FileIsFast)
+                let FileFastIDS = List<String>()
+                let FileNormalIDS = List<String>()
+                
+                for y in audioIDS.FileNormal{
+                    FileNormalIDS.append(y)
+                }
+                for y in audioIDS.FileFast{
+                    FileFastIDS.append(y)
+                }
+                
+                books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIdsNormal: FileFastIDS, fileIdsFast: FileNormalIDS))
+            }
+            onFinishListener(books, true)
         }
     }
-    
+}
+
 
 
 
