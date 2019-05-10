@@ -51,7 +51,6 @@ class PlayerController: BaseViewController {
         applyAccesibility()
         
         chapters = createChapters(book: book)
-        
         progressSlider.isHidden = true
         
         sessionID = Utils.readFromSharedPreferences(key: "sessionID") as! String
@@ -74,7 +73,7 @@ class PlayerController: BaseViewController {
     }
     
     func playerToggler(){
-        if(player?.rate == 0){
+        if(!playerIsPlaying()){
             player?.play()
             timerRunning = true;
             playButton.setImage(UIImage(named: "Pause"), for: .normal)
@@ -86,7 +85,7 @@ class PlayerController: BaseViewController {
     }
     
     @IBAction func fastForward(_ sender: Any) {
-        if(player?.rate != 0){
+        if(playerIsPlaying()){
          
             guard let duration  = player?.currentItem?.duration else{
                 return
@@ -107,7 +106,7 @@ class PlayerController: BaseViewController {
     
     @IBAction func fastBackwards(_ sender: Any) {
         
-        if(player?.rate != 0){
+        if(playerIsPlaying()){
             
             guard let duration = player?.currentItem?.duration else{
                 return
@@ -131,7 +130,7 @@ class PlayerController: BaseViewController {
     
     
     @IBAction func skipForward(_ sender: Any) {
-        if(player?.rate != 0){
+        if(playerIsPlaying()){
             player?.pause()
             player = nil
             player?.rate = 0
@@ -158,7 +157,7 @@ class PlayerController: BaseViewController {
 
     @IBAction func skipPrevious(_ sender: Any) {
         
-        if(player?.rate != 0){
+        if(playerIsPlaying()){
             player?.pause()
             player = nil
             player?.rate = 0
@@ -212,10 +211,11 @@ class PlayerController: BaseViewController {
     
     
     func playAudioBook(url: URL){
-        let playerItem:AVPlayerItem = AVPlayerItem(url: url)
         
+        
+        let playerItem: AVPlayerItem = AVPlayerItem(url: url)
         let seconds : Float64 = CMTimeGetSeconds(playerItem.asset.duration)
-        print("Seconds" + String(seconds))
+        
         if(seconds.isNaN){
             SVProgressHUD.show(withStatus: "Bandoma prisijungti prie serverio!..")
             SVProgressHUD.setDefaultMaskType(.black)
@@ -235,9 +235,8 @@ class PlayerController: BaseViewController {
                 Utils.writeToSharedPreferences(key: "sessionID", value: sessionIDNew)
                 SVProgressHUD.dismiss()
                 
-                
-                let checkItem: AVPlayerItem = AVPlayerItem(url: url)
-                let checkSeconds : Float64 = CMTimeGetSeconds(checkItem.asset.duration)
+
+                let checkSeconds = self.getMusicLengthSeconds(url: url)
                 guard !checkSeconds.isNaN else{
                     SVProgressHUD.showError(withStatus: "Klaida su failu serveryje!")
                     self.dismiss(animated: true, completion: nil)
@@ -272,8 +271,28 @@ class PlayerController: BaseViewController {
         player = AVPlayer(playerItem: playerItem)
         player?.play()
         timerRunning = true;
+        
+        
+        //Configuration for listening in background
+        var audioSession = AVAudioSession.sharedInstance()
+        do{
+            try audioSession.setCategory(AVAudioSession.Category.playback)
+        }catch{
+            print(error)
+        }
+        
+        
     }
     
+    func playerIsPlaying() -> Bool{
+        return player?.rate != 0
+    }
+    
+    func getMusicLengthSeconds(url: URL) -> Float64{
+        let checkItem: AVPlayerItem = AVPlayerItem(url: url)
+        let checkSeconds : Float64 = CMTimeGetSeconds(checkItem.asset.duration)
+        return checkSeconds
+    }
     
     //Creates array of all possible chapters: NOT IMPORTANT
     func createChapters(book: AudioBook) -> [String]{
@@ -331,15 +350,6 @@ class PlayerController: BaseViewController {
         }
         
         playAudioBook(url: createUrl())
-        /*
-        if(player?.rate != 0){
-            playButton.setImage(UIImage(named: "Play"), for: .normal)
-            player?.pause()
-            player?.rate = 0
-            player = nil
-        }
-        print(selectedChapterIndex)
- */
         view.endEditing(true)
     }
     
