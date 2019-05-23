@@ -53,7 +53,8 @@ class PlayerController: BaseViewController {
         chapters = createChapters(book: book)
         progressSlider.isHidden = true
         
-        sessionID = Utils.readFromSharedPreferences(key: "sessionID") as! String
+        //sessionID = Utils.readFromSharedPreferences(key: "sessionID") as! String
+        sessionID = ""
         progressSlider.addTarget(self, action: #selector(PlayerController.playbackSliderValueChanged(_:)), for: .valueChanged)
         
         tv_bookTitle.text = book.Title
@@ -236,7 +237,8 @@ class PlayerController: BaseViewController {
                 SVProgressHUD.dismiss()
                 
 
-                let checkSeconds = self.getMusicLengthSeconds(url: url)
+                let checkSeconds = self.getMusicLengthSeconds(url: self.createUrl())
+                
                 guard !checkSeconds.isNaN else{
                     SVProgressHUD.showError(withStatus: "Klaida su failu serveryje!")
                     self.dismiss(animated: true, completion: nil)
