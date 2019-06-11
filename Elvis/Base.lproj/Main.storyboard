@@ -1581,7 +1581,7 @@
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AudioBookCell" rowHeight="240" id="T23-tv-tgt" customClass="AudioBookCell" customModule="Elvis" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="240"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T23-tv-tgt" id="GnU-YV-apj">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1672,8 +1672,11 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="FiH-up-qPd" secondAttribute="trailing" constant="15" id="1wL-cV-vVD"/>
                                                 <constraint firstItem="zqe-a4-Rdf" firstAttribute="top" secondItem="4At-No-QbT" secondAttribute="bottom" id="1zk-Wt-Esx"/>
                                                 <constraint firstItem="u5P-Ne-Q3z" firstAttribute="top" secondItem="GnU-YV-apj" secondAttribute="topMargin" id="3wW-oq-MOo"/>
+                                                <constraint firstItem="nPx-GL-39X" firstAttribute="leading" secondItem="GnU-YV-apj" secondAttribute="leading" constant="15" id="7Tw-pL-wHO"/>
+                                                <constraint firstItem="47d-FK-dim" firstAttribute="leading" secondItem="GnU-YV-apj" secondAttribute="leading" constant="15" id="9mz-NS-Ufk"/>
                                                 <constraint firstAttribute="trailing" secondItem="zqe-a4-Rdf" secondAttribute="trailing" constant="16" id="9rI-d0-4bh"/>
                                                 <constraint firstItem="WPg-LL-78d" firstAttribute="top" secondItem="zqe-a4-Rdf" secondAttribute="bottom" constant="3" id="Cuu-8g-dqq"/>
                                                 <constraint firstItem="47d-FK-dim" firstAttribute="leading" secondItem="GnU-YV-apj" secondAttribute="leadingMargin" id="GNJ-JF-UUT"/>
@@ -1689,6 +1692,7 @@
                                                 <constraint firstItem="47d-FK-dim" firstAttribute="top" secondItem="WPg-LL-78d" secondAttribute="bottom" constant="21" id="koc-aK-Jg1"/>
                                                 <constraint firstItem="nPx-GL-39X" firstAttribute="leading" secondItem="GnU-YV-apj" secondAttribute="leadingMargin" id="m9Y-MM-zpR"/>
                                                 <constraint firstAttribute="trailing" secondItem="4At-No-QbT" secondAttribute="trailing" constant="16" id="n7C-5A-9CM"/>
+                                                <constraint firstAttribute="trailing" secondItem="qV0-ZL-Hol" secondAttribute="trailing" constant="15" id="ps1-Y7-DBt"/>
                                                 <constraint firstItem="qV0-ZL-Hol" firstAttribute="top" secondItem="WPg-LL-78d" secondAttribute="bottom" constant="21" id="qea-dW-Lg8"/>
                                                 <constraint firstItem="FiH-up-qPd" firstAttribute="leading" secondItem="nPx-GL-39X" secondAttribute="trailing" constant="15" id="teR-Eg-NnR"/>
                                                 <constraint firstItem="u5P-Ne-Q3z" firstAttribute="trailing" secondItem="GnU-YV-apj" secondAttribute="trailingMargin" id="z1E-h7-u7d"/>
@@ -1723,11 +1727,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="UyU-Vh-62u" firstAttribute="leading" secondItem="lgh-En-9mq" secondAttribute="leading" id="0Bz-60-F3Q"/>
+                            <constraint firstItem="UyU-Vh-62u" firstAttribute="top" secondItem="QLa-WY-72O" secondAttribute="bottom" id="1GA-7K-Nrx"/>
+                            <constraint firstItem="UyU-Vh-62u" firstAttribute="bottom" secondItem="lgh-En-9mq" secondAttribute="bottom" id="3hg-Mk-Icj"/>
                             <constraint firstItem="UyU-Vh-62u" firstAttribute="leading" secondItem="lgh-En-9mq" secondAttribute="leading" id="5Ax-Ba-Koy"/>
                             <constraint firstItem="QLa-WY-72O" firstAttribute="leading" secondItem="lgh-En-9mq" secondAttribute="leading" id="B8p-2B-e2r"/>
                             <constraint firstItem="8LJ-Pm-hNX" firstAttribute="top" secondItem="Ona-U2-VX9" secondAttribute="top" id="LQ6-Pi-kQV"/>
                             <constraint firstItem="UyU-Vh-62u" firstAttribute="bottom" secondItem="lgh-En-9mq" secondAttribute="bottom" id="QrJ-CZ-hTO"/>
                             <constraint firstItem="UyU-Vh-62u" firstAttribute="trailing" secondItem="lgh-En-9mq" secondAttribute="trailing" id="jxY-TK-Axd"/>
+                            <constraint firstItem="UyU-Vh-62u" firstAttribute="trailing" secondItem="lgh-En-9mq" secondAttribute="trailing" id="p13-ht-KBd"/>
                             <constraint firstItem="QLa-WY-72O" firstAttribute="trailing" secondItem="lgh-En-9mq" secondAttribute="trailing" id="pmQ-Nf-B89"/>
                             <constraint firstItem="8LJ-Pm-hNX" firstAttribute="leading" secondItem="Ona-U2-VX9" secondAttribute="leading" id="qZe-ej-I5C"/>
                             <constraint firstAttribute="trailing" secondItem="8LJ-Pm-hNX" secondAttribute="trailing" id="tHK-n5-Gxf"/>

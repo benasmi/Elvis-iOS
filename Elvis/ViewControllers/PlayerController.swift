@@ -53,8 +53,8 @@ class PlayerController: BaseViewController {
         chapters = createChapters(book: book)
         progressSlider.isHidden = true
         
-        //sessionID = Utils.readFromSharedPreferences(key: "sessionID") as! String
-        sessionID = ""
+        sessionID = Utils.readFromSharedPreferences(key: "sessionID") as! String
+        //sessionID = ""
         progressSlider.addTarget(self, action: #selector(PlayerController.playbackSliderValueChanged(_:)), for: .valueChanged)
         
         tv_bookTitle.text = book.Title
