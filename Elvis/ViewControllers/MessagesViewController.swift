@@ -29,7 +29,7 @@ class MessagesViewController: BaseViewController{
             
             SVProgressHUD.dismiss()
             guard success else{
-                SVProgressHUD.showInfo(withStatus: "Nepavyko parsiųsti žinučių")
+                Utils.alertMessage(message: "Nepavyko parsiųsti žinučių!", title: "Klaida!", buttonTitle: "Bandyti dar kartą", viewController: self)
                 return
             }
             
@@ -46,7 +46,7 @@ class MessagesViewController: BaseViewController{
             SVProgressHUD.dismiss()
             
             guard success else{
-                SVProgressHUD.showInfo(withStatus: "Nepavyko parsiųsti naujienų")
+                 Utils.alertMessage(message: "Nepavyko parsiųsti naujienų!", title: "Klaida!", buttonTitle: "Bandyti dar kartą", viewController: self)
                 return
             }
             
@@ -124,15 +124,15 @@ extension MessagesViewController{
      
         messageToAdministrationBtn.isAccessibilityElement = true
         messageToAdministrationBtn.accessibilityTraits = UIAccessibilityTraits.button
-        messageToAdministrationBtn.accessibilityLabel = "Click to write messages to administration"
+        messageToAdministrationBtn.accessibilityLabel = "Spauskite norėdami rašyti žinutę administraijai"
         
         messagesReceivedBtn.isAccessibilityElement = true
         messagesReceivedBtn.accessibilityTraits = UIAccessibilityTraits.button
-        messagesReceivedBtn.accessibilityLabel = "Click to see received messages"
+        messagesReceivedBtn.accessibilityLabel = "Spauskite norėdami peržiūrėti žinutes"
      
         newsBtn.isAccessibilityElement = true
         newsBtn.accessibilityTraits = UIAccessibilityTraits.button
-        newsBtn.accessibilityLabel = "Click to see news"
+        newsBtn.accessibilityLabel = "Spauskite norėdami pamatyti naujienas"
         
     }
 }

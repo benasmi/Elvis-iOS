@@ -11,6 +11,7 @@ import DropDown
 import SVProgressHUD
 class RegistrationController: BaseViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var labelLabUser: UILabel!
     @IBOutlet weak var labelHaveDisabilities: UILabel!
     
@@ -78,6 +79,11 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
             labCheckbox = false
             checkboxLab.setImage(UIImage(named: "unchecked"), for: .normal)
         }
+        checkboxLab.accessibilityLabel = "Esu LAB vartotojas" + (labCheckbox ? "Pažymėta" : "Nepažymėta")
+        
+       
+        
+        
     }
     
     @IBAction func checkBoxDisabChecked(_ sender: Any) {
@@ -88,6 +94,8 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
             disabilityCheckBox = false
             checkboxDisabilities.setImage(UIImage(named: "unchecked"), for: .normal)
         }
+        checkboxDisabilities.accessibilityLabel = "Turiu negalią" + (disabilityCheckBox ? "Pazymeta" : "Nepažymėta")
+        
     }
     
     @IBAction func changeTheme(_ sender: Any) {
@@ -181,11 +189,11 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
     func setPhotos(image: UIImage, isID: Bool){
         if(isID){
             idPhoto = image
-            btnDocumentsPhoto.accessibilityLabel = "ID photo is taken. Do you want to take it again?"
+            btnDocumentsPhoto.accessibilityLabel = "Dokumento nuotrauka jau padaryta. Ar norite pakartoti?"
             btnDocumentsPhoto.titleLabel?.text = "DARYTI NAUJĄ NUOTRAUKĄ"
         }else{
             btnDisabDocumentPhoto.titleLabel?.text = "DARYTI NAUJĄ NUOTRAUKĄ"
-            btnDisabDocumentPhoto.accessibilityLabel = "ID photo is taken. Do you want to take it again?"
+            btnDisabDocumentPhoto.accessibilityLabel = "Dokumento nuotrauka jau padaryta. Ar norite pakartoti?"
             disabilityDocumentPhoto = image
         }
     }
@@ -431,10 +439,10 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
              
              switch(error!){
              case .OutdatedClient:
-             SVProgressHUD.showError(withStatus: "Server responded unexpectedly. Please update the app")
+             SVProgressHUD.showError(withStatus: "Klaida! Atnaujinkite aplikaciją")
              return
              case .InvalidConnection:
-             SVProgressHUD.showError(withStatus: "Connection could not be established.")
+             SVProgressHUD.showError(withStatus: "Prisijungti prie serverio nepavyko")
              return
              case .InvalidInput(let details):
              SVProgressHUD.showError(withStatus: details)
@@ -458,12 +466,12 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
                
              }
             
-            print ("YES")
+            print ("Taip")
         }))
         
         alert.addAction(UIAlertAction(title: "NE", style: UIAlertAction.Style.default, handler: { (action) in
             
-            print("NO")
+            print("Ne")
         }))
     
         
@@ -605,94 +613,95 @@ extension RegistrationController{
         labelDisabDocumentPhoto.isAccessibilityElement = false
         
         textFieldName.isAccessibilityElement = true
-        textFieldName.accessibilityLabel = "Name field"
-        textFieldName.accessibilityValue = "Enter your name"
+        textFieldName.accessibilityLabel = "Vardas"
+        textFieldName.accessibilityValue = "Įveskite vardą"
         textFieldName.accessibilityTraits = .none
         
+        goBackButton.isAccessibilityElement = true
+        goBackButton.accessibilityLabel = "Grįžti Atgal"
+        
         textFieldSurname.isAccessibilityElement = true
-        textFieldSurname.accessibilityLabel = "Surname field"
-        textFieldSurname.accessibilityValue = "Enter your surname"
+        textFieldSurname.accessibilityLabel = "Pavardė"
+        textFieldSurname.accessibilityValue = "Įveskite pavardę"
         textFieldSurname.accessibilityTraits = .none
         
         textFieldPersonalCode.isAccessibilityElement = true
-        textFieldPersonalCode.accessibilityLabel = "Personal code field"
-        textFieldPersonalCode.accessibilityValue = "Enter your personal code"
+        textFieldPersonalCode.accessibilityLabel = "Asmens kodas"
+        textFieldPersonalCode.accessibilityValue = "Įveskite asmens kodą"
         textFieldPersonalCode.accessibilityTraits = .none
         
         textFieldMail.isAccessibilityElement = true
-        textFieldMail.accessibilityLabel = "E-Mail field"
-        textFieldMail.accessibilityValue = "Click to write your E-mail"
+        textFieldMail.accessibilityLabel = "Paštas"
+        textFieldMail.accessibilityValue = "Įveskite savo paštą"
         textFieldMail.accessibilityTraits = .none
         
         textFieldLeagueDescription.isAccessibilityElement = true
-        textFieldLeagueDescription.accessibilityLabel = "Disability description:" + textFieldLeagueDescription.text!
-        textFieldLeagueDescription.accessibilityValue = "Click to write your disability description"
+        textFieldLeagueDescription.accessibilityLabel = "Negalios aprašymas" + textFieldLeagueDescription.text!
+        textFieldLeagueDescription.accessibilityValue = "Įveskite negalios aprašymą"
         textFieldLeagueDescription.accessibilityTraits = .none
         
         textFieldPassword.isAccessibilityElement = true
-        textFieldPassword.accessibilityLabel = "Password:" + textFieldPassword.text!
-        textFieldPassword.accessibilityValue = "Click to write your password"
+        textFieldPassword.accessibilityLabel = "Slaptažodis" + textFieldPassword.text!
+        textFieldPassword.accessibilityValue = "Įveskite slaptažpdį"
         
         textFieldPasswordRepeated.isAccessibilityElement = true
-        textFieldPasswordRepeated.accessibilityLabel = "Repeat password:" + textFieldPasswordRepeated.text!
-        textFieldPasswordRepeated.accessibilityValue = "Click to repeat your password"
+        textFieldPasswordRepeated.accessibilityLabel = "Pakartoti slaptažodį" + textFieldPasswordRepeated.text!
+        textFieldPasswordRepeated.accessibilityValue = "Įveskite slaptažodį dar kartą"
         textFieldPasswordRepeated.accessibilityTraits = .none
         
         textFieldUsername.isAccessibilityElement = true
-        textFieldUsername.accessibilityLabel = "Username:" + textFieldUsername.text!
-        textFieldUsername.accessibilityValue = "Click to write your username"
+        textFieldUsername.accessibilityLabel = "Prisijungimo vardas" + textFieldUsername.text!
+        textFieldUsername.accessibilityValue = "Įveskite prisijungimo vardą"
         textFieldUsername.accessibilityTraits = .none
         
         textFieldPhoneNumber.isAccessibilityElement = true
-        textFieldPhoneNumber.accessibilityLabel = "Phone number:" + textFieldPhoneNumber.text!
-        textFieldPhoneNumber.accessibilityValue = "Click to write your phone number"
+        textFieldPhoneNumber.accessibilityLabel = "Telefono numeris" + textFieldPhoneNumber.text!
+        textFieldPhoneNumber.accessibilityValue = "Įveskite telefono numerį"
         textFieldPhoneNumber.accessibilityTraits = .none
         
         datePickerTextInput.isAccessibilityElement = true
-        datePickerTextInput.accessibilityLabel = "Date selector:" + datePickerTextInput.text!
-        datePickerTextInput.accessibilityValue = "Click to select your date "
+        datePickerTextInput.accessibilityLabel = "Datos pasirinkimas" + datePickerTextInput.text!
+        datePickerTextInput.accessibilityValue = "Pasirinkite datą"
         datePickerTextInput.accessibilityTraits = .none
         
         labelSelectorEducation.isAccessibilityElement = true
-        labelSelectorEducation.accessibilityLabel = "Education selector:" + labelSelectorEducation.text!
-        labelSelectorEducation.accessibilityValue = "Click to select your education "
+        labelSelectorEducation.accessibilityLabel = "Išsilavinimo pasirinkimas" + labelSelectorEducation.text!
+        labelSelectorEducation.accessibilityValue = "Pasirinkite išsilavinimą "
         labelSelectorEducation.accessibilityTraits = .none
         
         labelSelectorStatus.isAccessibilityElement = true
-        labelSelectorStatus.accessibilityLabel = "Social status selector:" + labelSelectorStatus.text!
-        labelSelectorStatus.accessibilityValue = "Click to select your social status "
+        labelSelectorStatus.accessibilityLabel = "Statuso pasirinkimas" + labelSelectorStatus.text!
+        labelSelectorStatus.accessibilityValue = "Pasirinkite statusą"
         labelSelectorStatus.accessibilityTraits = .none
         
         labelSelectorAddress.isAccessibilityElement = true
-        labelSelectorAddress.accessibilityLabel = "Address selector:" + labelSelectorAddress.text!
-        labelSelectorAddress.accessibilityValue = "Click to select your address "
+        labelSelectorAddress.accessibilityLabel = "Adreso pasirinkimas" + labelSelectorAddress.text!
+        labelSelectorAddress.accessibilityValue = "Pasirinkite adresą"
         labelSelectorAddress.accessibilityTraits = .none
         
         labelSelectorGender.isAccessibilityElement = true
-        labelSelectorGender.accessibilityLabel = "Gender selector:" + labelSelectorGender.text!
-        labelSelectorGender.accessibilityValue = "Click to select your gender "
+        labelSelectorGender.accessibilityLabel = "Lyties pasirinkimas" + labelSelectorGender.text!
+        labelSelectorGender.accessibilityValue = "Pasirinkite savo lytį"
         labelSelectorGender.accessibilityTraits = .none
         
         
         checkboxLab.isAccessibilityElement = true
-        checkboxLab.accessibilityLabel = "I am Lab user checkbox. " + (labCheckbox ? "Selected" : "Not selected")
-        checkboxLab.accessibilityValue = "Click to change selection status"
+        checkboxLab.accessibilityLabel = "Esu LAB vartotojas" + (labCheckbox ? "Pažymėta" : "Nepažymėta")
         checkboxLab.accessibilityTraits = .button
         
         checkboxDisabilities.isAccessibilityElement = true
-        checkboxDisabilities.accessibilityLabel = "I am disabled checkbox. " + (disabilityCheckBox ? "Selected" : "Not selected")
-        checkboxDisabilities.accessibilityValue = "Click to change selection status"
+        checkboxDisabilities.accessibilityLabel = "Turiu negalią" + (disabilityCheckBox ? "Pazymeta" : "Nepažymėta")
         checkboxDisabilities.accessibilityTraits = .button
         
         
         btnDocumentsPhoto.isAccessibilityElement = true
-        btnDocumentsPhoto.accessibilityLabel = "ID photo is not taken. Do you want to take it?"
-        btnDocumentsPhoto.accessibilityValue = "Click to take photo of your identity document"
+        btnDocumentsPhoto.accessibilityLabel = "ID nuotrauka nepadaryta"
+        btnDocumentsPhoto.accessibilityValue = "Padarykite ID nuotrauką"
         btnDocumentsPhoto.accessibilityTraits = .button
         
         btnDisabDocumentPhoto.isAccessibilityElement = true
-        btnDisabDocumentPhoto.accessibilityLabel = "Disability document photo is not taken. Do you want to take it?"
-        btnDisabDocumentPhoto.accessibilityValue = "Click to take photo of your disability document"
+        btnDisabDocumentPhoto.accessibilityLabel = "Neįgalumo dokumento nuotrauka nepadaryta"
+        btnDisabDocumentPhoto.accessibilityValue = "Padarykite neįgalumo dokumento nuotrauką"
         btnDisabDocumentPhoto.accessibilityTraits = .button
         
         

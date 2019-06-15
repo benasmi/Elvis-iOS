@@ -161,25 +161,23 @@ extension MainScreenController{
     func applyAccesibility(){
         
         listenHistoryBtn.isAccessibilityElement = true
-        listenHistoryBtn.accessibilityLabel = "Your listening history"
+        listenHistoryBtn.accessibilityLabel = "Klausymų istorija"
         listenHistoryBtn.accessibilityTraits = .button
         
         searchBooksBtn.isAccessibilityElement = true
-        searchBooksBtn.accessibilityLabel = "Books search"
+        searchBooksBtn.accessibilityLabel = "Knygų paieška"
         searchBooksBtn.accessibilityTraits = .button
         
-        
         newestPublicationsBtn.isAccessibilityElement = true
-        newestPublicationsBtn.accessibilityLabel = "Newest publications"
+        newestPublicationsBtn.accessibilityLabel = "Naujausi leidiniai"
         newestPublicationsBtn.accessibilityTraits = .button
         
         messagesBtn.isAccessibilityElement = true
-        messagesBtn.accessibilityLabel = "Messages button"
-        messagesBtn.accessibilityValue = "click here to see and send messages"
+        messagesBtn.accessibilityLabel = "Žinutės ir naujienos"
         messagesBtn.accessibilityTraits = .button
         
         downloadsBtn.isAccessibilityElement = true
-        downloadsBtn.accessibilityLabel = "Downloaded books"
+        downloadsBtn.accessibilityLabel = "Parsiųstos knygos"
         downloadsBtn.accessibilityTraits = .button
         
         

@@ -709,12 +709,25 @@ class DatabaseUtils{
     
     static func PositionIDSCorrectly(fileCount: Int, fileIDS: [String], filePosition: [String], fileIsFast: [String]) -> AudioBookIDS{
         let totalCount: Int = fileCount
-        let actualCount = totalCount/2
+        var actualCount: Int = 0
+        if(totalCount==1){
+            actualCount = totalCount
+        }else{
+            actualCount = totalCount/2
+        }
+        
         
         var filesNormal: [String] = []
         var filesFast: [String] = []
         
         var lastIndex: Int = -1
+       
+        if(actualCount < 1){
+            print("Actual count", actualCount)
+            print("Total count", totalCount)
+            print("Normal FileIDS", fileIDS)
+            
+        }
         
         for i in 1...actualCount{
             for x in 0...totalCount-1{

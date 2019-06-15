@@ -344,6 +344,7 @@ class PlayerController: BaseViewController {
     
     //Triggers when you dismiss the selector
     @objc func dismissPicker() {
+        progressSlider.isHidden = false
         progressSlider.setValue(0, animated: true)
         tv_time.text = "0:00"
         if timer != nil {
@@ -482,21 +483,21 @@ extension PlayerController{
     func applyAccesibility(){
       
         tv_bookTitle.isAccessibilityElement = true
-        tv_bookTitle.accessibilityLabel = "Book name"
+        tv_bookTitle.accessibilityLabel = "Knygos pavadinimas"
         tv_bookTitle.accessibilityValue = book.Title
         
         chapterTextField.isAccessibilityElement = true
         chapterTextField.accessibilityTraits = UIAccessibilityTraits.button
-        chapterTextField.accessibilityLabel = "Select book chapter"
-        chapterTextField.accessibilityValue = "Chapter selector apears at the bottom"
+        chapterTextField.accessibilityLabel = "Pasirinkite knygos skirsnį"
+        chapterTextField.accessibilityValue = "Knygos skirsnių pasirinkimas atsiras ekrano apačioje"
         
         tv_time.isAccessibilityElement = true
-        tv_time.accessibilityLabel = "Time"
+        tv_time.accessibilityLabel = "Laikas"
         tv_time.accessibilityValue = tv_time.text
         
         progressSlider.isAccessibilityElement = true
-        progressSlider.accessibilityLabel = "Time slider"
-        progressSlider.accessibilityValue = "Change current time"
+        progressSlider.accessibilityLabel = "Laiko juosta"
+        progressSlider.accessibilityValue = "Spauskite norėdami pakeisti esamą laiką"
         
     }
 }

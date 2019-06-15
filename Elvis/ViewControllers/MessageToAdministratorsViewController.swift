@@ -100,19 +100,19 @@ extension MessageToAdministratorsViewController{
         messageTopicField.adjustsFontForContentSizeCategory = true
         messageTopicField.isAccessibilityElement = true
         messageTopicField.accessibilityTraits = UIAccessibilityTraits.none
-        messageTopicField.accessibilityLabel = "Message topic"
-        messageTopicField.accessibilityValue = "Click to write topic"
+        messageTopicField.accessibilityLabel = "Žinutės tema"
+        messageTopicField.accessibilityValue = "Įveskite žinutės temą"
         
         messageBodyField.font = UIFont.preferredFont(forTextStyle: .body)
         messageBodyField.adjustsFontForContentSizeCategory = true
         messageBodyField.isAccessibilityElement = true
         messageBodyField.accessibilityTraits = UIAccessibilityTraits.none
-        messageBodyField.accessibilityLabel = "Message content"
-        messageBodyField.accessibilityValue = "Click to write message"
+        messageBodyField.accessibilityLabel = "Žinutės turinys"
+        messageBodyField.accessibilityValue = "Įvesmite žinutės turinį"
         
         sendMsgButton.isAccessibilityElement = true
         sendMsgButton.accessibilityTraits = UIAccessibilityTraits.button
-        sendMsgButton.accessibilityLabel = "Click to send message"
+        sendMsgButton.accessibilityLabel = "Išsiųsti žinutę"
         
     }
 }

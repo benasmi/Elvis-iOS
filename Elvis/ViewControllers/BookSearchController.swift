@@ -80,7 +80,7 @@ class BookSearchController: BaseViewController {
             SVProgressHUD.dismiss()
             
             guard success, !books.isEmpty else {
-                SVProgressHUD.showError(withStatus: "Klaida!")
+                Utils.alertMessage(message: "Nerasta jokių knygų, bandykite įvesti tikslesnį aprašymą!", title: "Knyga nerasta!", buttonTitle: "Gerai", viewController: self)
                 return
             }
             //passing data and going to new view controller
@@ -106,33 +106,33 @@ extension BookSearchController{
         tv_anyWord.adjustsFontForContentSizeCategory = true
         tv_anyWord.isAccessibilityElement = true
         tv_anyWord.accessibilityTraits = UIAccessibilityTraits.none
-        tv_anyWord.accessibilityLabel = "Anyword"
-        tv_anyWord.accessibilityValue = "Search book by any word"
+        tv_anyWord.accessibilityLabel = "Bet koks žodis"
+        tv_anyWord.accessibilityValue = "Įveskite bet kokį knygos žodį "
         
         tv_announcingPerson.font = UIFont.preferredFont(forTextStyle: .body)
         tv_announcingPerson.adjustsFontForContentSizeCategory = true
         tv_announcingPerson.isAccessibilityElement = true
         tv_announcingPerson.accessibilityTraits = UIAccessibilityTraits.none
-        tv_announcingPerson.accessibilityLabel = "Anouncing person"
-        tv_announcingPerson.accessibilityValue = "Search book by it's announcer"
+        tv_announcingPerson.accessibilityLabel = "Leidejas"
+        tv_announcingPerson.accessibilityValue = "Įveskite leidėją"
         
         tv_name.font = UIFont.preferredFont(forTextStyle: .body)
         tv_name.adjustsFontForContentSizeCategory = true
         tv_name.isAccessibilityElement = true
         tv_name.accessibilityTraits = UIAccessibilityTraits.none
-        tv_name.accessibilityLabel = "Book author"
-        tv_name.accessibilityValue = "Search book by it's author"
+        tv_name.accessibilityLabel = "Knygos autorius"
+        tv_name.accessibilityValue = "Įveskite knygos autorių"
         
         tv_title.font = UIFont.preferredFont(forTextStyle: .body)
         tv_title.adjustsFontForContentSizeCategory = true
         tv_title.isAccessibilityElement = true
         tv_title.accessibilityTraits = UIAccessibilityTraits.none
-        tv_title.accessibilityLabel = "Title"
-        tv_title.accessibilityValue = "Search book by it's title"
+        tv_title.accessibilityLabel = "Knygos pavadinimas"
+        tv_title.accessibilityValue = "Įveskite knygos pavadinimą"
        
         
         btnSeachBooks.isAccessibilityElement = true
-        btnSeachBooks.accessibilityLabel = "Click to search books"
+        btnSeachBooks.accessibilityLabel = "Ieškoti knygų"
         btnSeachBooks.accessibilityTraits = .button
         
     

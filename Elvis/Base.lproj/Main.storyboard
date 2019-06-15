@@ -861,6 +861,7 @@
                         <outlet property="checkboxDisabilities" destination="H1U-v6-nFY" id="bNz-gQ-Zab"/>
                         <outlet property="checkboxLab" destination="NGg-bt-ABc" id="98n-c8-p3L"/>
                         <outlet property="datePickerTextInput" destination="40m-Jd-b42" id="Cu6-m2-uRA"/>
+                        <outlet property="goBackButton" destination="hV4-BS-XLi" id="P4D-CE-u7Q"/>
                         <outlet property="labelAdress" destination="5i0-c4-FX5" id="BpX-Dp-Mr8"/>
                         <outlet property="labelDisabDocumentPhoto" destination="jJ3-LU-wgb" id="FCi-YE-Fmp"/>
                         <outlet property="labelDisabilityDescription" destination="FxY-dt-exP" id="XQL-cS-Ot1"/>

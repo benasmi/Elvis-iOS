@@ -115,22 +115,22 @@ extension ViewController{
         username.adjustsFontForContentSizeCategory = true
         username.isAccessibilityElement = true
         username.accessibilityTraits = UIAccessibilityTraits.none
-        username.accessibilityLabel = "Login field"
-        username.accessibilityValue = "Enter your username"
+        username.accessibilityLabel = "Prisijungimo vardas"
+        username.accessibilityValue = "Įveskite prisijungimo vardas"
         
         password.isAccessibilityElement = true
         password.accessibilityTraits = UIAccessibilityTraits.none
-        password.accessibilityLabel = "Password field"
-        password.accessibilityValue = "Enter your password"
+        password.accessibilityLabel = "Slaptažodžis"
+        password.accessibilityValue = "Įveskite slaptažodis"
         password.font = UIFont.preferredFont(forTextStyle: .body)
         password.adjustsFontForContentSizeCategory = true
         
         loginButton.isAccessibilityElement = true
-        loginButton.accessibilityLabel = "Click to login"
+        loginButton.accessibilityLabel = "Prisijungti"
         loginButton.accessibilityTraits = .button
        
         registerButton.isAccessibilityElement = true
-        registerButton.accessibilityLabel = "Click to register"
+        registerButton.accessibilityLabel = "Registracija"
         registerButton.accessibilityTraits = .button
         
     }
