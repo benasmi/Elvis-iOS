@@ -88,7 +88,7 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         educationValues = Utils.getPlist(withName: "educationList")!
         statusValues = Utils.getPlist(withName: "statusList")!
         addressValues = Utils.getPlist(withName: "addressList")!
-        genderValues = ["Vyras", "Moteris"]
+        genderValues = ["Vyras                                        ", "Moteris                                        "]
     }
     
     
@@ -614,7 +614,6 @@ extension RegistrationController: UIPickerViewDelegate, UIPickerViewDataSource {
         if(currentTextfield.tag == 2){
             selectedStatusRow = row
             statusTextField.text = statusValues[row]
-            print(statusTextField.text)
         }
         if(currentTextfield.tag == 3){
             selectedAddressRow = row
@@ -642,22 +641,27 @@ extension RegistrationController: UIPickerViewDelegate, UIPickerViewDataSource {
         label.font = UIFont(name: "Menlo-Regular", size: 25)
         
         
+      
+        
         if(currentTextfield.tag == 1){
             label.text = educationValues[row]
+   
         }
         if(currentTextfield.tag == 2){
             label.text = statusValues[row]
+    
         }
         if(currentTextfield.tag == 3){
             label.text = addressValues[row]
+    
         }
         if(currentTextfield.tag == 4){
             label.text = genderValues[row]
+           
         }
         
-        print(label.text)
-        label.isAccessibilityElement = true
         
+        label.isAccessibilityElement = true
         return label
     }
     
