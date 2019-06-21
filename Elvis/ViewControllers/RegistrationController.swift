@@ -7,9 +7,26 @@
 //
 
 import UIKit
-import DropDown
 import SVProgressHUD
-class RegistrationController: BaseViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RegistrationController: BaseViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+    
+    private var currentTextfield: UITextField!
+    private var currentTag: Int!
+    
+    private var educationValues : [String]!
+    private var statusValues: [String]!
+    private var addressValues: [String]!
+    private var genderValues: [String]!
+    
+    private var selectedEducationRow: Int = -1
+    private var selectedStatusRow: Int = -1
+    private var selectedAddressRow: Int = -1
+    private var selectedGenderRow: Int = -1
+    
+    @IBOutlet weak var educationTextField: UITextField!
+    @IBOutlet weak var statusTextField: UITextField!
+    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var genderTextField: UITextField!
     
     @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var labelLabUser: UILabel!
@@ -46,19 +63,9 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
     private var datePicker: UIDatePicker?
     
     @IBOutlet weak var backgroundView: UIView!
-    
-    @IBOutlet weak var labelSelectorEducation: UILabel!
-    @IBOutlet weak var labelSelectorStatus: UILabel!
-    @IBOutlet weak var labelSelectorAddress: UILabel!
-    @IBOutlet weak var labelSelectorGender: UITextField!
-    
+
     @IBOutlet weak var checkboxLab: UIButton!
     @IBOutlet weak var checkboxDisabilities: UIButton!
-    
-    private var educationDropDown: DropDown!
-    private var statusDropDown: DropDown!
-    private var addressDropDown: DropDown!
-    private var genderDropDown: DropDown!
     
     private var pictureTaken: UIImage?
     
@@ -70,6 +77,20 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
     private var takingIDPhoto: Bool = false
     private var labCheckbox: Bool = false
     private var disabilityCheckBox: Bool = false
+    
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        currentTextfield = textField
+        return true
+    }
+    
+    func createPlistValues(){
+        educationValues = Utils.getPlist(withName: "educationList")!
+        statusValues = Utils.getPlist(withName: "statusList")!
+        addressValues = Utils.getPlist(withName: "addressList")!
+        genderValues = ["Vyras", "Moteris"]
+    }
+    
     
     @IBAction func checkboxLabChecked(_ sender: Any) {
         if(!labCheckbox){
@@ -85,6 +106,7 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         
         
     }
+    
     
     @IBAction func checkBoxDisabChecked(_ sender: Any) {
         if(!disabilityCheckBox){
@@ -106,13 +128,55 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         self.dismiss(animated: true, completion: nil)
     }
     
+    //House keeping stuff fro dayPicker: Not IMPORTANT
+    func createPicker() {
+        let picker = UIPickerView()
+        picker.delegate = self
+        
+        educationTextField.inputView = picker
+        statusTextField.inputView = picker
+        addressTextField.inputView = picker
+        genderTextField.inputView = picker
+        
+        picker.backgroundColor = .orange
+        
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        toolBar.barTintColor = .orange
+        toolBar.tintColor = .white
+        
+        let doneButton = UIBarButtonItem(title: "Baigti", style: .plain, target: self, action: #selector(RegistrationController.dismissAnyPickers))
+        
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        educationTextField.inputAccessoryView = toolBar
+        statusTextField.inputAccessoryView = toolBar
+        addressTextField.inputAccessoryView = toolBar
+        genderTextField.inputAccessoryView = toolBar
+        
+    }
+ 
+    
+    @objc func dismissAnyPickers(){
+   
+        
+        view.endEditing(true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        prepareEducationDropDown()
-        prepareStatusDropDown()
-        prepareAddressDropDown()
-        prepareGenderDropDown()
+       
+        createPlistValues()
+        createPicker()
+        
+        educationTextField.delegate = self
+        statusTextField.delegate = self
+        genderTextField.delegate = self
+        addressTextField.delegate = self
+        
         applyAccesibility()
         
         
@@ -123,23 +187,7 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         btnDisabDocumentPhoto.titleLabel?.numberOfLines = 1
         btnDisabDocumentPhoto.titleLabel?.adjustsFontSizeToFitWidth = true
         btnDisabDocumentPhoto.titleLabel?.lineBreakMode = NSLineBreakMode.byClipping
-        
-        let educationTap = UITapGestureRecognizer(target: self, action: #selector(RegistrationController.educationTapListener(sender:)))
-        labelSelectorEducation.isUserInteractionEnabled = true
-        labelSelectorEducation.addGestureRecognizer(educationTap)
-        
-        let genderTap = UITapGestureRecognizer(target: self, action: #selector(RegistrationController.genderTapListener(sender:)))
-        labelSelectorGender.isUserInteractionEnabled = true
-        labelSelectorGender.addGestureRecognizer(genderTap)
-        
-        let statusTap = UITapGestureRecognizer(target: self, action: #selector(RegistrationController.statusTapListener(sender:)))
-        labelSelectorStatus.isUserInteractionEnabled = true
-        labelSelectorStatus.addGestureRecognizer(statusTap)
-        
-        let addressTap = UITapGestureRecognizer(target: self, action: #selector(RegistrationController.addressTapListener(sender:)))
-        labelSelectorAddress.isUserInteractionEnabled = true
-        labelSelectorAddress.addGestureRecognizer(addressTap)
-        
+
         datePicker = UIDatePicker()
         
         datePicker?.datePickerMode = .date
@@ -218,83 +266,6 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         datePickerTextInput.text = dateFormatter.string(from: datePicker.date)
     }
     
-    @objc func educationTapListener(sender: UITapGestureRecognizer? = nil){
-        educationDropDown.show()
-    }
-    
-    @objc func genderTapListener(sender: UITapGestureRecognizer? = nil){
-        genderDropDown.show()
-    }
-    
-    @objc func statusTapListener(sender: UITapGestureRecognizer? = nil){
-        statusDropDown.show()
-    }
-    
-    @objc func addressTapListener(sender: UITapGestureRecognizer? = nil){
-        addressDropDown.show()
-    }
-    
-    
-    func prepareEducationDropDown(){
-        educationDropDown = DropDown()
-        educationDropDown.anchorView = labelSelectorEducation
-        
-        let dataSource = Utils.getPlist(withName: "educationList")!
-        
-        
-        educationDropDown.dataSource = dataSource
-        
-        // Action triggered on selection
-        educationDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.labelSelectorEducation.text = item
-            print("Selected item: \(item) at index: \(index)")
-        }
-    }
-    
-    func prepareStatusDropDown(){
-        statusDropDown = DropDown()
-        statusDropDown.anchorView = labelSelectorStatus
-        
-        let dataSource = Utils.getPlist(withName: "statusList")!
-        
-        statusDropDown.dataSource = dataSource
-        
-        // Action triggered on selection
-        statusDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.labelSelectorStatus.text = item
-            print("Selected item: \(item) at index: \(index)")
-        }
-    }
-    
-    func prepareAddressDropDown(){
-        addressDropDown = DropDown()
-        addressDropDown.anchorView = labelSelectorAddress
-        
-        let dataSource =  Utils.getPlist(withName: "addressList")!
-
-        
-        addressDropDown.dataSource = dataSource
-        
-        // Action triggered on selection
-        addressDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.labelSelectorAddress.text = item
-            print("Selected item: \(item) at index: \(index)")
-        }
-    }
-    
-    func prepareGenderDropDown(){
-        genderDropDown = DropDown()
-        genderDropDown.anchorView = labelSelectorGender
-        genderDropDown.dataSource = ["Vyras", "Moteris"]
-        
-        // Action triggered on selection
-        genderDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.labelSelectorGender.text = item
-            print("Selected item: \(item) at index: \(index)")
-        }
-    }
-    
-    
     @IBAction func register(_ sender: Any) {
 
         //First name field empty
@@ -361,25 +332,25 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         }
         
         //Gender not selected
-        guard genderDropDown.indexPathForSelectedRow != nil else{
+        guard selectedGenderRow != -1 else{
             Utils.alertMessage(message: "Lyties laukelis turi būti pasirinktas!", title: "Klaida!", buttonTitle: "Gerai", viewController: self)
             return
         }
         
         //Education not selected
-        guard educationDropDown.indexPathForSelectedRow != nil else{
+        guard selectedEducationRow != -1 else{
             Utils.alertMessage(message: "Išsilavinimo laukelis turi būti pasirinktas!", title: "Klaida!", buttonTitle: "Gerai", viewController: self)
             return
         }
         
         //Status not selected
-        guard statusDropDown.indexPathForSelectedRow != nil else{
+        guard selectedStatusRow != -1 else{
             Utils.alertMessage(message: "Statuso laukelis turi būti pasirinktas!", title: "Klaida!", buttonTitle: "Gerai", viewController: self)
             return
         }
         
         //Address not selected
-        guard addressDropDown.indexPathForSelectedRow != nil else{
+        guard selectedAddressRow != -1 else{
             Utils.alertMessage(message: "Adreso laukelis turi būti pasirinktas!", title: "Klaida!", buttonTitle: "Gerai", viewController: self)
             return
         }
@@ -396,10 +367,10 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
             return
         }
         
-        let status = statusDropDown.indexPathForSelectedRow!.row+3
-        let education = educationDropDown.indexPathForSelectedRow!.row+9
-        let muncipality = addressDropDown.indexPathForSelectedRow!.row+1
-        let gender = genderDropDown.indexPathForSelectedRow!.row == 0 ? DatabaseUtils.Gender.Vyras : DatabaseUtils.Gender.Moteris
+        let status = selectedStatusRow+3
+        let education = selectedEducationRow+9
+        let muncipality = selectedAddressRow+1
+        let gender = selectedGenderRow == 0 ? DatabaseUtils.Gender.Vyras : DatabaseUtils.Gender.Moteris
         
         //Creating a prompt dialog box
         let alert = UIAlertController(title: "Registruodamiesi sutinkate su Elvis taisyklėmis", message: "Taisykles rasite čia:\n http://elvis.labiblioteka.lt/registration/conditions \n http://elvis.labiblioteka.lt/registration/CommentsConditions", preferredStyle: UIAlertController.Style.alert)
@@ -516,17 +487,18 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         textFieldUsername.textColor = UIColor.black
         textFieldPhoneNumber.textColor = UIColor.black
         
-        labelSelectorGender.backgroundColor = UIColor.clear
-        labelSelectorGender.textColor = UIColor.black
+        educationTextField.backgroundColor = UIColor.clear
+        educationTextField.textColor = UIColor.black
         
-        labelSelectorEducation.backgroundColor = UIColor.clear
-        labelSelectorEducation.textColor = UIColor.black
         
-        labelSelectorStatus.backgroundColor = UIColor.clear
-        labelSelectorStatus.textColor = UIColor.black
-        
-        labelSelectorAddress.backgroundColor = UIColor.clear
-        labelSelectorAddress.textColor = UIColor.black
+        addressTextField.backgroundColor = UIColor.clear
+        addressTextField.textColor = UIColor.black
+ 
+        genderTextField.backgroundColor = UIColor.clear
+        genderTextField.textColor = UIColor.black
+ 
+        statusTextField.backgroundColor = UIColor.clear
+        statusTextField.textColor = UIColor.black
         
         datePickerTextInput.backgroundColor = UIColor.clear
         datePickerTextInput.textColor = UIColor.black
@@ -536,17 +508,19 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         
     }
     override func enableDarkMode(){
-        labelSelectorGender.backgroundColor = UIColor.clear
-        labelSelectorGender.textColor = UIColor.white
         
-        labelSelectorEducation.backgroundColor = UIColor.clear
-        labelSelectorEducation.textColor = UIColor.white
+        educationTextField.backgroundColor = UIColor.clear
+        educationTextField.textColor = UIColor.white
+       
+        addressTextField.backgroundColor = UIColor.clear
+        addressTextField.textColor = UIColor.white
+ 
+        genderTextField.backgroundColor = UIColor.clear
+        genderTextField.textColor = UIColor.white
+ 
+        statusTextField.backgroundColor = UIColor.clear
+        statusTextField.textColor = UIColor.white
         
-        labelSelectorStatus.backgroundColor = UIColor.clear
-        labelSelectorStatus.textColor = UIColor.white
-        
-        labelSelectorAddress.backgroundColor = UIColor.clear
-        labelSelectorAddress.textColor = UIColor.white
         
         labelDocumentPhoto.textColor = UIColor.white
         labelDisabDocumentPhoto.textColor = UIColor.white
@@ -589,6 +563,108 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
     
 }
 
+extension RegistrationController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if(currentTextfield.tag == 1){
+            return educationValues.count
+        }
+        if(currentTextfield.tag == 2){
+            return statusValues.count
+        }
+        if(currentTextfield.tag == 3){
+            return addressValues.count
+        }
+        if(currentTextfield.tag == 4){
+            return genderValues.count
+        }
+        return 0
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if(currentTextfield.tag == 1){
+            return educationValues[row]
+        }
+        if(currentTextfield.tag == 2){
+            return statusValues[row]
+        }
+        if(currentTextfield.tag == 3){
+            return addressValues[row]
+        }
+        if(currentTextfield.tag == 4){
+            return genderValues[row]
+        }
+        
+        return ""
+    }
+    
+    
+    //This triggers when you try to select new stuff
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if(currentTextfield.tag == 1){
+            selectedEducationRow = row
+            educationTextField.text = educationValues[row]
+        }
+        if(currentTextfield.tag == 2){
+            selectedStatusRow = row
+            statusTextField.text = statusValues[row]
+            print(statusTextField.text)
+        }
+        if(currentTextfield.tag == 3){
+            selectedAddressRow = row
+            addressTextField.text = addressValues[row]
+        }
+        if(currentTextfield.tag == 4){
+            selectedGenderRow = row
+            genderTextField.text = genderValues[row]
+        }
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        var label: UILabel
+        
+        if let view = view as? UILabel {
+            label = view
+        } else {
+            label = UILabel()
+        }
+        
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont(name: "Menlo-Regular", size: 25)
+        
+        
+        if(currentTextfield.tag == 1){
+            label.text = educationValues[row]
+        }
+        if(currentTextfield.tag == 2){
+            label.text = statusValues[row]
+        }
+        if(currentTextfield.tag == 3){
+            label.text = addressValues[row]
+        }
+        if(currentTextfield.tag == 4){
+            label.text = genderValues[row]
+        }
+        
+        print(label.text)
+        label.isAccessibilityElement = true
+        
+        return label
+    }
+    
+    
+}
+
+
 extension RegistrationController{
     
     func applyAccesibility(){
@@ -601,10 +677,6 @@ extension RegistrationController{
         labelMail.isAccessibilityElement = false
         labelPhoneNumber.isAccessibilityElement = false
         labelAdress.isAccessibilityElement = false
-        labelSelectorEducation.isAccessibilityElement = false
-        labelSelectorStatus.isAccessibilityElement = false
-        labelSelectorAddress.isAccessibilityElement = false
-        labelSelectorGender.isAccessibilityElement = false
         labelUsername.isAccessibilityElement = false
         labelDisabilityDescription.isAccessibilityElement = false
         labelPassword.isAccessibilityElement = false
@@ -613,7 +685,7 @@ extension RegistrationController{
         labelDisabDocumentPhoto.isAccessibilityElement = false
         
         textFieldName.isAccessibilityElement = true
-        textFieldName.accessibilityLabel = "Vardas"
+        textFieldName.accessibilityLabel = "Vardas" + textFieldName.text!
         textFieldName.accessibilityValue = "Įveskite vardą"
         textFieldName.accessibilityTraits = .none
         
@@ -621,17 +693,17 @@ extension RegistrationController{
         goBackButton.accessibilityLabel = "Grįžti Atgal"
         
         textFieldSurname.isAccessibilityElement = true
-        textFieldSurname.accessibilityLabel = "Pavardė"
+        textFieldSurname.accessibilityLabel = "Pavardė" + textFieldSurname.text!
         textFieldSurname.accessibilityValue = "Įveskite pavardę"
         textFieldSurname.accessibilityTraits = .none
         
         textFieldPersonalCode.isAccessibilityElement = true
-        textFieldPersonalCode.accessibilityLabel = "Asmens kodas"
+        textFieldPersonalCode.accessibilityLabel = "Asmens kodas" + textFieldPersonalCode.text!
         textFieldPersonalCode.accessibilityValue = "Įveskite asmens kodą"
         textFieldPersonalCode.accessibilityTraits = .none
         
         textFieldMail.isAccessibilityElement = true
-        textFieldMail.accessibilityLabel = "Paštas"
+        textFieldMail.accessibilityLabel = "Paštas" + textFieldMail.text!
         textFieldMail.accessibilityValue = "Įveskite savo paštą"
         textFieldMail.accessibilityTraits = .none
         
@@ -664,25 +736,26 @@ extension RegistrationController{
         datePickerTextInput.accessibilityValue = "Pasirinkite datą"
         datePickerTextInput.accessibilityTraits = .none
         
-        labelSelectorEducation.isAccessibilityElement = true
-        labelSelectorEducation.accessibilityLabel = "Išsilavinimo pasirinkimas" + labelSelectorEducation.text!
-        labelSelectorEducation.accessibilityValue = "Pasirinkite išsilavinimą "
-        labelSelectorEducation.accessibilityTraits = .none
         
-        labelSelectorStatus.isAccessibilityElement = true
-        labelSelectorStatus.accessibilityLabel = "Statuso pasirinkimas" + labelSelectorStatus.text!
-        labelSelectorStatus.accessibilityValue = "Pasirinkite statusą"
-        labelSelectorStatus.accessibilityTraits = .none
+        educationTextField.isAccessibilityElement = true
+        educationTextField.accessibilityLabel = "Išsilavinimo pasirinkimas" + educationTextField.text!
+        educationTextField.accessibilityValue = "Pasirinkimas apačioje"
+        educationTextField.accessibilityTraits = .button
+ 
+        statusTextField.isAccessibilityElement = true
+        statusTextField.accessibilityLabel = "Statuso pasirinkimas" + educationTextField.text!
+        statusTextField.accessibilityValue = "Pasirinkimas apačioje"
+        statusTextField.accessibilityTraits = .none
+ 
+        addressTextField.isAccessibilityElement = true
+        addressTextField.accessibilityLabel = "Adreso pasirinkimas" + addressTextField.text!
+        addressTextField.accessibilityValue = "Pasirinkimas apačioje"
+        addressTextField.accessibilityTraits = .none
         
-        labelSelectorAddress.isAccessibilityElement = true
-        labelSelectorAddress.accessibilityLabel = "Adreso pasirinkimas" + labelSelectorAddress.text!
-        labelSelectorAddress.accessibilityValue = "Pasirinkite adresą"
-        labelSelectorAddress.accessibilityTraits = .none
-        
-        labelSelectorGender.isAccessibilityElement = true
-        labelSelectorGender.accessibilityLabel = "Lyties pasirinkimas" + labelSelectorGender.text!
-        labelSelectorGender.accessibilityValue = "Pasirinkite savo lytį"
-        labelSelectorGender.accessibilityTraits = .none
+        genderTextField.isAccessibilityElement = true
+        genderTextField.accessibilityLabel = "Lyties pasirinkimas" + genderTextField.text!
+        genderTextField.accessibilityValue = "Pasirinkimas apačioje"
+        genderTextField.accessibilityTraits = .none
         
         
         checkboxLab.isAccessibilityElement = true

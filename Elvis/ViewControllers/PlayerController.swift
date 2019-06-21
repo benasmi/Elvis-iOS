@@ -469,6 +469,7 @@ extension PlayerController: UIPickerViewDelegate, UIPickerViewDataSource {
         label.textAlignment = .center
         label.font = UIFont(name: "Menlo-Regular", size: 25)
         
+        
         label.text = chapters[row]
         
         label.isAccessibilityElement = true

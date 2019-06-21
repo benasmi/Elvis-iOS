@@ -114,7 +114,7 @@ extension ViewController{
         username.font = UIFont.preferredFont(forTextStyle: .body)
         username.adjustsFontForContentSizeCategory = true
         username.isAccessibilityElement = true
-        username.accessibilityTraits = UIAccessibilityTraits.none
+        //username.accessibilityTraits = UIAccessibilityTraits.none
         username.accessibilityLabel = "Prisijungimo vardas"
         username.accessibilityValue = "Įveskite prisijungimo vardas"
         
