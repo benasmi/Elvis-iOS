@@ -124,15 +124,15 @@ extension MessagesViewController{
      
         messageToAdministrationBtn.isAccessibilityElement = true
         messageToAdministrationBtn.accessibilityTraits = UIAccessibilityTraits.button
-        messageToAdministrationBtn.accessibilityLabel = "Spauskite norėdami rašyti žinutę administraijai"
+        messageToAdministrationBtn.accessibilityLabel = "Rašyti žinutę"
         
         messagesReceivedBtn.isAccessibilityElement = true
         messagesReceivedBtn.accessibilityTraits = UIAccessibilityTraits.button
-        messagesReceivedBtn.accessibilityLabel = "Spauskite norėdami peržiūrėti žinutes"
+        messagesReceivedBtn.accessibilityLabel = "Žiurėti žinutes"
      
         newsBtn.isAccessibilityElement = true
         newsBtn.accessibilityTraits = UIAccessibilityTraits.button
-        newsBtn.accessibilityLabel = "Spauskite norėdami pamatyti naujienas"
+        newsBtn.accessibilityLabel = "Naujienos"
         
     }
 }

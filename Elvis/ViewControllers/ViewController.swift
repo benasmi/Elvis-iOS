@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SVProgressHUD
 
-class ViewController: BaseViewController {
+class ViewController: BaseViewController, UITextFieldDelegate {
     
     let preferences = UserDefaults.standard
     @IBOutlet weak var backgroundView: UIView!
@@ -25,8 +25,16 @@ class ViewController: BaseViewController {
         applyAccesibility()
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-      
+        
+        username.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        password.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
     }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        textField.accessibilityValue = textField.text!
+    }
+   
     
     override func enableDarkMode(){
         username.backgroundColor = UIColor.clear
@@ -114,12 +122,10 @@ extension ViewController{
         username.font = UIFont.preferredFont(forTextStyle: .body)
         username.adjustsFontForContentSizeCategory = true
         username.isAccessibilityElement = true
-        //username.accessibilityTraits = UIAccessibilityTraits.none
         username.accessibilityLabel = "Prisijungimo vardas"
         username.accessibilityValue = "Įveskite prisijungimo vardas"
         
         password.isAccessibilityElement = true
-        password.accessibilityTraits = UIAccessibilityTraits.none
         password.accessibilityLabel = "Slaptažodžis"
         password.accessibilityValue = "Įveskite slaptažodis"
         password.font = UIFont.preferredFont(forTextStyle: .body)

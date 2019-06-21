@@ -1,7 +1,7 @@
 import SVProgressHUD
 import UIKit
 import Foundation
-class MessageToAdministratorsViewController: BaseViewController{
+class MessageToAdministratorsViewController: BaseViewController, UITextFieldDelegate, UITextViewDelegate{
     
     
     @IBOutlet weak var messageTopicField: UITextField!
@@ -16,6 +16,10 @@ class MessageToAdministratorsViewController: BaseViewController{
     
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        textField.accessibilityValue = textField.text!
     }
     
     @IBAction func sendMessage(_ sender: Any) {
@@ -54,11 +58,17 @@ class MessageToAdministratorsViewController: BaseViewController{
         self.present(alert, animated: true, completion: nil)
     }
 
-
+    func textViewDidChange(_ textView: UITextView) {
+       messageBodyField.accessibilityValue = messageBodyField.text!
+    }
     
     override func viewDidLoad() {
         self.hideKeyboardWhenTappedAround()
         applyAccesibility()
+        
+        messageTopicField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        messageBodyField.delegate = self
+        
         super.viewDidLoad()
     }
     

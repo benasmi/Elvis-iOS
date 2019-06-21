@@ -9,7 +9,7 @@
 import UIKit
 import SVProgressHUD
 
-class BookSearchController: BaseViewController {
+class BookSearchController: BaseViewController, UITextFieldDelegate {
 
     @IBOutlet weak var tv_anyWord: UITextField!
     @IBOutlet weak var tv_announcingPerson: UITextField!
@@ -50,9 +50,17 @@ class BookSearchController: BaseViewController {
         self.view.backgroundColor = UIColor.black
     }
     
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        textField.accessibilityValue = textField.text!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         applyAccesibility()
+        tv_anyWord.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        tv_announcingPerson.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        tv_name.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        tv_title.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         self.hideKeyboardWhenTappedAround() 
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -105,7 +113,6 @@ extension BookSearchController{
         tv_anyWord.font = UIFont.preferredFont(forTextStyle: .body)
         tv_anyWord.adjustsFontForContentSizeCategory = true
         tv_anyWord.isAccessibilityElement = true
-        tv_anyWord.accessibilityTraits = UIAccessibilityTraits.none
         tv_anyWord.accessibilityLabel = "Bet koks žodis"
         tv_anyWord.accessibilityValue = "Įveskite bet kokį knygos žodį "
         

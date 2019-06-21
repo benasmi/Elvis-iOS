@@ -213,7 +213,7 @@
                                             <constraint firstAttribute="height" constant="45" id="4NV-vd-n3U"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <state key="normal" backgroundImage="Kontrastas"/>
                                         <connections>
                                             <action selector="changeContrast:" destination="MM3-Un-QQz" eventType="touchDown" id="pOE-OJ-G5X"/>
                                             <action selector="changeTheme:" destination="0xI-Yj-fUR" eventType="touchUpInside" id="dl5-IO-SUJ"/>
@@ -226,7 +226,7 @@
                                             <constraint firstAttribute="width" constant="44" id="9eM-qJ-rwg"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="GoBackButton"/>
+                                        <state key="normal" backgroundImage="Atgal"/>
                                         <connections>
                                             <action selector="back:" destination="MM3-Un-QQz" eventType="touchUpInside" id="PRG-U9-KnC"/>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="x0B-H4-h1Q"/>
@@ -1031,7 +1031,7 @@
                                             <constraint firstAttribute="height" constant="45" id="vaO-30-zsi"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="GoBackButton"/>
+                                        <state key="normal" backgroundImage="Atgal"/>
                                         <connections>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="SeY-NX-zVf"/>
                                         </connections>
@@ -1043,7 +1043,7 @@
                                             <constraint firstAttribute="width" constant="45" id="QPk-5g-yrf"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <state key="normal" backgroundImage="Kontrastas"/>
                                         <connections>
                                             <action selector="changeTheme:" destination="qd4-Zu-Mf4" eventType="touchDown" id="9zN-fV-h0e"/>
                                         </connections>
@@ -1118,7 +1118,7 @@
                                             <constraint firstAttribute="width" constant="44" id="wHR-Rk-h65"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="GoBackButton"/>
+                                        <state key="normal" backgroundImage="Atgal"/>
                                         <connections>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="OO3-bq-0e0"/>
                                             <action selector="back:" destination="MM3-Un-QQz" eventType="touchUpInside" id="yet-hK-Lvx"/>
@@ -1131,7 +1131,7 @@
                                             <constraint firstAttribute="height" constant="44" id="lsd-jQ-DaX"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <state key="normal" backgroundImage="Kontrastas"/>
                                         <connections>
                                             <action selector="changeContrast:" destination="MM3-Un-QQz" eventType="touchDown" id="SSu-5c-pXA"/>
                                         </connections>
@@ -1170,7 +1170,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YpA-C5-Uq7">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YpA-C5-Uq7">
                                         <rect key="frame" x="50" y="45" width="275" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="aDO-Y6-AGr"/>
@@ -1347,7 +1347,7 @@
                                             <constraint firstAttribute="width" constant="45" id="ZOR-kw-RRX"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="GoBackButton"/>
+                                        <state key="normal" backgroundImage="Atgal"/>
                                         <connections>
                                             <action selector="back:" destination="IDV-c2-1EO" eventType="touchDown" id="VLI-Ia-qOc"/>
                                         </connections>
@@ -1359,7 +1359,7 @@
                                             <constraint firstAttribute="width" constant="45" id="ZdN-LG-FkT"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <state key="normal" backgroundImage="Kontrastas"/>
                                         <connections>
                                             <action selector="changeTheme:" destination="IDV-c2-1EO" eventType="touchUpInside" id="9C0-uI-2I5"/>
                                         </connections>
@@ -1517,7 +1517,7 @@
                                             <constraint firstAttribute="width" constant="44" id="Ne3-oa-2eb"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="GoBackButton"/>
+                                        <state key="normal" backgroundImage="Atgal"/>
                                         <connections>
                                             <action selector="back:" destination="d1L-CD-3CS" eventType="touchUpInside" id="KFh-V8-fay"/>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="Rq4-k4-j7h"/>
@@ -1531,7 +1531,7 @@
                                             <constraint firstAttribute="width" constant="44" id="r4G-O2-A6u"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <state key="normal" backgroundImage="Kontrastas"/>
                                         <connections>
                                             <action selector="changeContrast:" destination="d1L-CD-3CS" eventType="touchDown" id="hTD-z6-THE"/>
                                         </connections>
@@ -1765,7 +1765,7 @@
                                             <constraint firstAttribute="width" constant="44" id="dYh-sI-vdo"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="GoBackButton"/>
+                                        <state key="normal" backgroundImage="Atgal"/>
                                         <connections>
                                             <action selector="back:" destination="MM3-Un-QQz" eventType="touchUpInside" id="6BZ-Li-8fg"/>
                                             <action selector="back:" destination="qd4-Zu-Mf4" eventType="touchUpInside" id="aBP-qw-ljj"/>
@@ -1779,7 +1779,7 @@
                                             <constraint firstAttribute="height" constant="44" id="auV-qi-tTm"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <state key="normal" backgroundImage="Kontrastas"/>
                                         <connections>
                                             <action selector="changeContrast:" destination="wk8-k9-hxs" eventType="touchDown" id="adq-a3-bjt"/>
                                         </connections>
@@ -1819,7 +1819,7 @@
                                             <constraint firstAttribute="height" constant="54" id="lPh-XR-7Dt"/>
                                         </constraints>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <state key="normal" image="SkipPrevious"/>
+                                        <state key="normal" image="BuvesSkirsnis"/>
                                         <connections>
                                             <action selector="skipPrevious:" destination="wk8-k9-hxs" eventType="touchUpInside" id="kpN-j3-cmb"/>
                                         </connections>
@@ -1833,7 +1833,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <state key="normal" image="BackForward"/>
+                                        <state key="normal" image="Atsukti"/>
                                         <connections>
                                             <action selector="fastBackwards:" destination="wk8-k9-hxs" eventType="touchUpInside" id="Y1x-Mv-wcP"/>
                                         </connections>
@@ -1846,7 +1846,7 @@
                                             <constraint firstAttribute="height" constant="54" id="moF-O2-wUD"/>
                                         </constraints>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <state key="normal" image="Play"/>
+                                        <state key="normal" image="Groti"/>
                                         <connections>
                                             <action selector="play:" destination="wk8-k9-hxs" eventType="touchUpInside" id="rCH-eX-ivJ"/>
                                         </connections>
@@ -1859,7 +1859,7 @@
                                             <constraint firstAttribute="width" constant="54" id="pJr-cd-brY"/>
                                         </constraints>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <state key="normal" image="Fastforward"/>
+                                        <state key="normal" image="Prasukti"/>
                                         <connections>
                                             <action selector="fastForward:" destination="wk8-k9-hxs" eventType="touchUpInside" id="XXe-RP-6mG"/>
                                         </connections>
@@ -1872,7 +1872,7 @@
                                             <constraint firstAttribute="height" constant="54" id="w0q-Fx-aud"/>
                                         </constraints>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <state key="normal" image="SkipForward"/>
+                                        <state key="normal" image="KitasSkirsnis"/>
                                         <connections>
                                             <action selector="skipForward:" destination="wk8-k9-hxs" eventType="touchUpInside" id="LmT-aX-BV4"/>
                                         </connections>
@@ -1969,7 +1969,7 @@
                                             <constraint firstAttribute="height" constant="45" id="rtV-8M-4BF"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="GoBackButton"/>
+                                        <state key="normal" backgroundImage="Atgal"/>
                                         <connections>
                                             <action selector="back:" destination="ayS-kd-7Fk" eventType="touchDown" id="xFy-ZX-Ni4"/>
                                         </connections>
@@ -1981,7 +1981,7 @@
                                             <constraint firstAttribute="height" constant="45" id="xiI-lt-Ywh"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <state key="normal" backgroundImage="Kontrastas"/>
                                         <connections>
                                             <action selector="changeTheme:" destination="ayS-kd-7Fk" eventType="touchUpInside" id="abO-ut-ZD5"/>
                                         </connections>
@@ -2138,7 +2138,7 @@
                                             <constraint firstAttribute="height" constant="45" id="qZu-cQ-ANO"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="GoBackButton"/>
+                                        <state key="normal" backgroundImage="Atgal"/>
                                         <connections>
                                             <action selector="back:" destination="LEw-p5-Pmx" eventType="touchDown" id="KdR-WC-FUc"/>
                                         </connections>
@@ -2150,7 +2150,7 @@
                                             <constraint firstAttribute="width" constant="45" id="KBL-yo-scs"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <state key="normal" backgroundImage="Kontrastas"/>
                                         <connections>
                                             <action selector="changeTheme:" destination="LEw-p5-Pmx" eventType="touchUpInside" id="rfH-aL-VsX"/>
                                         </connections>
@@ -2259,7 +2259,7 @@
                                             <constraint firstAttribute="width" constant="45" id="Taw-AS-g9o"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="GoBackButton"/>
+                                        <state key="normal" backgroundImage="Atgal"/>
                                         <connections>
                                             <action selector="back:" destination="r4g-o3-OEf" eventType="touchDown" id="Bi2-hY-IYA"/>
                                         </connections>
@@ -2271,7 +2271,7 @@
                                             <constraint firstAttribute="height" constant="45" id="GxZ-7c-YnL"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <state key="normal" backgroundImage="Kontrastas"/>
                                         <connections>
                                             <action selector="changeTheme:" destination="r4g-o3-OEf" eventType="touchUpInside" id="B00-Sp-ciS"/>
                                         </connections>
@@ -2351,7 +2351,7 @@
                                             <constraint firstAttribute="height" constant="45" id="trt-5B-XJH"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="GoBackButton"/>
+                                        <state key="normal" backgroundImage="Atgal"/>
                                         <connections>
                                             <action selector="back:" destination="gc5-bG-iR8" eventType="touchDown" id="oDe-v8-VKF"/>
                                         </connections>
@@ -2363,7 +2363,7 @@
                                             <constraint firstAttribute="width" constant="45" id="ndR-ii-cBx"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="Contrast"/>
+                                        <state key="normal" backgroundImage="Kontrastas"/>
                                         <connections>
                                             <action selector="chageContrast:" destination="gc5-bG-iR8" eventType="touchDown" id="uzy-tQ-4Ou"/>
                                             <action selector="changeTheme:" destination="gc5-bG-iR8" eventType="touchUpInside" id="LUo-GL-6dd"/>
@@ -2467,14 +2467,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BackForward" width="150" height="150"/>
-        <image name="Contrast" width="368" height="368"/>
+        <image name="Atgal" width="750" height="750"/>
+        <image name="Atsukti" width="150" height="150"/>
+        <image name="BuvesSkirsnis" width="150" height="150"/>
         <image name="ElvisIcon" width="156" height="73"/>
-        <image name="Fastforward" width="150" height="150"/>
-        <image name="GoBackButton" width="750" height="750"/>
-        <image name="Play" width="150" height="150"/>
-        <image name="SkipForward" width="150" height="150"/>
-        <image name="SkipPrevious" width="150" height="150"/>
+        <image name="Groti" width="150" height="150"/>
+        <image name="KitasSkirsnis" width="150" height="150"/>
+        <image name="Kontrastas" width="368" height="368"/>
+        <image name="Prasukti" width="150" height="150"/>
         <image name="unchecked" width="60" height="60"/>
         <namedColor name="ColorAccent">
             <color red="0.95294117647058818" green="0.61176470588235299" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

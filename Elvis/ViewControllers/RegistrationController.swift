@@ -78,6 +78,10 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
     private var labCheckbox: Bool = false
     private var disabilityCheckBox: Bool = false
     
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        textField.accessibilityValue = textField.text!
+    }
+    
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         currentTextfield = textField
@@ -177,6 +181,17 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
         genderTextField.delegate = self
         addressTextField.delegate = self
         
+        
+        textFieldName.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textFieldSurname.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textFieldPersonalCode.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textFieldMail.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textFieldLeagueDescription.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textFieldPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textFieldPasswordRepeated.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textFieldUsername.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textFieldPhoneNumber.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
         applyAccesibility()
         
         
@@ -237,11 +252,11 @@ class RegistrationController: BaseViewController, UIImagePickerControllerDelegat
     func setPhotos(image: UIImage, isID: Bool){
         if(isID){
             idPhoto = image
-            btnDocumentsPhoto.accessibilityLabel = "Dokumento nuotrauka jau padaryta. Ar norite pakartoti?"
+            btnDocumentsPhoto.accessibilityLabel = "ID Dokumento nuotrauka jau padaryta. Ar norite pakartoti?"
             btnDocumentsPhoto.titleLabel?.text = "DARYTI NAUJĄ NUOTRAUKĄ"
         }else{
             btnDisabDocumentPhoto.titleLabel?.text = "DARYTI NAUJĄ NUOTRAUKĄ"
-            btnDisabDocumentPhoto.accessibilityLabel = "Dokumento nuotrauka jau padaryta. Ar norite pakartoti?"
+            btnDisabDocumentPhoto.accessibilityLabel = "Neįgalumo dokumento nuotrauka jau padaryta. Ar norite pakartoti?"
             disabilityDocumentPhoto = image
         }
     }
@@ -610,18 +625,22 @@ extension RegistrationController: UIPickerViewDelegate, UIPickerViewDataSource {
         if(currentTextfield.tag == 1){
             selectedEducationRow = row
             educationTextField.text = educationValues[row]
+             educationTextField.accessibilityLabel = "Išsilavinimo pasirinkimas" + educationTextField.text!
         }
         if(currentTextfield.tag == 2){
             selectedStatusRow = row
             statusTextField.text = statusValues[row]
+            statusTextField.accessibilityLabel = "Statuso pasirinkimas" + statusTextField.text!
         }
         if(currentTextfield.tag == 3){
             selectedAddressRow = row
             addressTextField.text = addressValues[row]
+            addressTextField.accessibilityLabel = "Adreso pasirinkimas" + addressTextField.text!
         }
         if(currentTextfield.tag == 4){
             selectedGenderRow = row
             genderTextField.text = genderValues[row]
+            genderTextField.accessibilityLabel = "Lyties pasirinkimas" + genderTextField.text!
         }
         
     }
