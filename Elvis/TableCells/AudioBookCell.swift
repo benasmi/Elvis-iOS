@@ -45,7 +45,7 @@ class AudioBookCell: UITableViewCell {
     var book: AudioBook!
     var viewController: UIViewController!
     var bothExist : Bool = false
- 
+    var downloadingFast: Bool?
     
     
     @IBAction func listen(_ sender: Any) {
@@ -59,6 +59,8 @@ class AudioBookCell: UITableViewCell {
     }
    
     @IBAction func download(_ sender: Any) {
+        
+        downloadingFast = false
         
         //Checking if book already exists -> Erasing
         if(doesLocalVersionExist(IDsToCheck: book.FileNormalIDS)){
@@ -94,16 +96,13 @@ class AudioBookCell: UITableViewCell {
                 
                 guard success else{
                     DispatchQueue.main.async {
-                        self.closeProgressDialog()
+                        self.cancelDownload()
                     }
-                    print("Nera yntiko")
                     SVProgressHUD.showInfo(withStatus: "An unexpected error has occured")
                     return
                 }
                
                 self.setProgressValue(percentage: Float(chaptersDownloaded)/Float(totalChapters), text: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
-                
-                //SVProgressHUD.showProgress(Float(chaptersDownloaded)/Float(totalChapters), status: "Siunčiamas skirsnis (" + String(chaptersDownloaded)  + "/" + String(totalChapters) + ")")
                 
                 //Downloaded all books
                 if(chaptersDownloaded == totalChapters){
@@ -151,7 +150,7 @@ class AudioBookCell: UITableViewCell {
         cancelButton = UIButton(frame: CGRect(x: 0, y: dialogView.bounds.height-50, width: dialogView.bounds.width, height: 50))
         cancelButton.setTitle("ATŠAUKTI SIUNTIMĄ", for: .normal)
         cancelButton.setTitleColor(UIColor.init(named: "AlertBtnColor"), for: .normal)
-        cancelButton.addTarget(self, action: "cancelDownload", for: .touchUpInside)
+        cancelButton.addTarget(self, action:#selector(cancelDownload), for: .touchUpInside)
         
         dialogView.addSubview(progressSlider)
         dialogView.addSubview(cancelButton)
@@ -170,12 +169,16 @@ class AudioBookCell: UITableViewCell {
     
     //"Cancel" button click
     @objc func cancelDownload(){
-        DatabaseUtils.cancelDownloadingBooks() {
-            self.closeProgressDialog()
+        DatabaseUtils.cancelDownloadingBook() {
+            DatabaseUtils.eraseBooks(audioBookIDs: self.downloadingFast! ? self.book.FileFastIDS : self.book.FileNormalIDS){
+                print("erased: \(self.downloadingFast!)")
+                self.closeProgressDialog()
+            }
         }
     }
     
     @IBAction func downloadFast(_ sender: Any) {
+        downloadingFast = true
         if(doesLocalVersionExist(IDsToCheck: book.FileFastIDS)){
             //Erasing audio
             SVProgressHUD.show(withStatus: "Knyga ištrinama...")
@@ -199,7 +202,7 @@ class AudioBookCell: UITableViewCell {
                 
                 guard success else{
                     DispatchQueue.main.async {
-                         self.closeProgressDialog()
+                         self.cancelDownload()
                     }
                     SVProgressHUD.showInfo(withStatus: "An unexpected error has occured")
                     return

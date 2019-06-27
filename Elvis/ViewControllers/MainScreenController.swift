@@ -98,9 +98,8 @@ class MainScreenController: BaseViewController {
         // Create OK button with action handler
         let ok = UIAlertAction(title: "Gerai", style: .default, handler: { (action) -> Void in
             viewController.dismiss(animated: true, completion: nil)
-            Utils.deleteFromSharedPreferences(key: "username")
-            Utils.deleteFromSharedPreferences(key: "password")
-            Utils.deleteFromSharedPreferences(key: "sessionID")
+            DatabaseUtils.clearData()
+            
         })
         
         // Create Cancel button with action handlder

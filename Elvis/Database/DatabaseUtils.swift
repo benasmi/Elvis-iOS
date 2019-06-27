@@ -25,8 +25,6 @@ public enum UniqueIDRequestError{
 
 class DatabaseUtils{
     
-    
-    
     static let BaseUrl = "http://elvis.labiblioteka.lt/"
     static let BaseApiUrl = BaseUrl + "app/"
     static let LoginUrl = BaseApiUrl + "login.php"
@@ -440,22 +438,39 @@ class DatabaseUtils{
         
     }
     
+    static func clearData(){
+        //Removing username, password and session ID from shared preferences
+        Utils.deleteFromSharedPreferences(key: "username")
+        Utils.deleteFromSharedPreferences(key: "password")
+        Utils.deleteFromSharedPreferences(key: "sessionID")
+        
+        let historyRealm = getListenHistoryRealm()
+        //Clearing user's listening history
+        try! historyRealm.write {
+            historyRealm.deleteAll()
+        }
+        let booksRealm = try! Realm()
+        //Erasing book audio files
+        for audioBook in booksRealm.objects(AudioBook.self){
+            eraseBooks(audioBookIDs: audioBook.FileNormalIDS, listener: {})
+            eraseBooks(audioBookIDs: audioBook.FileFastIDS, listener: {})
+        }
+        //Deleting book info, stored in the realm
+        try! booksRealm.write {
+            booksRealm.deleteAll()
+        }
+    }
     
-    static func cancelDownloadingBooks(finishListener: @escaping () -> Void){
+    static func cancelDownloadingBook(finishListener: @escaping () -> Void){
         
         //Canceling all download tasks
         for x in 0...tasks.count - 1 {
             tasks[x].suspend()
             tasks[x].cancel()
-            
         }
         tasks = []
         
         finishListener()
-        
-        
-        
-        
     }
     
     
@@ -485,8 +500,6 @@ class DatabaseUtils{
                 //Creating URLSession and appending it to the array
                 tasks.append(
                     URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
-                        
-                        
                         
                         //Checking for unexpected scenarios
                         guard let location = location, error == nil, response != nil else {
@@ -566,10 +579,7 @@ class DatabaseUtils{
     
     
     private static func saveBookInfo(audioBook: AudioBook){
-        
-        print(Realm.Configuration.defaultConfiguration.fileURL!.path)
         DispatchQueue.main.async {
-            
             let realm = try! Realm()
             try! realm.write {
                 if(realm.objects(AudioBook.self).filter("Title == %@", audioBook.Title).count == 0){
