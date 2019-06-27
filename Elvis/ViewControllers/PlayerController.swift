@@ -63,7 +63,6 @@ class PlayerController: BaseViewController {
 
     
     @IBAction func play(_ sender: Any) {
-        
         progressSlider.isHidden = false
         
         if(player==nil){
@@ -77,10 +76,10 @@ class PlayerController: BaseViewController {
         if(!playerIsPlaying()){
             player?.play()
             timerRunning = true;
-            playButton.setImage(UIImage(named: "Pause"), for: .normal)
+            playButton.setImage(UIImage(named: "Pauze"), for: .normal)
         }else{
             timerRunning = false;
-            playButton.setImage(UIImage(named: "Play"), for: .normal)
+            playButton.setImage(UIImage(named: "Groti"), for: .normal)
             player?.pause()
         }
     }
