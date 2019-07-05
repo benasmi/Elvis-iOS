@@ -40,7 +40,6 @@ class PlayerController: BaseViewController {
     @IBOutlet weak var tv_time: UILabel!
     @IBOutlet weak var chapterTextField: UITextField!
     
-    
     @IBAction func changeContrast(_ sender: Any) {
         toggleMode()
     }
@@ -258,7 +257,7 @@ class PlayerController: BaseViewController {
             if(player != nil){
                 player?.rate = 0
             }
-            playButton.setImage(UIImage(named: "Play"), for: .normal)
+            playButton.setImage(UIImage(named: "Groti"), for: .normal)
             SVProgressHUD.showError(withStatus: "Klaida!")
             return
         }
@@ -268,16 +267,18 @@ class PlayerController: BaseViewController {
         
         timer =  Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
-        playButton.setImage(UIImage(named: "Pause"), for: .normal)
+        playButton.setImage(UIImage(named: "Pauze"), for: .normal)
         player = AVPlayer(playerItem: playerItem)
         player?.play()
         timerRunning = true;
+        
         
         
         //Configuration for listening in background
         var audioSession = AVAudioSession.sharedInstance()
         do{
             try audioSession.setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setActive(true, options: [])
         }catch{
             print(error)
         }
@@ -369,7 +370,7 @@ class PlayerController: BaseViewController {
         if(player?.rate == 0){
             player?.play()
             timerRunning = true;
-            playButton.setImage(UIImage(named: "Pause"), for: .normal)
+            playButton.setImage(UIImage(named: "Pauze"), for: .normal)
         }
         
         player!.seek(to: targetTime)

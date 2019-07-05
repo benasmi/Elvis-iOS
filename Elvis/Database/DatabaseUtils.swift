@@ -372,22 +372,22 @@ class DatabaseUtils{
     }
     
     static func sendMessageToAdmins(topic: String, body: String, onFinishListener: @escaping (Bool) -> Void){
-        let userID = Utils.readFromSharedPreferences(key: "userID")
+        let userID = Utils.readFromSharedPreferences(key: "userID") as! String
+        let username = Utils.readFromSharedPreferences(key: "username") as! String
         
         let json : Parameters = [
             "ID": userID,
             "Subject": topic,
-            "Content": body
+            "Content": body + ". Naudotojo vardas:" + username + ", Naudotojo ID:" + userID
         ]
         
         AF.request(SendMessageUrl, method: .post, parameters: json, encoding: URLEncoding.httpBody, headers:nil).responseString{ response in
-            
+
             guard response.error == nil else{
                 onFinishListener(false)
                 return
             }
-            
-            
+
             onFinishListener(true)
         }
     }
