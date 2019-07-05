@@ -20,6 +20,9 @@ class ViewController: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var tv_password: UILabel!
     @IBOutlet weak var loginButton: DesignableButton!
     @IBOutlet weak var registerButton: UIButton!
+   
+    
+    
     
     override func viewDidLoad() {
         applyAccesibility()

@@ -9,11 +9,14 @@
 import UIKit
 import AVKit
 import AVFoundation
+import MediaPlayer
 import SVProgressHUD
 
 
 class PlayerController: BaseViewController {
 
+    
+    var nowPlayingInfo = [String : Any]()
     var player:AVPlayer?
     var playerItem:AVPlayerItem?
     var timer : Timer?
@@ -23,7 +26,7 @@ class PlayerController: BaseViewController {
     var book: AudioBook!
     var chapters : [String]!
     var selectedChapterIndex : Int = 0
-    var selectedChapter: String?
+    var selectedChapter: String = "Skirsnis: 1"
     var sessionID: String?
     var isLocal: Bool = false;
     var isFast: Bool = false;
@@ -58,6 +61,9 @@ class PlayerController: BaseViewController {
         
         tv_bookTitle.text = book.Title
         createDayPicker()
+        configureAudioSession()
+        setupMediaPlayerNotificationView()
+        setupNotificationView(currentChapter: selectedChapter)
     }
 
     
@@ -125,6 +131,7 @@ class PlayerController: BaseViewController {
             progressSlider.setValue(Float(cTime), animated: true)
         }
     }
+    
     
     
     
@@ -208,6 +215,33 @@ class PlayerController: BaseViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    func setupMediaPlayerNotificationView(){
+        
+        let commandCenter = MPRemoteCommandCenter.shared()
+        
+        //Play
+        commandCenter.playCommand.addTarget(self, action: #selector(self.play(_:)))
+        commandCenter.pauseCommand.addTarget(self, action: #selector(self.play(_:)))
+        commandCenter.previousTrackCommand.addTarget(self, action: #selector(self.skipPrevious(_:)))
+        commandCenter.nextTrackCommand.addTarget(self, action: #selector(self.skipForward(_:)))
+        
+    }
+    
+    func setupNotificationView(currentChapter: String){
+        nowPlayingInfo[MPMediaItemPropertyTitle] = book.Title
+        nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = currentChapter
+        nowPlayingInfo[MPMediaItemPropertyArtist] = book.AuthorFirstName + " " + book.AuthorLastName
+        
+    
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = progressSlider.maximumValue
+        
+        /*
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds((playerItem?.currentTime())!)
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1
+        */
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    }
+    
     
     func playAudioBook(url: URL){
         
@@ -270,20 +304,21 @@ class PlayerController: BaseViewController {
         playButton.setImage(UIImage(named: "Pauze"), for: .normal)
         player = AVPlayer(playerItem: playerItem)
         player?.play()
+        
+        setupNotificationView(currentChapter: selectedChapter)
         timerRunning = true;
         
-        
-        
+    }
+    
+    func configureAudioSession() {
         //Configuration for listening in background
-        var audioSession = AVAudioSession.sharedInstance()
         do{
-            try audioSession.setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             try AVAudioSession.sharedInstance().setActive(true, options: [])
         }catch{
             print(error)
         }
-        
-        
+
     }
     
     func playerIsPlaying() -> Bool{
