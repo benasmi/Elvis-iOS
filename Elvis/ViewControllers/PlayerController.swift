@@ -61,6 +61,7 @@ class PlayerController: BaseViewController {
         
         tv_bookTitle.text = book.Title
         createDayPicker()
+        
         configureAudioSession()
         setupMediaPlayerNotificationView()
         setupNotificationView(currentChapter: selectedChapter)
@@ -82,10 +83,16 @@ class PlayerController: BaseViewController {
             player?.play()
             timerRunning = true;
             playButton.setImage(UIImage(named: "Pauze"), for: .normal)
+            self.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds((self.player?.currentTime())!)
+            self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
         }else{
             timerRunning = false;
             playButton.setImage(UIImage(named: "Groti"), for: .normal)
             player?.pause()
+            self.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds((self.player?.currentTime())!)
+            self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
         }
     }
     
@@ -219,9 +226,21 @@ class PlayerController: BaseViewController {
         
         let commandCenter = MPRemoteCommandCenter.shared()
         
-        //Play
-        commandCenter.playCommand.addTarget(self, action: #selector(self.play(_:)))
-        commandCenter.pauseCommand.addTarget(self, action: #selector(self.play(_:)))
+         UIApplication.shared.beginReceivingRemoteControlEvents()
+        
+    
+        // Add handler for Play Command
+        commandCenter.playCommand.addTarget { [unowned self] event in
+                self.playerToggler()
+                return .success
+        }
+        
+        // Add handler for Pause Command
+        commandCenter.pauseCommand.addTarget { [unowned self] event in
+            self.playerToggler()
+            return .success
+        }
+        
         commandCenter.previousTrackCommand.addTarget(self, action: #selector(self.skipPrevious(_:)))
         commandCenter.nextTrackCommand.addTarget(self, action: #selector(self.skipForward(_:)))
         
@@ -231,17 +250,11 @@ class PlayerController: BaseViewController {
         nowPlayingInfo[MPMediaItemPropertyTitle] = book.Title
         nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = currentChapter
         nowPlayingInfo[MPMediaItemPropertyArtist] = book.AuthorFirstName + " " + book.AuthorLastName
-        
-    
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = progressSlider.maximumValue
         
-        /*
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds((playerItem?.currentTime())!)
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1
-        */
+       
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
-    
     
     func playAudioBook(url: URL){
         
@@ -315,6 +328,7 @@ class PlayerController: BaseViewController {
         do{
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             try AVAudioSession.sharedInstance().setActive(true, options: [])
+           
         }catch{
             print(error)
         }
@@ -398,18 +412,34 @@ class PlayerController: BaseViewController {
         }
        
         
+        self.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds((self.player?.currentTime())!)
+        self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
+        
+        
         let seconds : Int64 = Int64(playbackSlider.value)
         let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
         
+     
+        
+      
         
         if(player?.rate == 0){
             player?.play()
             timerRunning = true;
             playButton.setImage(UIImage(named: "Pauze"), for: .normal)
+            
         }
         
-        player!.seek(to: targetTime)
-        
+        //player!.seek(to: targetTime)
+        player?.seek(to: targetTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { (isCompleted) in
+    
+            self.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds((self.player?.currentTime())!)
+            self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
+ 
+        })
+      
     }
     
     @objc func timerAction(){
