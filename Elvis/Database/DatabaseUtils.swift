@@ -718,27 +718,17 @@ class DatabaseUtils{
     
     
     static func PositionIDSCorrectly(fileCount: Int, fileIDS: [String], filePosition: [String], fileIsFast: [String]) -> AudioBookIDS{
+        
         let totalCount: Int = fileCount
         var actualCount: Int = 0
-        if(totalCount==1){
-            actualCount = totalCount
-        }else{
-            actualCount = totalCount/2
-        }
+        actualCount = totalCount == 1 ? totalCount : totalCount/2
         
-        
+  
         var filesNormal: [String] = []
         var filesFast: [String] = []
-        
         var lastIndex: Int = -1
        
-        if(actualCount < 1){
-            print("Actual count", actualCount)
-            print("Total count", totalCount)
-            print("Normal FileIDS", fileIDS)
-            
-        }
-        
+    
         for i in 1...actualCount{
             for x in 0...totalCount-1{
                 if(String(i) == filePosition[x] && x != lastIndex){
@@ -752,6 +742,7 @@ class DatabaseUtils{
             }
             lastIndex = -1
         }
+
         return AudioBookIDS(fileIDs: filesNormal, fileIsFast: filesFast)
     }
     
@@ -781,6 +772,7 @@ class DatabaseUtils{
             
             //Gets json
             let swiftyJsonVar = JSON(response.result.value!)
+            //print(swiftyJsonVar)
             if(swiftyJsonVar.isEmpty){
                 onFinishListener(books,false)
                 return
@@ -800,21 +792,21 @@ class DatabaseUtils{
                 let FileCount = swiftyJsonVar[x]["FileCount"].int ?? 0
                 let FileIDs = Array(swiftyJsonVar[x]["FileIDs"].arrayObject as! [String])
                 let FilePosition = Array(swiftyJsonVar[x]["FilePosition"].arrayObject as! [String])
-                
                 let FileIsFast = Array(swiftyJsonVar[x]["FileIsFast"].arrayObject as! [String])
                 
                 let audioIDS: AudioBookIDS = PositionIDSCorrectly(fileCount: FileCount, fileIDS: FileIDs, filePosition: FilePosition, fileIsFast: FileIsFast)
                 let FileFastIDS = List<String>()
                 let FileNormalIDS = List<String>()
                 
-                for y in audioIDS.FileNormal{
-                    FileNormalIDS.append(y)
+                for x in audioIDS.FileNormal{
+                    FileNormalIDS.append(x)
                 }
+                
                 for y in audioIDS.FileFast{
                     FileFastIDS.append(y)
                 }
                 
-                books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIdsNormal: FileFastIDS, fileIdsFast: FileNormalIDS))
+                books.append(AudioBook(id: ID,title: Title,realeaseDate: ReleaseDate,authorID: AuthorID,authorFirstName: AuthorFirstName,authorLastName: AuthorLastName,speakerId: SpeakerID,speakerFirstName: SpeakerFirstName,speakerLastName: SpeakerLastName, publicationNumber: PublicationNumber, fileCount: FileCount, fileIdsNormal: FileNormalIDS, fileIdsFast: FileFastIDS))
             }
             onFinishListener(books, true)
         }

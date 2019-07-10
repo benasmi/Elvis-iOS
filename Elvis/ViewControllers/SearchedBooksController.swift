@@ -11,13 +11,19 @@ import UIKit
 
 class SearchedBooksController: BaseViewController {
 
+    @IBOutlet weak var tableView: UITableView!
     var isNightModeEnabled = false
     var noDataLabel: UILabel?
     var books : [AudioBook] = []
+    var lineHeight : Int = 40
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 600
+        
     }
     
     @IBAction func changeContrast(_ sender: Any) {
@@ -27,7 +33,6 @@ class SearchedBooksController: BaseViewController {
     @IBAction func back(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    @IBOutlet weak var tableView: UITableView!
     
     override func enableDarkMode(){
         isNightModeEnabled = true
@@ -65,6 +70,12 @@ extension SearchedBooksController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count
     }
+    
+    /*
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+ */
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let audioBookCurrent : AudioBook = books[indexPath.row]

@@ -13,13 +13,6 @@ import RealmSwift
 
 class AudioBookCell: UITableViewCell {
     
-    
-    //Buckis drauge :*. Jeigu pamatei šią žinutę tau šiandieną seksis
-    //Štai tau Salomėjos Neries eilėraščio posmelis. Gero codinimo!
-    
-    //Žilvinai, Žilvinėli
-    //Jei tu gyvas − atplauk pieno puta
-    //Jei negyvas − kraujo puta!“
     internal var mView: UIView!
     internal var dialogView: UIView!
     internal var progressLabel: UILabel!
@@ -49,16 +42,34 @@ class AudioBookCell: UITableViewCell {
     
     
     @IBAction func listen(_ sender: Any) {
+        
+        guard !book.FileNormalIDS.isEmpty else {
+            Utils.alertMessage(message: "Šią knygą galima klausytis tik pagreitintu greičiu", title: "Klaida!", buttonTitle: "Gerai", viewController: viewController)
+            return;
+        }
+        
         goToListenController(fast: false)
         DatabaseUtils.addToRecentsList(book: book)
     }
     
     @IBAction func listenFast(_ sender: Any) {
+        
+        guard !book.FileFastIDS.isEmpty else {
+             Utils.alertMessage(message: "Šią knygą galima klausytis tik normaliu greičiu!", title: "Klaida!", buttonTitle: "Gerai", viewController: viewController)
+            return;
+        }
+        
         goToListenController(fast: true)
         DatabaseUtils.addToRecentsList(book: book)
     }
    
     @IBAction func download(_ sender: Any) {
+        
+        guard !book.FileNormalIDS.isEmpty else {
+            Utils.alertMessage(message: "Knygos nėra serveryje", title: "Klaida!", buttonTitle: "Gerai", viewController: viewController)
+            return
+        }
+        
         
         downloadingFast = false
         
@@ -87,10 +98,6 @@ class AudioBookCell: UITableViewCell {
             createProgressDialog()
             setProgressValue(percentage: 0, text: "Siunčiamas skirsnis (0/" + String(book.FileNormalIDS.count) + ")")
            
-            //SVProgressHUD.show(withStatus: "Siunčiamas skirsnis (0/" + String(book.FileNormalIDS.count) + ")")
-            //SVProgressHUD.setDefaultMaskType(.black)
-            //Downloading audio
-            
             DatabaseUtils.downloadBooks(sessionID: self.sessionID, audioBook: self.book, downloadFast: false, updateListener: { (chaptersDownloaded, totalChapters, success) in
                 
                 
@@ -178,6 +185,12 @@ class AudioBookCell: UITableViewCell {
     }
     
     @IBAction func downloadFast(_ sender: Any) {
+        
+        guard !book.FileFastIDS.isEmpty else {
+             Utils.alertMessage(message: "Pagreitintos knygos nėra serveryje", title: "Klaida!", buttonTitle: "Gerai", viewController: viewController)
+            return
+        }
+        
         downloadingFast = true
         if(doesLocalVersionExist(IDsToCheck: book.FileFastIDS)){
             //Erasing audio
@@ -244,12 +257,13 @@ class AudioBookCell: UITableViewCell {
         self.viewController = viewController
         
         bookTitle.text = audioBook.Title
-        bookAuthor.text = "Autorius: " + audioBook.AuthorFirstName + ", " + audioBook.AuthorLastName
-        bookAnouncer.text = "Diktorius: " + audioBook.SpeakerFirstName  + ", " + audioBook.SpeakerLastName
+        bookAuthor.text = "Autorius: " + audioBook.AuthorFirstName + "  " + audioBook.AuthorLastName
+        bookAnouncer.text = "Diktorius: " + audioBook.SpeakerFirstName  + "  " + audioBook.SpeakerLastName
         years.text = audioBook.ReleaseDate
         
         self.downloadBtn.setTitle(doesLocalVersionExist(IDsToCheck: book.FileNormalIDS) ? "IŠTRINTI" : "SIŲSTIS", for: [])
         self.downloadFastBtn.setTitle(doesLocalVersionExist(IDsToCheck: book.FileFastIDS) ? "IŠTRINTI PAGREITINTĄ" : "SIŲSTIS PAGREITINTĄ", for: [])
+        
     }
     
     //Checks if audio files are already in the phone directory

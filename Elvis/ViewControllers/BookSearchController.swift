@@ -85,6 +85,8 @@ class BookSearchController: BaseViewController, UITextFieldDelegate {
         DatabaseUtils.SearchBooks(haveDisabilities: haveDisabilities, title: title, name: name, announcingPerson: announcingPerson, anyWord: anyWord, onFinishListener: {
             (books, success) in
             
+            
+            
             SVProgressHUD.dismiss()
             
             guard success, !books.isEmpty else {

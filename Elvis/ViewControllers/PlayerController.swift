@@ -53,10 +53,13 @@ class PlayerController: BaseViewController {
         applyAccesibility()
         
         chapters = createChapters(book: book)
+        print(book.FileNormalIDS)
+        
         progressSlider.isHidden = true
+        progressSlider.isContinuous = true
+        progressSlider.tintColor = UIColor.orange
         
         sessionID = Utils.readFromSharedPreferences(key: "sessionID") as! String
-        //sessionID = ""
         progressSlider.addTarget(self, action: #selector(PlayerController.playbackSliderValueChanged(_:)), for: .valueChanged)
         
         tv_bookTitle.text = book.Title
@@ -64,10 +67,35 @@ class PlayerController: BaseViewController {
         
         configureAudioSession()
         setupMediaPlayerNotificationView()
-        setupNotificationView(currentChapter: selectedChapter)
+        setupNotificationView(currentChapter: chapters[selectedChapterIndex])
     }
-
     
+    @objc func playbackSliderValueChanged(_ playbackSlider:UISlider){
+        timerRunning = false
+        tv_time.text = timeLabelSetter(seconds: Int(playbackSlider.value))
+        tv_time.accessibilityValue = tv_time.text
+        
+    }
+    
+    @IBAction func ProggresSliderFinishedChanging(_ sender: UISlider) {
+       
+        guard player != nil else {return}
+
+        let targetTime:CMTime = CMTimeMake(value: Int64(sender.value), timescale: 1)
+        setNotificationPlayerTime(playBackRate: 0, elapsedTime: Float(CMTimeGetSeconds((player?.currentTime())!)))
+        
+        player?.seek(to: targetTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { (isCompleted) in
+            self.timerRunning = true
+            self.setNotificationPlayerTime(playBackRate: 1, elapsedTime: Float(CMTimeGetSeconds((self.player?.currentTime())!)))
+            
+            if(self.player?.rate == 0){
+                self.player?.play()
+                self.timerRunning = true
+                self.playButton.setImage(UIImage(named: "Pauze"), for: .normal)
+            }
+        })
+        
+    }
     @IBAction func play(_ sender: Any) {
         progressSlider.isHidden = false
         
@@ -75,6 +103,7 @@ class PlayerController: BaseViewController {
             playAudioBook(url: createUrl())
             return
         }
+        
         playerToggler()
     }
     
@@ -83,25 +112,23 @@ class PlayerController: BaseViewController {
             player?.play()
             timerRunning = true;
             playButton.setImage(UIImage(named: "Pauze"), for: .normal)
-            self.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds((self.player?.currentTime())!)
-            self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1
-            MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
+            self.setNotificationPlayerTime(playBackRate: 1, elapsedTime: Float(CMTimeGetSeconds((self.player?.currentTime())!)))
+            
         }else{
             timerRunning = false;
             playButton.setImage(UIImage(named: "Groti"), for: .normal)
             player?.pause()
-            self.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds((self.player?.currentTime())!)
-            self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0
-            MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
+            self.setNotificationPlayerTime(playBackRate: 0, elapsedTime: Float(CMTimeGetSeconds((self.player?.currentTime())!)))
         }
     }
     
     @IBAction func fastForward(_ sender: Any) {
         if(playerIsPlaying()){
-         
+            
             guard let duration  = player?.currentItem?.duration else{
                 return
             }
+            timerRunning = false
             let playerCurrentTime = CMTimeGetSeconds((player?.currentTime())!)
             let newTime = playerCurrentTime + seekDuration
             
@@ -109,9 +136,15 @@ class PlayerController: BaseViewController {
                 
                 let time2: CMTime = CMTimeMake(value: Int64(newTime * 1000 as Float64), timescale: 1000)
                 let cTime = Float(time2.seconds)
-                player?.seek(to: time2)
-                tv_time.text = timeLabelSetter(seconds: Int(cTime))
-                progressSlider.setValue(Float(cTime), animated: true)
+                
+                player?.seek(to: time2, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { (isCompleted) in
+                    self.setNotificationPlayerTime(playBackRate: 1, elapsedTime: Float(CMTimeGetSeconds((self.player?.currentTime())!)))
+                    self.tv_time.text = self.timeLabelSetter(seconds: Int(cTime))
+                    self.progressSlider.setValue(Float(cTime), animated: true)
+                    self.timerRunning = true
+                })
+                
+                
             }
         }
     }
@@ -120,9 +153,9 @@ class PlayerController: BaseViewController {
         
         if(playerIsPlaying()){
             
-            guard let duration = player?.currentItem?.duration else{
-                return
-            }
+            guard let duration = player?.currentItem?.duration else{return}
+               
+            timerRunning = false
             
             let playerCurrentTime = CMTimeGetSeconds((player?.currentTime())!)
             var newTime = playerCurrentTime - seekDuration
@@ -133,24 +166,26 @@ class PlayerController: BaseViewController {
             
             let time2: CMTime = CMTimeMake(value: Int64(newTime * 1000 as Float64), timescale: 1000)
             let cTime = Float(time2.seconds)
-            player?.seek(to: time2)
-            tv_time.text = timeLabelSetter(seconds: Int(cTime))
-            progressSlider.setValue(Float(cTime), animated: true)
+            
+            player?.seek(to: time2, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { (isCompleted) in
+                self.setNotificationPlayerTime(playBackRate: 1, elapsedTime: Float(CMTimeGetSeconds((self.player?.currentTime())!)))
+                self.tv_time.text = self.timeLabelSetter(seconds: Int(cTime))
+                self.progressSlider.setValue(Float(cTime), animated: true)
+                self.timerRunning = true
+        
+            })
         }
     }
     
-    
-    
-    
     @IBAction func skipForward(_ sender: Any) {
-        if(playerIsPlaying()){
+     
+        if(player != nil){
             player?.pause()
             player = nil
             player?.rate = 0
-            if(timer != nil){
-                timer!.invalidate()
-                timer = nil
-            }
+        }
+        
+            stopPlayerControllerTimer()
             progressSlider.setValue(0, animated: true)
             tv_time.text = "0:00"
     
@@ -160,39 +195,39 @@ class PlayerController: BaseViewController {
                 nextChapter = 0;
                 
             }
+        
             chapterTextField.text = "SKIRSNIS:" + String(nextChapter+1)
             selectedChapterIndex = nextChapter
             playButton.sendActions(for: .touchUpInside)
-            
-        }
+        
+            setNotificationPlayerTime(playBackRate: 0, elapsedTime: Float(CMTimeGetSeconds(CMTime.zero)))
         
     }
 
     @IBAction func skipPrevious(_ sender: Any) {
         
-        if(playerIsPlaying()){
+        if(player != nil){
+            
             player?.pause()
             player = nil
             player?.rate = 0
-            if(timer != nil){
-                timer!.invalidate()
-                timer = nil
-            }
+            
+        }
+            stopPlayerControllerTimer()
+            
             progressSlider.setValue(0, animated: true)
             tv_time.text = "0:00"
             
             var nextChapter: Int = selectedChapterIndex - 1
-            
             if(nextChapter < 0){
                 nextChapter = (book.FileCount/2)-1;
                 
             }
             chapterTextField.text = "SKIRSNIS:" + String(nextChapter+1)
             selectedChapterIndex = nextChapter
-            playButton.sendActions(for: .touchUpInside)
-            
-        }
         
+            playButton.sendActions(for: .touchUpInside)
+            setNotificationPlayerTime(playBackRate: 0, elapsedTime: Float(CMTimeGetSeconds(CMTime.zero)))
     }
     
     func createUrl() -> URL{
@@ -205,6 +240,7 @@ class PlayerController: BaseViewController {
             let url1 = "http://elvis.labiblioteka.lt/publications/getmediafile/" + chapter
             let url2 = "/" + chapter + ".mp3?session_id=" + sessionID!
             finalUrl = URL(string: (url1 + url2))
+            print(finalUrl)
         }
         
         return finalUrl
@@ -212,10 +248,7 @@ class PlayerController: BaseViewController {
     
     @IBAction func back(_ sender: Any) {
     
-        if timer != nil {
-            timer!.invalidate()
-            timer = nil
-        }
+        stopPlayerControllerTimer()
         
         player?.pause()
         player?.rate = 0
@@ -225,17 +258,33 @@ class PlayerController: BaseViewController {
     func setupMediaPlayerNotificationView(){
         
         let commandCenter = MPRemoteCommandCenter.shared()
-        
          UIApplication.shared.beginReceivingRemoteControlEvents()
         
-    
-        // Add handler for Play Command
+        
+        // Scrubber
+        commandCenter.changePlaybackPositionCommand.addTarget { [weak self](remoteEvent) -> MPRemoteCommandHandlerStatus in
+            guard let self = self else {return .commandFailed}
+            if let player = self.player {
+                let playerRate = player.rate
+                if let event = remoteEvent as? MPChangePlaybackPositionCommandEvent {
+                    player.seek(to: CMTime(seconds: event.positionTime, preferredTimescale: CMTimeScale(1000)), completionHandler: { [weak self](success) in
+                        guard let self = self else {return}
+                        if success {
+                            self.player?.rate = playerRate
+                        }
+                    })
+                    return .success
+                }
+            }
+            return .commandFailed
+        }
+ 
+ 
         commandCenter.playCommand.addTarget { [unowned self] event in
                 self.playerToggler()
                 return .success
         }
         
-        // Add handler for Pause Command
         commandCenter.pauseCommand.addTarget { [unowned self] event in
             self.playerToggler()
             return .success
@@ -252,7 +301,6 @@ class PlayerController: BaseViewController {
         nowPlayingInfo[MPMediaItemPropertyArtist] = book.AuthorFirstName + " " + book.AuthorLastName
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = progressSlider.maximumValue
         
-       
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
     
@@ -282,8 +330,7 @@ class PlayerController: BaseViewController {
                 SVProgressHUD.dismiss()
                 
 
-                let checkSeconds = self.getMusicLengthSeconds(url: self.createUrl())
-                
+                let checkSeconds = self.getMusicLengthSeconds(url: self.createUrl())                
                 guard !checkSeconds.isNaN else{
                     SVProgressHUD.showError(withStatus: "Klaida su failu serveryje!")
                     self.dismiss(animated: true, completion: nil)
@@ -309,18 +356,33 @@ class PlayerController: BaseViewController {
             return
         }
         
-        progressSlider.isContinuous = true
-        progressSlider.tintColor = UIColor.orange
-        
-        timer =  Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
         playButton.setImage(UIImage(named: "Pauze"), for: .normal)
         player = AVPlayer(playerItem: playerItem)
+        
+        player?.automaticallyWaitsToMinimizeStalling = true
+        
         player?.play()
+        startPlayerControllerTimer()
         
-        setupNotificationView(currentChapter: selectedChapter)
+        setupNotificationView(currentChapter: chapters[selectedChapterIndex])
+        
+    }
+    
+   
+    
+    
+    func startPlayerControllerTimer(){
+        timer =  Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         timerRunning = true;
-        
+    }
+    
+    func stopPlayerControllerTimer(){
+        if timer != nil {
+            timerRunning = false
+            timer!.invalidate()
+            timer = nil
+        }
     }
     
     func configureAudioSession() {
@@ -395,51 +457,14 @@ class PlayerController: BaseViewController {
     @objc func dismissPicker() {
         progressSlider.isHidden = false
         progressSlider.setValue(0, animated: true)
+        
+        setNotificationPlayerTime(playBackRate: 1, elapsedTime: Float(CMTimeGetSeconds(CMTime.zero)))
+        
         tv_time.text = "0:00"
-        if timer != nil {
-            timer!.invalidate()
-            timer = nil
-        }
+        stopPlayerControllerTimer()
         
         playAudioBook(url: createUrl())
         view.endEditing(true)
-    }
-    
-    @objc func playbackSliderValueChanged(_ playbackSlider:UISlider){
-        
-        if(player == nil){
-            return
-        }
-       
-        
-        self.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds((self.player?.currentTime())!)
-        self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
-        
-        
-        let seconds : Int64 = Int64(playbackSlider.value)
-        let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
-        
-     
-        
-      
-        
-        if(player?.rate == 0){
-            player?.play()
-            timerRunning = true;
-            playButton.setImage(UIImage(named: "Pauze"), for: .normal)
-            
-        }
-        
-        //player!.seek(to: targetTime)
-        player?.seek(to: targetTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { (isCompleted) in
-    
-            self.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds((self.player?.currentTime())!)
-            self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1
-            MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
- 
-        })
-      
     }
     
     @objc func timerAction(){
@@ -449,12 +474,20 @@ class PlayerController: BaseViewController {
                 skipForward.sendActions(for: .touchUpInside)
                 return;
             }
-            progressSlider.setValue(value+1, animated: true)
-            tv_time.text = timeLabelSetter(seconds: Int(value))
+            
+            setNotificationPlayerTime(playBackRate: 1, elapsedTime: Float(CMTimeGetSeconds((player?.currentTime())!)))
+            progressSlider.setValue(Float(CMTimeGetSeconds((player?.currentTime())!)), animated: true)
+            
+            tv_time.text = timeLabelSetter(seconds: Int(CMTimeGetSeconds((player?.currentTime())!)))
             tv_time.accessibilityValue = tv_time.text
         }
     }
  
+    func setNotificationPlayerTime(playBackRate: Int, elapsedTime: Float){
+        self.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = elapsedTime
+        self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playBackRate
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
+    }
     
     override func enableDarkMode(){
         tv_bookTitle.textColor = UIColor.white
@@ -492,6 +525,28 @@ class PlayerController: BaseViewController {
 
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Chapter picker view: SLIGHTLY IMPORTANT
